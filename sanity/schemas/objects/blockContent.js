@@ -1,3 +1,5 @@
+import React from "react";
+
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -48,6 +50,23 @@ export default {
             title: `Hover Image`,
             name: `hoverImage`,
             type: `object`,
+            blockEditor: {
+              icon: <span>🖼</span>,
+              render: ({ children }) => (
+                <span
+                  style={{
+                    backgroundColor: `#0f0`,
+                    color: `#fff`,
+                    padding: `5px`,
+                    borderRadius: `5px`,
+                    cursor: `pointer`
+                  }}
+                >
+                  {children}
+                </span>
+              )
+            },
+
             fields: [
               {
                 title: `Image`,
@@ -55,8 +74,8 @@ export default {
                 type: `altImage`
               },
               {
-                name: `colour`,
-                title: `Colour`,
+                name: `backgroundColour`,
+                title: `Background Colour`,
                 type: `reference`,
                 to: [{ type: `colour` }]
               }
@@ -64,13 +83,13 @@ export default {
           }
         ]
       }
-    },
+    }
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
-    {
-      type: `image`,
-      options: { hotspot: true }
-    }
+    // {
+    //   type: `image`,
+    //   options: { hotspot: true }
+    // }
   ]
 };

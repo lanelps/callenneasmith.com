@@ -4,7 +4,7 @@ import { CogIcon } from "@sanity/icons";
 
 export default {
   name: `settings`,
-  title: `Settings`,
+  title: `Globals`,
   type: `document`,
   fieldsets: [
     {

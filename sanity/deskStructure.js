@@ -38,7 +38,7 @@ export default () =>
       //
 
       S.listItem()
-        .title(`Settings`)
+        .title(`Globals`)
         .schemaType(`settings`)
         .child(
           S.editor()
@@ -46,5 +46,5 @@ export default () =>
             .schemaType(`settings`)
             .documentId(`settings`)
         )
-        .icon(() => <span style={{ fontSize: 30 }}>⚙️</span>)
+        .icon(() => <span style={{ fontSize: 30 }}>🌏</span>)
     ]);
