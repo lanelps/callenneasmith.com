@@ -1,11 +1,12 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
+const isProd = process.env.NODE_ENV === "production";
+const previewEnabled =
+  (process.env.GATSBY_IS_PREVIEW || "false").toLowerCase() === "true";
 
 module.exports = {
-  /* Your site config here */
   siteMetadata: {
     author: `Lane Le Prevost-Smith`,
     description: `A bare bones Gatsby boilerplate`,
@@ -43,7 +44,9 @@ module.exports = {
       options: {
         projectId: `4kxh2xwe`,
         dataset: `production`,
-        token: process.env.SANITY_API_TOKEN
+        token: process.env.SANITY_API_TOKEN,
+        watchMode: !isProd,
+        overlayDrafts: !isProd || previewEnabled
       }
     }
   ]
