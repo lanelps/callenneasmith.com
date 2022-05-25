@@ -20,13 +20,13 @@
         "prettier"
     ],
     "rules": {
+        "quotes": ["error", "backtick"],
         "comma-dangle": ["error", "never"],
         "jsx-a11y/media-has-caption": 0,
         "import/extensions": 0,
         "import/no-unresolved": 0, // todo: investigate index.jsx not resolving
         "prettier/prettier": ["error"],
         "no-param-reassign": 0,
-        "quotes": [2, "backtick"],
         "react/function-component-definition": [
           2,
           { "namedComponents": "arrow-function" }
