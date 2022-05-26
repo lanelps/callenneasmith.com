@@ -1,10 +1,12 @@
-require("dotenv").config({
+require(`dotenv`).config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const isProd = process.env.NODE_ENV === "production";
+const { SANITY_DATASET, SANITY_PROJECT_ID, SANITY_TOKEN } = process.env;
+
+const isProd = process.env.NODE_ENV === `production`;
 const previewEnabled =
-  (process.env.GATSBY_IS_PREVIEW || "false").toLowerCase() === "true";
+  (process.env.GATSBY_IS_PREVIEW || `false`).toLowerCase() === `true`;
 
 module.exports = {
   siteMetadata: {
@@ -20,6 +22,7 @@ module.exports = {
     titleTemplate: `%s - Gatsby Tinderbox`
   },
   plugins: [
+    `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -42,9 +45,9 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: `4kxh2xwe`,
-        dataset: `production`,
-        token: process.env.SANITY_API_TOKEN,
+        projectId: SANITY_PROJECT_ID,
+        dataset: SANITY_DATASET,
+        token: SANITY_TOKEN,
         watchMode: !isProd,
         overlayDrafts: !isProd || previewEnabled
       }
