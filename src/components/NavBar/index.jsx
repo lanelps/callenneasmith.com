@@ -34,7 +34,7 @@ const NavBar = () => (
       </h2>
       <h2
         css={css`
-          color: ##595959;
+          color: #595959;
         `}
       >
         Contact
