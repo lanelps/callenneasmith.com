@@ -3,7 +3,7 @@ import { PopOut, Carousel } from "~components";
 
 const Expand = () => (
   <div>
-    <Carousel />
+    {/* <Carousel /> */}
     <p>Description</p>
     <h5>EXTERNAL LINKS</h5>
     <h5>FIGMA SPRINT FILE</h5>

@@ -9,7 +9,6 @@ const Layout = ({ children, className }) => (
     <Theme />
     <div
       css={css`
-        display: flex;
         gap: 1rem;
       `}
     >

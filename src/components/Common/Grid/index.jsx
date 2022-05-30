@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import { remToPx } from "~utils/helpers";
 import { breakpoint } from "~utils/css";
 
-export const GRID_COLUMNS = 12;
+export const GRID_COLUMNS = 6;
 export const GRID_MAX_WIDTH_PX = 1440;
 
-export const GRID_GAP_REM = 1.5;
+export const GRID_GAP_REM = 0.75;
 export const GRID_MOBILE_GAP_REM = 0.5;
 export const GRID_GAP_PX = remToPx(GRID_GAP_REM);
 
-export const GRID_PADDING_REM = 1.75;
+export const GRID_PADDING_REM = 0.75;
 export const GRID_MOBILE_PADDING_REM = 0.9375;
 export const GRID_PADDING_PX = remToPx(GRID_GAP_REM);
 
