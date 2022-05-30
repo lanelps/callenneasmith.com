@@ -1,13 +1,11 @@
 import React from "react";
 
-import { Layout, Image } from "~components";
-
-import tinderbox from "~assets/images/300px-Firemaking.gif";
+import { Layout, Intro, Projects } from "~components";
 
 const Index = () => (
   <Layout>
-    <h1 className="h1">Hello world!</h1>
-    <Image image={tinderbox} />
+    <Intro />
+    <Projects />
   </Layout>
 );
 

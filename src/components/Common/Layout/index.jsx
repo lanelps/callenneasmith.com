@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import { Theme } from "~components";
+import { Theme, NavBar, Footer } from "~components";
 
 const Layout = ({ children, className }) => (
   <>
@@ -13,7 +13,9 @@ const Layout = ({ children, className }) => (
         gap: 1rem;
       `}
     >
+      <NavBar />
       <main className={className}>{children}</main>
+      <Footer />
     </div>
   </>
 );
