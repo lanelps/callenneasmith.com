@@ -6,12 +6,11 @@ import { Grid } from "~components";
 const Container = styled.div`
   font-size: 10px;
   line-height: 110%;
-  padding: 14px 0px;
   border: 0.5px solid #000000;
 `;
 const Buttons = styled.div`
   display: flex;
-  padding: 14px 0px;
+  padding: 10px 0px;
   gap: 12px;
 `;
 
@@ -27,7 +26,7 @@ const FilterBar = () => (
       <h2
         css={css`
           grid-column: 1 / span 3;
-          padding: 10px 0px;
+          padding: 14px 0px;
           font-weight: 500;
         `}
       >
