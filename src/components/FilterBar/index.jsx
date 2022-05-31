@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { useStaticQuery, graphql } from "gatsby";
+
 import { Grid } from "~components";
 
 const Container = styled.div`
@@ -20,91 +22,66 @@ const Button = styled.button`
   font-size: 10px;
 `;
 
-const FilterBar = () => (
-  <Container>
-    <Grid>
-      <h2
-        css={css`
-          grid-column: 1 / span 3;
-          padding: 14px 0px;
-          font-weight: 500;
-        `}
-      >
-        SELECTED PROJECTS
-      </h2>
-      <Buttons
-        css={css`
-          grid-column: 4 / span 3;
-        `}
-      >
-        <Button
-          css={css`
-            color: #c7578f;
-            border: 1px solid #c7578f;
-
-            :hover {
-              background-color: #c7578f;
-              color: #ffffff;
+const FilterBar = () => {
+  const data = useStaticQuery(graphql`
+    query Tags {
+      allSanityTag {
+        edges {
+          node {
+            id
+            name
+            colour {
+              value {
+                hex
+              }
             }
+          }
+        }
+      }
+    }
+  `);
+
+  const {
+    allSanityTag: { edges: tags }
+  } = data;
+
+  return (
+    <Container>
+      <Grid>
+        <h2
+          css={css`
+            grid-column: 1 / span 3;
+            padding: 14px 0px;
+            font-weight: 500;
           `}
         >
-          <span type="button">DIGITAL</span>
-        </Button>
-        <Button
+          SELECTED PROJECTS
+        </h2>
+        <Buttons
           css={css`
-            color: #f5a300;
-            border: 1px solid #f5a300;
-
-            :hover {
-              background-color: #f5a300;
-              color: #ffffff;
-            }
+            grid-column: 4 / span 3;
           `}
         >
-          <span type="button">PRINT</span>
-        </Button>
-        <Button
-          css={css`
-            color: #235789;
-            border: 1px solid #235789;
+          {tags.map((tag) => (
+            <Button
+              key={tag.node.id}
+              css={css`
+                color: ${tag.node.colour.value.hex};
+                border: 1px solid ${tag.node.colour.value.hex};
 
-            :hover {
-              background-color: #235789;
-              color: #ffffff;
-            }
-          `}
-        >
-          <span type="button">WEBSITE</span>
-        </Button>
-        <Button
-          css={css`
-            color: #28a472;
-            border: 1px solid #28a472;
-
-            :hover {
-              background-color: #28a472;
-              color: #ffffff;
-            }
-          `}
-        >
-          <span type="button">PASSION</span>
-        </Button>
-        <Button
-          css={css`
-            color: #c1292e;
-            border: 1px solid #c1292e;
-
-            :hover {
-              background-color: #c1292e;
-              color: #ffffff;
-            }
-          `}
-        >
-          <span type="button">UNDISCLOSED</span>
-        </Button>
-      </Buttons>
-    </Grid>
-  </Container>
-);
+                :hover {
+                  background-color: ${tag.node.colour.value.hex};
+                  color: #ffffff;
+                }
+              `}
+            >
+              <span>{tag.node.name}</span>
+            </Button>
+          ))}
+        </Buttons>
+      </Grid>
+    </Container>
+  );
+};
 
 export default FilterBar;
