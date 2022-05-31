@@ -5,7 +5,7 @@ import { Grid } from "~components";
 import { useStaticQuery, graphql } from "gatsby";
 
 const Container = styled.div`
-  color: ##000000;
+  color: #000000;
   display: flex;
   height: 58px;
   font-family: "Neue Haas Grotesk Display Pro";
@@ -14,6 +14,17 @@ const Container = styled.div`
   letter-spacing: -0.01em;
   padding: 10px;
   padding-left: 0px;
+  background-color: #ffffff;
+`;
+
+const Dropdown = styled.div`
+  background-color: #ffffff;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  z-index: 2;
 `;
 
 const NavBar = () => {
@@ -50,6 +61,12 @@ const NavBar = () => {
         >
           Contact
         </h2>
+        <Dropdown>
+          <ul>
+            <li>Email</li>
+            <li>Insta</li>
+          </ul>
+        </Dropdown>
       </Grid>
     </Container>
   );

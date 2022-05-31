@@ -112,7 +112,10 @@ const Project = () => {
             `}
           >
             {data.allSanityProject.nodes[1].started} -{" "}
-            {data.allSanityProject.nodes[1].ended}
+            {data.allSanityProject.nodes[1].isOngoing ||
+            !data.allSanityProject.nodes[1].ended
+              ? `Ongoing`
+              : data.allSanityProject.nodes[1].ended}
           </h2>
         </Grid>
       </Container>
