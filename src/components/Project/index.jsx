@@ -25,8 +25,8 @@ const Project = () => {
           }
           isFeatured
           isOngoing
-          ended
-          started
+          ended(formatString: "y")
+          started(formatString: "y")
           tags {
             colour {
               name
@@ -111,7 +111,8 @@ const Project = () => {
               color: #595959;
             `}
           >
-            {data.allSanityProject.nodes[1].started} - Ongoing
+            {data.allSanityProject.nodes[1].started} -{" "}
+            {data.allSanityProject.nodes[1].ended}
           </h2>
         </Grid>
       </Container>
