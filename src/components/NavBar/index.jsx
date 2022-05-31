@@ -21,10 +21,12 @@ const Dropdown = styled.div`
   background-color: #ffffff;
   position: absolute;
   top: 100%;
-  right: 0;
-  width: 100%;
+  right: -5%;
+  width: 105%;
   margin: 0;
   z-index: 2;
+  padding: 12px;
+  align-items: center;
 `;
 
 const NavBar = () => {
@@ -54,13 +56,15 @@ const NavBar = () => {
         >
           {data.sanitySettings.role}
         </h2>
-        <h2
+        <button
+          type="button"
           css={css`
             color: #595959;
+            grid-column: 6;
           `}
         >
           Contact
-        </h2>
+        </button>
         <Dropdown>
           <ul>
             <li>Email</li>

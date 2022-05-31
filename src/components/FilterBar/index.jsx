@@ -14,7 +14,7 @@ const Buttons = styled.div`
   gap: 12px;
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   border-radius: 40px;
   padding: 4px 6px;
   font-size: 10px;
@@ -41,41 +41,66 @@ const FilterBar = () => (
           css={css`
             color: #c7578f;
             border: 1px solid #c7578f;
+
+            :hover {
+              background-color: #c7578f;
+              color: #ffffff;
+            }
           `}
         >
-          <button type="button">DIGITAL</button>
+          <span type="button">DIGITAL</span>
         </Button>
         <Button
           css={css`
             color: #f5a300;
             border: 1px solid #f5a300;
+
+            :hover {
+              background-color: #f5a300;
+              color: #ffffff;
+            }
           `}
         >
-          <button type="button">PRINT</button>
+          <span type="button">PRINT</span>
         </Button>
         <Button
           css={css`
             color: #235789;
             border: 1px solid #235789;
+
+            :hover {
+              background-color: #235789;
+              color: #ffffff;
+            }
           `}
         >
-          <button type="button">WEBSITE</button>
+          <span type="button">WEBSITE</span>
         </Button>
         <Button
           css={css`
             color: #28a472;
             border: 1px solid #28a472;
+
+            :hover {
+              background-color: #28a472;
+              color: #ffffff;
+            }
           `}
         >
-          <button type="button">PASSION</button>
+          <span type="button">PASSION</span>
         </Button>
         <Button
           css={css`
             color: #c1292e;
             border: 1px solid #c1292e;
+
+            :hover {
+              background-color: #c1292e;
+              color: #ffffff;
+            }
           `}
         >
-          <button type="button">UNDISCLOSED</button>
+          <span type="button">UNDISCLOSED</span>
         </Button>
       </Buttons>
     </Grid>
