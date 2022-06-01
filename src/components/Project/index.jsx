@@ -12,6 +12,7 @@ const Container = styled.div`
 
 const Circles = styled.div`
   display: flex;
+  margin-left: 8.5px;
 `;
 
 const Project = () => {
@@ -28,8 +29,12 @@ const Project = () => {
           ended(formatString: "y")
           started(formatString: "y")
           tags {
+            _id
             colour {
               name
+              value {
+                hex
+              }
             }
           }
         }
@@ -49,51 +54,18 @@ const Project = () => {
           >
             <h2>{data.allSanityProject.nodes[1].name}</h2>
             <Circles>
-              <div
-                css={css`
-                  border-radius: 100%;
-                  width: 12px;
-                  height: 12px;
-                  background-color: #c7578f;
-                  margin: 4px 1.5px 4px 10px;
-                `}
-              />
-              <div
-                css={css`
-                  border-radius: 100%;
-                  width: 12px;
-                  height: 12px;
-                  background-color: #f5a300;
-                  margin: 4px 1.5px;
-                `}
-              />
-              <div
-                css={css`
-                  border-radius: 100%;
-                  width: 12px;
-                  height: 12px;
-                  background-color: #28a472;
-                  margin: 4px 1.5px;
-                `}
-              />
-              <div
-                css={css`
-                  border-radius: 100%;
-                  width: 12px;
-                  height: 12px;
-                  background-color: #235789;
-                  margin: 4px 1.5px;
-                `}
-              />
-              <div
-                css={css`
-                  border-radius: 100%;
-                  width: 12px;
-                  height: 12px;
-                  background-color: #c1292e;
-                  margin: 4px 1.5px;
-                `}
-              />
+              {data.allSanityProject.nodes[1].tags.map((tag) => (
+                <div
+                  key={tag._id}
+                  css={css`
+                    border-radius: 100%;
+                    width: 12px;
+                    height: 12px;
+                    background-color: ${tag.colour.value.hex};
+                    margin: 4px 1.5px 4px 1.5px;
+                  `}
+                />
+              ))}
             </Circles>
           </div>
 
@@ -119,7 +91,7 @@ const Project = () => {
           </h2>
         </Grid>
       </Container>
-      <Expand />
+      {/*  <Expand /> */}
     </div>
   );
 };
