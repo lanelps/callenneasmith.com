@@ -37,6 +37,7 @@ const Projects = () => {
             started(formatString: "y")
             tags {
               _id
+              name
               colour {
                 name
                 value {
@@ -66,13 +67,22 @@ const Projects = () => {
     }
   `);
 
-  const [activeFilters, setActiveFilters] = useState([]);
-  const [projects, setProjects] = useState(allSanityProject.edges);
+  const allProjects = allSanityProject.edges.map(({ node }) => node);
 
-  // useEffect(() => {
-  //   const copyProjects = [...projects];
-  //   copyProjects.filter((project) => project.tags.some(tag));
-  // }, [activeFilters]);
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [projects, setProjects] = useState(allProjects);
+
+  useEffect(() => {
+    if (activeFilters.length > 0) {
+      const copyProjects = projects?.filter((project) =>
+        project?.tags?.some((tag) => activeFilters?.includes(tag?.name))
+      );
+
+      setProjects(copyProjects);
+    } else {
+      setProjects(allProjects);
+    }
+  }, [activeFilters]);
 
   return (
     <div>
@@ -80,14 +90,16 @@ const Projects = () => {
         activeFilters={activeFilters}
         setActiveFilters={setActiveFilters}
       />
+
       <FeaturedProjects>
         {projects.map(
-          ({ node: project }) =>
+          (project) =>
             project.isFeatured && (
-              <Project project={project} key={`${projects._id}-active`} />
+              <Project project={project} key={`${project._id}-active`} />
             )
         )}
       </FeaturedProjects>
+
       <ProjectsTitle>
         <Grid>
           <h2
@@ -102,9 +114,10 @@ const Projects = () => {
           </h2>
         </Grid>
       </ProjectsTitle>
+
       <AllProjects>
-        {projects.map(({ node: project }) => (
-          <Project project={project} key={projects._id} />
+        {projects.map((project) => (
+          <Project project={project} key={project._id} />
         ))}
       </AllProjects>
     </div>
