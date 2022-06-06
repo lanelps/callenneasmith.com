@@ -7,7 +7,7 @@ import { useStaticQuery, graphql } from "gatsby";
 const Container = styled.div`
   color: #000000;
   display: flex;
-  height: 58px;
+  height: auto;
   font-family: "Neue Haas Grotesk Display Pro";
   font-size: 32px;
   line-height: 120%;
@@ -18,13 +18,12 @@ const Container = styled.div`
 `;
 
 const Dropdown = styled.div`
-  background-color: #ffffff;
-  position: absolute;
-  top: 100%;
+  position: relative;
   margin: 0;
   z-index: 2;
-  padding: 12px;
+  padding: 12px 0px;
   align-items: center;
+  grid-column: 6 / span 1;
 `;
 
 const NavBar = () => {
@@ -33,6 +32,10 @@ const NavBar = () => {
       sanitySettings {
         title
         role
+        contact {
+          label
+          url
+        }
       }
     }
   `);
@@ -59,16 +62,29 @@ const NavBar = () => {
           css={css`
             color: #595959;
             grid-column: 6;
+            text-align: left;
           `}
         >
           Contact
         </button>
-        <Dropdown>
+        {/* <Dropdown>
           <ul>
-            <li>Email</li>
-            <li>Insta</li>
+            <a
+              href={`${data.sanitySettings.contact[0].url}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <li>{data.sanitySettings.contact[0].label}</li>
+            </a>
+            <a
+              href={`${data.sanitySettings.contact[1].url}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <li>{data.sanitySettings.contact[1].label}</li>
+            </a>
           </ul>
-        </Dropdown>
+        </Dropdown> */}
       </Grid>
     </Container>
   );
