@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useStaticQuery, graphql } from "gatsby";
@@ -21,7 +21,7 @@ const Button = styled.button`
   font-size: 10px;
 `;
 
-const FilterBar = () => {
+const FilterBar = ({ activeFilters, setActiveFilters }) => {
   const data = useStaticQuery(graphql`
     query Tags {
       allSanityTag {
@@ -44,6 +44,17 @@ const FilterBar = () => {
     allSanityTag: { edges: tags }
   } = data;
 
+  const handleClick = (name) => {
+    if (activeFilters?.includes(name)) {
+      const index = activeFilters?.indexOf(name);
+      const copyFilters = [...activeFilters];
+      copyFilters.splice(index, 1);
+      setActiveFilters(copyFilters);
+      return;
+    }
+    setActiveFilters([...activeFilters, name]);
+  };
+
   return (
     <Container>
       <Grid>
@@ -64,6 +75,7 @@ const FilterBar = () => {
           {tags.map((tag) => (
             <Button
               key={tag.node.id}
+              onClick={() => handleClick(tag.node.name)}
               css={css`
                 color: ${tag.node.colour.value.hex};
                 border: 1px solid ${tag.node.colour.value.hex};
@@ -72,9 +84,16 @@ const FilterBar = () => {
                   background-color: ${tag.node.colour.value.hex};
                   color: #ffffff;
                 }
+
+                ${activeFilters?.includes(tag.node.name) &&
+                `background-color: ${tag.node.colour.value.hex};
+                  color: #ffffff;
+                  `}
               `}
             >
-              <span>{tag.node.name}</span>
+              <span>
+                {tag.node.name} {activeFilters?.includes(tag.node.name) && `X`}
+              </span>
             </Button>
           ))}
         </Buttons>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FilterBar, Project, Grid } from "~components";
 import { useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
@@ -26,6 +26,7 @@ const Projects = () => {
       allSanityProject(sort: { fields: started, order: DESC }) {
         edges {
           node {
+            _id
             name
             client {
               name
@@ -43,7 +44,6 @@ const Projects = () => {
                 }
               }
             }
-            _key
             description
             links {
               label
@@ -66,13 +66,26 @@ const Projects = () => {
     }
   `);
 
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [projects, setProjects] = useState(allSanityProject.edges);
+
+  // useEffect(() => {
+  //   const copyProjects = [...projects];
+  //   copyProjects.filter((project) => project.tags.some(tag));
+  // }, [activeFilters]);
+
   return (
     <div>
-      <FilterBar />
+      <FilterBar
+        activeFilters={activeFilters}
+        setActiveFilters={setActiveFilters}
+      />
       <FeaturedProjects>
-        {allSanityProject.edges.map(
+        {projects.map(
           ({ node: project }) =>
-            project.isFeatured && <Project project={project} />
+            project.isFeatured && (
+              <Project project={project} key={`${projects._id}-active`} />
+            )
         )}
       </FeaturedProjects>
       <ProjectsTitle>
@@ -85,13 +98,13 @@ const Projects = () => {
               text-transform: uppercase;
             `}
           >
-            project archive (Newest to Oldest)
+            Project Archive (Newest to Oldest)
           </h2>
         </Grid>
       </ProjectsTitle>
       <AllProjects>
-        {allSanityProject.edges.map(({ node: project }) => (
-          <Project project={project} />
+        {projects.map(({ node: project }) => (
+          <Project project={project} key={projects._id} />
         ))}
       </AllProjects>
     </div>
