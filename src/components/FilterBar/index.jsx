@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useStaticQuery, graphql } from "gatsby";
-
 import { Grid } from "~components";
 
 const Container = styled.div`

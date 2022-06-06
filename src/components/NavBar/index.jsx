@@ -21,8 +21,6 @@ const Dropdown = styled.div`
   background-color: #ffffff;
   position: absolute;
   top: 100%;
-  right: -5%;
-  width: 105%;
   margin: 0;
   z-index: 2;
   padding: 12px;

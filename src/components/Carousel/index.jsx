@@ -9,13 +9,14 @@ import useEmblaCarousel from "embla-carousel-react";
 const Embla = styled.div`
   position: relative;
   overflow: visible;
+  height: 100%;
 `;
 
 const EmblaContainer = styled.ul`
   height: 100%;
   position: relative;
   display: flex;
-  align-items: stretch;
+  gap: 6px;
 `;
 
 const EmblaSlide = styled.li`
@@ -30,7 +31,7 @@ const EmblaSlide = styled.li`
 const Carousel = ({
   embla,
   className = ``,
-  slidesPerView = 1,
+  // slidesPerView = 1,
   spaceBetween = 0,
   slides = []
 }) => {
@@ -77,7 +78,7 @@ const Carousel = ({
           {slides({ current }).map((slide) => (
             <EmblaSlide
               css={css`
-                flex: 0 0 calc(${100 / slidesPerView}% - ${spaceBetween}px);
+                flex: 0 0 auto;
                 margin-right: ${spaceBetween}px;
               `}
               className="embla__slide"

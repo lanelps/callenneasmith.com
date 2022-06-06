@@ -1,31 +1,17 @@
 import React from "react";
-import { PopOut, Carousel, Grid } from "~components";
+import { PopOut, Carousel, Grid, Image } from "~components";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { useStaticQuery, graphql } from "gatsby";
 
-const Expand = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allSanityProject {
-        nodes {
-          description
-          links {
-            label
-            url
-          }
-        }
-      }
-    }
-  `);
-
+const Expand = ({ project }) => {
   const ExternalLinks = styled.div`
-    margin: 24px 12px;
+    margin: 24px 0px;
     font-size: 10px;
     line-height: 110%;
     letter-spacing: 0.01em;
     text-transform: uppercase;
     font-weight: 600;
+    grid-column: 1 / span 12;
   `;
 
   const Container = styled.div`
@@ -36,16 +22,28 @@ const Expand = () => {
 
   return (
     <div>
-      {/* <Carousel /> */}
-      <h1
-        css={css`
-          padding: 150px 50px;
-          background-color: orange;
-        `}
-      >
-        *CAROUSEL*
-      </h1>
       <Grid>
+        {/* <Carousel
+          slides={() =>
+            project.images.map((image) => (
+              <Image
+                key={image._key}
+                image={image}
+                contain
+                css={css`
+                  height: 100%;
+                  width: 100%;
+                `}
+              />
+            ))
+          }
+          css={css`
+            width: 100%;
+            grid-column: 1 / span 12;
+            overflow: hidden;
+            height: 428px;
+          `}
+        /> */}
         <p
           css={css`
             grid-column: 1 / span 3;
@@ -57,18 +55,24 @@ const Expand = () => {
             line-height: 110%;
           `}
         >
-          {data.allSanityProject.nodes[1].description}
+          {project?.description}
         </p>
+        {project?.links && (
+          <ExternalLinks>
+            <h5>EXTERNAL LINKS</h5>
+            <Container>
+              <a
+                href={`${project?.links[0]?.url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project?.links[0]?.label}
+              </a>
+            </Container>
+          </ExternalLinks>
+        )}
+        {/* <PopOut /> */}
       </Grid>
-      <ExternalLinks>
-        <h5>EXTERNAL LINKS</h5>
-        <Container>
-          <a href="{data.allSanityProject.nodes[1].links[1].url}">
-            {data.allSanityProject.nodes[1].links[1].label}
-          </a>
-        </Container>
-      </ExternalLinks>
-      <PopOut />
     </div>
   );
 };
