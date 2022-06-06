@@ -1,7 +1,8 @@
 import React from "react";
-import { PopOut, Carousel, Grid, Image } from "~components";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+
+import { PopOut, Grid, ImageCarousel } from "~components";
 
 const Expand = ({ project }) => {
   const ExternalLinks = styled.div`
@@ -11,7 +12,7 @@ const Expand = ({ project }) => {
     letter-spacing: 0.01em;
     text-transform: uppercase;
     font-weight: 600;
-    grid-column: 1 / span 12;
+    grid-column: 1 / -1;
   `;
 
   const Container = styled.div`
@@ -23,27 +24,12 @@ const Expand = ({ project }) => {
   return (
     <div>
       <Grid>
-        {/* <Carousel
-          slides={() =>
-            project.images.map((image) => (
-              <Image
-                key={image._key}
-                image={image}
-                contain
-                css={css`
-                  height: 100%;
-                  width: 100%;
-                `}
-              />
-            ))
-          }
+        <ImageCarousel
+          images={project?.images}
           css={css`
-            width: 100%;
-            grid-column: 1 / span 12;
-            overflow: hidden;
-            height: 428px;
+            grid-column: 1 / -1;
           `}
-        /> */}
+        />
         <p
           css={css`
             grid-column: 1 / span 3;
@@ -57,17 +43,20 @@ const Expand = ({ project }) => {
         >
           {project?.description}
         </p>
-        {project?.links && (
+        {project?.links?.length > 0 && (
           <ExternalLinks>
             <h5>EXTERNAL LINKS</h5>
             <Container>
-              <a
-                href={`${project?.links[0]?.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {project?.links[0]?.label}
-              </a>
+              {project?.links.map((link) => (
+                <a
+                  key={link?._key}
+                  href={link?.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link?.label}
+                </a>
+              ))}
             </Container>
           </ExternalLinks>
         )}

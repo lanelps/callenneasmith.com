@@ -47,6 +47,7 @@ const Projects = () => {
             }
             description
             links {
+              _key
               label
               url
             }

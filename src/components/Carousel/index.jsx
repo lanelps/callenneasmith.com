@@ -21,6 +21,7 @@ const EmblaContainer = styled.ul`
 
 const EmblaSlide = styled.li`
   position: relative;
+  height: 100%;
 `;
 
 /** ============================================================================

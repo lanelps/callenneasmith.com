@@ -55,12 +55,12 @@ const Project = ({ project }) => (
               color: #595959;
             `}
           >
-            {project?.started} -{" "}
+            {project?.started} -{` `}
             {project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended}
           </h2>
         )}
       </Grid>
-      <Expand />
+      <Expand project={project} />
     </Container>
   </div>
 );
