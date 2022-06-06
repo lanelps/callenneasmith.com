@@ -74,7 +74,7 @@ const Projects = () => {
 
   useEffect(() => {
     if (activeFilters.length > 0) {
-      const copyProjects = projects?.filter((project) =>
+      const copyProjects = allProjects?.filter((project) =>
         project?.tags?.some((tag) => activeFilters?.includes(tag?.name))
       );
 
