@@ -4,11 +4,6 @@ import { useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-const AllProjects = styled.section`
-  width: 100%;
-  position: relative;
-`;
-
 const FeaturedProjects = styled.section`
   width: 100%;
   position: relative;
@@ -18,6 +13,11 @@ const ProjectsTitle = styled.div`
   font-size: 10px;
   line-height: 110%;
   border: 0.5px solid #000000;
+`;
+
+const AllProjects = styled.section`
+  width: 100%;
+  position: relative;
 `;
 
 const Projects = () => {
@@ -86,19 +86,23 @@ const Projects = () => {
   }, [activeFilters]);
 
   return (
-    <div>
+    <section>
       <FilterBar
         activeFilters={activeFilters}
         setActiveFilters={setActiveFilters}
       />
 
       <FeaturedProjects>
-        {projects.map(
-          (project) =>
-            project.isFeatured && (
-              <Project project={project} key={`${project._id}-active`} />
-            )
-        )}
+        <ul>
+          {projects.map(
+            (project) =>
+              project.isFeatured && (
+                <li key={`${project._id}-featured`}>
+                  <Project project={project} />
+                </li>
+              )
+          )}
+        </ul>
       </FeaturedProjects>
 
       <ProjectsTitle>
@@ -118,10 +122,12 @@ const Projects = () => {
 
       <AllProjects>
         {projects.map((project) => (
-          <Project project={project} key={project._id} />
+          <li key={project._id}>
+            <Project project={project} />
+          </li>
         ))}
       </AllProjects>
-    </div>
+    </section>
   );
 };
 

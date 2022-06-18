@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { css } from "@emotion/react";
 import PropTypes from "prop-types";
 import { remToPx } from "~utils/helpers";
@@ -22,12 +22,14 @@ export const GRID_PADDING_PX = remToPx(GRID_GAP_REM);
  * @param  {string} node      Wrapper JSX node type (defaults to <div>)
  * @return {node}             The resulting CSS grid node
  */
-const Grid = ({ children, className, node }) => {
+const Grid = forwardRef(({ children, className, node, onClick }, ref) => {
   const G = `${node}`;
 
   return (
     <G
+      ref={ref}
       className={className}
+      onClick={onClick}
       css={[
         css`
           width: 100%;
@@ -49,7 +51,7 @@ const Grid = ({ children, className, node }) => {
       {children}
     </G>
   );
-};
+});
 
 Grid.defaultProps = {
   node: `div`

@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { Image } from "~components";
 
-const Container = styled.article`
+const Container = styled.ul`
   position: relative;
   width: 100%;
   height: 428px;
@@ -19,38 +19,56 @@ const Container = styled.article`
   scroll-snap-type: x mandatory;
 `;
 
-const Slide = styled.figure`
+const Slide = styled.li`
   position: relative;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
-
   scroll-snap-align: start;
+
+  figure {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
-const ImageCarousel = ({ images, className }) => {
+const ImageCarousel = ({ images, className, isActive }) => {
   const ref = useRef();
+  const loadedRef = useRef(false);
+
+  useEffect(() => {
+    if (isActive && !loadedRef.current) {
+      loadedRef.current = true;
+    }
+  }, [isActive]);
+
+  useEffect(() => {
+    console.log(`loadedRef`, loadedRef.current);
+  }, [loadedRef?.current]);
 
   return (
     <Container className={className} ref={ref}>
-      {images.map((image, index) => (
-        <Slide key={image?._id}>
-          <Image
-            image={image}
-            css={css`
-              aspect-ratio: 1/1;
-              height: 100%;
-              user-drag: none;
-              pointer-events: none;
-              user-select: none;
-            `}
-          />
-          <figcaption>
-            {index + 1}/{images.length}
-          </figcaption>
-        </Slide>
-      ))}
+      {loadedRef?.current &&
+        images.map((image, index) => (
+          <Slide key={image?._key}>
+            <figure>
+              <Image
+                image={image}
+                css={css`
+                  aspect-ratio: 1/1;
+                  height: 100%;
+                  user-drag: none;
+                  pointer-events: none;
+                  user-select: none;
+                `}
+              />
+              <figcaption>
+                {index + 1}/{images.length}
+              </figcaption>
+            </figure>
+          </Slide>
+        ))}
     </Container>
   );
 };
