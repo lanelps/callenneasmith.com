@@ -41,7 +41,7 @@ const HoverImage = ({ background, image, isActive }) => {
 
   useEffect(() => {
     const DOCUMENT_MAIN =
-      typeof window !== `undefined`
+      typeof document !== `undefined`
         ? document.getElementById(`app-root`)
         : null;
 
@@ -80,7 +80,7 @@ const portableComponents = {
         <>
           <span
             css={css`
-              color: #595959;
+              color: var(--color-off-black);
               cursor: pointer;
             `}
             onMouseEnter={() => setIsActive(true)}

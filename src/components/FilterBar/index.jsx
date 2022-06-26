@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useStaticQuery, graphql } from "gatsby";
@@ -19,6 +19,24 @@ const Button = styled.button`
   border-radius: 40px;
   padding: 4px 6px;
   font-size: 10px;
+
+  color: ${({ color }) => color || ``};
+  border: 1px solid ${({ color }) => color || ``};
+
+  :hover {
+    background-color: ${({ color }) => color || ``};
+    color: #ffffff;
+  }
+
+  ${({ activeFilters, color, name }) =>
+    activeFilters?.includes(name) &&
+    `background-color: ${color || ``};
+    color: #ffffff;
+    `}
+
+  text-transform: uppercase;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 const FilterBar = ({ activeFilters, setActiveFilters }) => {
@@ -76,20 +94,9 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
             <Button
               key={tag.node.id}
               onClick={() => handleClick(tag.node.name)}
-              css={css`
-                color: ${tag.node.colour.value.hex};
-                border: 1px solid ${tag.node.colour.value.hex};
-
-                :hover {
-                  background-color: ${tag.node.colour.value.hex};
-                  color: #ffffff;
-                }
-
-                ${activeFilters?.includes(tag.node.name) &&
-                `background-color: ${tag.node.colour.value.hex};
-                  color: #ffffff;
-                  `}
-              `}
+              color={tag.node.colour.value.hex}
+              activeFilters={activeFilters}
+              name={tag.node.name}
             >
               <span>
                 {tag.node.name} {activeFilters?.includes(tag.node.name) && `X`}
