@@ -14,21 +14,21 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
   if (typeof image === `string`) {
     return (
       <>
-        {(image.startsWith(`http`) || image.startsWith(`/`)) && (
-          <img className={className} src={image} alt={image} />
-        )}
+        {image.startsWith(`http`) ||
+          (image.startsWith(`/`) && (
+            <img className={className} src={image} alt={image} />
+          ))}
       </>
     );
   }
 
   const imageObj = image?.asset || image;
+  const src = getSrc(imageObj) || imageObj?.url;
   const mobileImageObj = image?.mobileImage?.asset;
 
   if (!imageObj) {
     return <></>;
   }
-
-  const src = getSrc(imageObj);
 
   let images = ``;
 
@@ -52,33 +52,30 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
   }
 
   //
-
   return (
-    <>
-      {(src?.includes(`.svg`) && (
-        <img
-          css={css`
-            object-fit: ${contain ? `contain` : `cover`};
-          `}
-          className={className}
-          src={src}
-          alt={alt || ``}
-          title={title || alt || ``}
-          loading="lazy"
-          width="100%"
-          height="100%"
-        />
-      )) || (
-        <GatsbyImage
-          className={className}
-          loading={loading || `eager`}
-          image={images}
-          alt={alt || ``}
-          title={title || alt || ``}
-          objectFit={contain ? `contain` : `cover`}
-        />
-      )}
-    </>
+    (src && (
+      <img
+        css={css`
+          object-fit: ${contain ? `contain` : `cover`};
+        `}
+        className={className}
+        src={src}
+        alt={alt || ``}
+        title={title || alt || ``}
+        loading="lazy"
+        width="100%"
+        height="100%"
+      />
+    )) || (
+      <GatsbyImage
+        className={className}
+        loading={loading || `eager`}
+        image={images}
+        alt={alt || ``}
+        title={title || alt || ``}
+        objectFit={contain ? `contain` : `cover`}
+      />
+    )
   );
 };
 

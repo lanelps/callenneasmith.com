@@ -13,7 +13,9 @@ const Layout = ({ children, className }) => (
       `}
     >
       <NavBar />
-      <main className={className}>{children}</main>
+      <main id="app-root" className={className}>
+        {children}
+      </main>
       <Footer />
     </div>
   </>

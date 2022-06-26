@@ -1,6 +1,11 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useStaticQuery, graphql } from "gatsby";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import { PortableText } from "@portabletext/react";
+
+import { Image } from "~components";
 
 const Container = styled.div`
   color: #000000;
@@ -11,25 +16,101 @@ const Container = styled.div`
   letter-spacing: -0.01em;
   padding: 10px;
   background-color: #e5e5e5;
-  height: 304px; //TO BE CONFIRMED
+  height: 304px;
 `;
+
+const HoverFigure = styled.figure`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  ${({ background }) =>
+    background && `box-shadow: 0px 0px 30px 15px ${background};`}
+
+  opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
+  transition: opacity 0.3s ease;
+
+  pointer-events: none;
+`;
+
+const HoverImage = ({ background, image, isActive }) => {
+  const [doucmentExists, setDocumentExists] = useState(false);
+
+  useEffect(() => {
+    const DOCUMENT_MAIN =
+      typeof window !== `undefined`
+        ? document.getElementById(`app-root`)
+        : null;
+
+    if (!DOCUMENT_MAIN) return null;
+
+    setDocumentExists(true);
+  }, []);
+
+  if (doucmentExists) {
+    return createPortal(
+      <HoverFigure background={background} isActive={isActive}>
+        <Image image={image} css={css``} />
+      </HoverFigure>,
+      document.getElementById(`app-root`)
+    );
+  }
+
+  return null;
+};
+
+const portableComponents = {
+  block: {
+    normal: ({ children }) => <p>{children}</p>
+  },
+  marks: {
+    hoverImage: ({ children, value }) => {
+      const [isActive, setIsActive] = useState(false);
+
+      // useEffect(() => {
+      //   console.log(`isActive`, isActive);
+      // }, [isActive]);
+
+      return (
+        <>
+          <span
+            css={css`
+              color: #595959;
+              cursor: pointer;
+            `}
+            onMouseEnter={() => setIsActive(true)}
+            onMouseLeave={() => setIsActive(false)}
+          >
+            {children}
+          </span>
+
+          <HoverImage
+            image={value?.image}
+            background={value?.backgroundColour?.value?.hex}
+            isActive={isActive}
+          />
+        </>
+      );
+    }
+  }
+};
 
 const Intro = () => {
   const data = useStaticQuery(graphql`
     query {
       sanitySettings {
-        introduction {
-          children {
-            text
-          }
-        }
+        _rawIntroduction(resolveReferences: { maxDepth: 10 })
       }
     }
   `);
 
   return (
     <Container>
-      <p>{data.sanitySettings.introduction.children}</p>
+      <PortableText
+        value={data.sanitySettings._rawIntroduction}
+        components={portableComponents}
+      />
     </Container>
   );
 };

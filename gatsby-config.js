@@ -2,7 +2,8 @@ require(`dotenv`).config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const { SANITY_DATASET, SANITY_PROJECT_ID, SANITY_TOKEN } = process.env;
+const { GATSBY_SANITY_PROJECT_ID, GATSBY_SANITY_DATASET, GATSBY_SANITY_TOKEN } =
+  process.env;
 
 const isProd = process.env.NODE_ENV === `production`;
 const previewEnabled =
@@ -45,9 +46,9 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        projectId: SANITY_PROJECT_ID,
-        dataset: SANITY_DATASET,
-        token: SANITY_TOKEN,
+        projectId: GATSBY_SANITY_PROJECT_ID,
+        dataset: GATSBY_SANITY_DATASET,
+        token: GATSBY_SANITY_TOKEN,
         watchMode: !isProd,
         overlayDrafts: !isProd || previewEnabled
       }
