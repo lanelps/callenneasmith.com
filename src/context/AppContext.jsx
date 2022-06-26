@@ -16,6 +16,8 @@ const AppProvider = ({ children }) => {
   const [pathname, setPathname] = useState(null);
   const [menuActive, setMenuActive] = useState(false);
 
+  const [introInView, setIntroInView] = useState(true);
+
   // ---------------------------------------------------------------------------
   // methods
 
@@ -40,7 +42,9 @@ const AppProvider = ({ children }) => {
   const providerProps = useMemo(() => ({
     pathname,
     menuActive,
-    setMenuActive
+    setMenuActive,
+    introInView,
+    setIntroInView
   }));
 
   return (

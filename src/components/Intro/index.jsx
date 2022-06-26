@@ -4,8 +4,10 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { PortableText } from "@portabletext/react";
 import { getGatsbyImageData } from "gatsby-source-sanity";
+import { useInView } from "react-intersection-observer";
 
 import { Image } from "~components";
+import { useApp } from "~hooks";
 
 import { sanityConfig } from "~utils/sanity";
 
@@ -100,10 +102,19 @@ const portableComponents = {
   }
 };
 
-const Intro = ({ introduction }) => (
-  <Container>
-    <PortableText value={introduction} components={portableComponents} />
-  </Container>
-);
+const Intro = ({ introduction }) => {
+  const { ref, inView } = useInView();
+  const { setIntroInView } = useApp();
+
+  useEffect(() => {
+    setIntroInView(inView);
+  }, [inView]);
+
+  return (
+    <Container ref={ref}>
+      <PortableText value={introduction} components={portableComponents} />
+    </Container>
+  );
+};
 
 export default Intro;

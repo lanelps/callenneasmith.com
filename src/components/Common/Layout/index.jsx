@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { Theme, NavBar, Footer } from "~components";
 
-const Layout = ({ children, className }) => (
+const Layout = ({ children, className, data }) => (
   <>
     <Theme />
     <div
@@ -12,7 +12,7 @@ const Layout = ({ children, className }) => (
         gap: 1rem;
       `}
     >
-      <NavBar />
+      <NavBar {...data.sanitySettings} />
       <main id="app-root" className={className}>
         {children}
       </main>

@@ -1,20 +1,44 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+
 import { Grid } from "~components";
-import { useStaticQuery, graphql } from "gatsby";
+import { useApp } from "~hooks";
 
 const Container = styled.div`
-  color: #000000;
-  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
   height: auto;
+
+  display: flex;
+
+  padding: 10px;
+  padding-left: 0px;
+  background-color: var(--color-white);
+  color: var(--color-rich-black);
+  border-bottom: 1px solid var(--color-rich-black);
+
   font-family: "Neue Haas Grotesk Display Pro";
   font-size: 32px;
   line-height: 120%;
   letter-spacing: -0.01em;
-  padding: 10px;
-  padding-left: 0px;
-  background-color: #ffffff;
+
+  transform: translateY(${({ show }) => (show ? `0%` : `-100%`)});
+  transition: all 0.3s ease;
+
+  z-index: 20;
+`;
+
+const Title = styled.h1`
+  grid-column: 1 / span 3;
+`;
+
+const Role = styled.h2`
+  grid-column: 4 / span 2;
 `;
 
 const Dropdown = styled.div`
@@ -26,41 +50,18 @@ const Dropdown = styled.div`
   grid-column: 6 / span 1;
 `;
 
-const NavBar = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      sanitySettings {
-        title
-        role
-        contact {
-          label
-          url
-        }
-      }
-    }
-  `);
+const NavBar = ({ title, role, contact }) => {
+  const { introInView } = useApp();
 
   return (
-    <Container>
+    <Container show={!introInView}>
       <Grid>
-        <h2
-          css={css`
-            grid-column: 1 / span 3;
-          `}
-        >
-          {data.sanitySettings.title}
-        </h2>
-        <h2
-          css={css`
-            grid-column: 4 / span 2;
-          `}
-        >
-          {data.sanitySettings.role}
-        </h2>
+        <Title>{title}</Title>
+        <Role>{role}</Role>
         <button
           type="button"
           css={css`
-            color: #595959;
+            color: var(--color-off-black);
             grid-column: 6;
             text-align: left;
           `}

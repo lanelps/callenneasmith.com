@@ -7,7 +7,7 @@ const Index = ({ data: { sanitySettings, allSanityProject } }) => {
   const projects = allSanityProject.edges.map(({ node }) => node);
 
   return (
-    <Layout>
+    <Layout data={{ sanitySettings }}>
       <Intro introduction={sanitySettings._rawIntroduction} />
       <Projects projects={projects} />
     </Layout>
@@ -19,7 +19,13 @@ export default Index;
 export const query = graphql`
   query {
     sanitySettings {
+      contact {
+        label
+        url
+      }
       _rawIntroduction(resolveReferences: { maxDepth: 10 })
+      title
+      role
     }
 
     allSanityProject(sort: { fields: started, order: DESC }) {
