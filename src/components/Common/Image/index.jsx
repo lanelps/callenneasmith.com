@@ -51,9 +51,6 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
     images = imageObj;
   }
 
-  console.log(`images`, images);
-  console.log(`src`, src);
-
   //
   return images ? (
     <GatsbyImage
