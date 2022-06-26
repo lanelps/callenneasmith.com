@@ -3,8 +3,11 @@ import { createPortal } from "react-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { PortableText } from "@portabletext/react";
+import { getGatsbyImageData } from "gatsby-source-sanity";
 
 import { Image } from "~components";
+
+import { sanityConfig } from "~utils/sanity";
 
 const Container = styled.div`
   color: #000000;
@@ -47,10 +50,16 @@ const HoverImage = ({ background, image, isActive }) => {
     setDocumentExists(true);
   }, []);
 
+  const imageSrc = getGatsbyImageData(
+    image.asset._id,
+    { maxWidth: 1920 },
+    sanityConfig
+  );
+
   if (doucmentExists) {
     return createPortal(
       <HoverFigure background={background} isActive={isActive}>
-        <Image image={image} css={css``} />
+        <Image image={imageSrc} css={css``} />
       </HoverFigure>,
       document.getElementById(`app-root`)
     );

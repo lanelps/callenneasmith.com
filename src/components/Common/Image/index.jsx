@@ -22,11 +22,11 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
     );
   }
 
-  const imageObj = image?.asset || image;
-  const src = getSrc(imageObj) || imageObj?.url;
+  const imageObj = getImage(image?.asset) || image;
+  const src = getSrc(imageObj) || image?.asset?.url;
   const mobileImageObj = image?.mobileImage?.asset;
 
-  if (!imageObj) {
+  if (!imageObj && !src) {
     return <></>;
   }
 
@@ -44,38 +44,39 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
     images = withArtDirection(getImage(mobileImageObj), [
       {
         media: `(min-width: 1025px)`,
-        image: getImage(imageObj)
+        image: imageObj
       }
     ]);
   } else {
-    images = getImage(imageObj);
+    images = imageObj;
   }
 
+  console.log(`images`, images);
+  console.log(`src`, src);
+
   //
-  return (
-    (src && (
-      <img
-        css={css`
-          object-fit: ${contain ? `contain` : `cover`};
-        `}
-        className={className}
-        src={src}
-        alt={alt || ``}
-        title={title || alt || ``}
-        loading="lazy"
-        width="100%"
-        height="100%"
-      />
-    )) || (
-      <GatsbyImage
-        className={className}
-        loading={loading || `eager`}
-        image={images}
-        alt={alt || ``}
-        title={title || alt || ``}
-        objectFit={contain ? `contain` : `cover`}
-      />
-    )
+  return images ? (
+    <GatsbyImage
+      className={className}
+      loading={loading || `eager`}
+      image={images}
+      alt={alt || ``}
+      title={title || alt || ``}
+      objectFit={contain ? `contain` : `cover`}
+    />
+  ) : (
+    <img
+      css={css`
+        object-fit: ${contain ? `contain` : `cover`};
+      `}
+      className={className}
+      src={src}
+      alt={alt || ``}
+      title={title || alt || ``}
+      loading="lazy"
+      width="100%"
+      height="100%"
+    />
   );
 };
 
