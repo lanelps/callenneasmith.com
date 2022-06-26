@@ -14,6 +14,7 @@ import settings from "./documents/settings";
 import altImage from "./objects/altImage";
 import link from "./objects/link";
 import blockContent from "./objects/blockContent";
+import hoverImage from "./objects/hoverImage";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -34,6 +35,7 @@ export default createSchema({
     // objects
     altImage,
     link,
-    blockContent
+    blockContent,
+    hoverImage
   ])
 });

@@ -81,6 +81,11 @@ export default {
               }
             ]
           }
+          // {
+          //   name: `testHoverImage`,
+          //   title: `Test Hover Image`,
+          //   type: `hoverImage`
+          // }
         ]
       }
     }
