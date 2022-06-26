@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FilterBar, Project, Grid } from "~components";
-import { useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
@@ -20,68 +19,19 @@ const AllProjects = styled.section`
   position: relative;
 `;
 
-const Projects = () => {
-  const { allSanityProject } = useStaticQuery(graphql`
-    query {
-      allSanityProject(sort: { fields: started, order: DESC }) {
-        edges {
-          node {
-            _id
-            name
-            client {
-              name
-            }
-            isFeatured
-            isOngoing
-            ended(formatString: "y")
-            started(formatString: "y")
-            tags {
-              _id
-              name
-              colour {
-                name
-                value {
-                  hex
-                }
-              }
-            }
-            description
-            links {
-              _key
-              label
-              url
-            }
-            images {
-              _key
-              altText
-              asset {
-                gatsbyImageData(
-                  width: 720
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  const allProjects = allSanityProject.edges.map(({ node }) => node);
-
+const Projects = ({ projects }) => {
   const [activeFilters, setActiveFilters] = useState([]);
-  const [projects, setProjects] = useState(allProjects);
+  const [allProjects, setAllProjects] = useState(projects);
 
   useEffect(() => {
     if (activeFilters.length > 0) {
-      const copyProjects = allProjects?.filter((project) =>
+      const copyProjects = projects?.filter((project) =>
         project?.tags?.some((tag) => activeFilters?.includes(tag?.name))
       );
 
-      setProjects(copyProjects);
+      setAllProjects(copyProjects);
     } else {
-      setProjects(allProjects);
+      setAllProjects(projects);
     }
   }, [activeFilters]);
 
@@ -94,7 +44,7 @@ const Projects = () => {
 
       <FeaturedProjects>
         <ul>
-          {projects.map(
+          {allProjects.map(
             (project) =>
               project.isFeatured && (
                 <li key={`${project._id}-featured`}>
@@ -121,7 +71,7 @@ const Projects = () => {
       </ProjectsTitle>
 
       <AllProjects>
-        {projects.map((project) => (
+        {allProjects.map((project) => (
           <li key={project._id}>
             <Project project={project} />
           </li>

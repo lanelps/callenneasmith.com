@@ -43,10 +43,6 @@ const ImageCarousel = ({ images, className, isActive }) => {
     }
   }, [isActive]);
 
-  useEffect(() => {
-    console.log(`loadedRef`, loadedRef.current);
-  }, [loadedRef?.current]);
-
   return (
     <Container className={className} ref={ref}>
       {loadedRef?.current &&
@@ -57,6 +53,7 @@ const ImageCarousel = ({ images, className, isActive }) => {
                 image={image}
                 css={css`
                   aspect-ratio: 1/1;
+                  width: auto;
                   height: 100%;
                   user-drag: none;
                   pointer-events: none;

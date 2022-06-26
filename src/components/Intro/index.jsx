@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { PortableText } from "@portabletext/react";
@@ -68,10 +67,6 @@ const portableComponents = {
     hoverImage: ({ children, value }) => {
       const [isActive, setIsActive] = useState(false);
 
-      // useEffect(() => {
-      //   console.log(`isActive`, isActive);
-      // }, [isActive]);
-
       return (
         <>
           <span
@@ -96,23 +91,10 @@ const portableComponents = {
   }
 };
 
-const Intro = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      sanitySettings {
-        _rawIntroduction(resolveReferences: { maxDepth: 10 })
-      }
-    }
-  `);
-
-  return (
-    <Container>
-      <PortableText
-        value={data.sanitySettings._rawIntroduction}
-        components={portableComponents}
-      />
-    </Container>
-  );
-};
+const Intro = ({ introduction }) => (
+  <Container>
+    <PortableText value={introduction} components={portableComponents} />
+  </Container>
+);
 
 export default Intro;
