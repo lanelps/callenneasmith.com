@@ -12,15 +12,8 @@ import { useApp } from "~hooks";
 import { sanityConfig } from "~utils/sanity";
 
 const Container = styled.div`
-  color: #000000;
-  font-family: "Neue Haas Grotesk Display Pro";
-  font-weight: 500;
-  font-size: 32px;
-  line-height: 120%;
-  letter-spacing: -0.01em;
-  padding: 10px;
-  background-color: #e5e5e5;
-  height: 304px;
+  padding: 0.5rem 0.75rem;
+  height: 25vw;
 `;
 
 const HoverFigure = styled.figure`
