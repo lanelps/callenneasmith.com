@@ -7,31 +7,38 @@ import { Expand, Grid } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.article`
-  font-size: 18px;
-  border: 0.5px solid #000000;
+  border-top: 0.5px solid var(--color-rich-black);
 `;
 
 const Circles = styled.div`
   display: flex;
-  margin-left: 8.5px;
+  gap: 0.25rem;
 `;
 
 const Circle = styled.div`
-  border-radius: 100%;
-  width: 12px;
-  height: 12px;
+  width: 0.75rem;
+  height: 0.75rem;
   background-color: ${({ color }) => color || `#000000`};
-  margin: 4px 1.5px 4px 1.5px;
+  border-radius: 100%;
+`;
+
+const ProjectName = styled.div`
+  grid-column: 1 / span 3;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
 `;
 
 const ClientName = styled.p`
   grid-column: 4 / span 2;
-  color: #595959;
+  color: var(--color-off-black);
+  text-align: left;
 `;
 
 const Time = styled.p`
   grid-column: 6 / span 1;
-  color: #595959;
+  color: var(--color-off-black);
+  text-align: left;
 `;
 
 const Project = ({ project }) => {
@@ -50,19 +57,14 @@ const Project = ({ project }) => {
         `}
         onClick={() => setIsActive(!isActive)}
       >
-        <div
-          css={css`
-            grid-column: 1 / span 3;
-            display: flex;
-          `}
-        >
+        <ProjectName>
           <h2>{project?.name}</h2>
           <Circles>
             {project?.tags.map((tag) => (
               <Circle key={tag?._id} color={tag?.colour?.value?.hex} />
             ))}
           </Circles>
-        </div>
+        </ProjectName>
 
         <ClientName>{project?.client?.name}</ClientName>
 

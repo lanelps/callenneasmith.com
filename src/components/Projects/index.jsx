@@ -4,19 +4,19 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 const FeaturedProjects = styled.section`
-  width: 100%;
   position: relative;
+  width: 100%;
 `;
 
 const ProjectsTitle = styled.div`
-  font-size: 10px;
-  line-height: 110%;
-  border: 0.5px solid #000000;
+  position: relative;
+  border-top: 0.5px solid var(--color-rich-black);
 `;
 
 const AllProjects = styled.section`
-  width: 100%;
   position: relative;
+  width: 100%;
+  border-bottom: 0.5px solid var(--color-rich-black);
 `;
 
 const Projects = ({ projects }) => {
@@ -42,7 +42,7 @@ const Projects = ({ projects }) => {
         setActiveFilters={setActiveFilters}
       />
 
-      <FeaturedProjects>
+      <FeaturedProjects className="b1">
         <ul>
           {allProjects.map(
             (project) =>
@@ -60,17 +60,18 @@ const Projects = ({ projects }) => {
           <h2
             css={css`
               grid-column: 1 / span 3;
-              padding: 14px 0px;
-              font-weight: 500;
+              padding-top: 2rem;
+              padding-bottom: 0.625rem;
               text-transform: uppercase;
             `}
+            className="caption"
           >
             Project Archive (Newest to Oldest)
           </h2>
         </Grid>
       </ProjectsTitle>
 
-      <AllProjects>
+      <AllProjects className="b1">
         {allProjects.map((project) => (
           <li key={project._id}>
             <Project project={project} />
