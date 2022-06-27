@@ -9,14 +9,20 @@ const Layout = ({ children, className, data }) => (
     <Theme />
     <div
       css={css`
-        gap: 1rem;
+        min-height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        overflow: hidden;
       `}
     >
       <NavBar {...data.sanitySettings} />
       <main id="app-root" className={className}>
         {children}
       </main>
-      <Footer />
+      <Footer {...data.sanitySettings} />
     </div>
   </>
 );
