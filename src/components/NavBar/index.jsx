@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
@@ -43,18 +43,42 @@ const Role = styled.h2`
 
 const Dropdown = styled.div`
   position: relative;
-  margin: 0;
-  z-index: 2;
-  padding: 12px 0px;
-  align-items: center;
   grid-column: 6 / span 1;
+
+  height: ${({ show, dropdownHeight }) => (show ? `${dropdownHeight}px` : `0`)};
+
+  margin: 0;
+
+  z-index: 2;
+  overflow: hidden;
+
+  transition: height 0.3s ease;
+`;
+
+const Contacts = styled.ul`
+  position: relative;
+  padding: 12px 0px;
 `;
 
 const NavBar = ({ title, role, contact }) => {
+  const contactsRef = useRef();
+
   const { introInView } = useApp();
+  const [showContacts, setShowContacts] = useState(false);
+  const [dropdownHeight, setDropdownHeight] = useState(0);
+
+  useEffect(() => {
+    if (contactsRef?.current) {
+      setDropdownHeight(contactsRef.current.clientHeight);
+    }
+  }, [contactsRef?.current]);
+
+  useEffect(() => {
+    console.log(`dropdownHeight`, dropdownHeight);
+  }, [dropdownHeight]);
 
   return (
-    <Container show={!introInView}>
+    <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
       <Grid>
         <Title>{title}</Title>
         <Role>{role}</Role>
@@ -65,27 +89,19 @@ const NavBar = ({ title, role, contact }) => {
             grid-column: 6;
             text-align: left;
           `}
+          onMouseEnter={() => setShowContacts(true)}
         >
           Contact
         </button>
-        {/* <Dropdown>
-          <ul>
-            <a
-              href={`${data.sanitySettings.contact[0].url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <li>{data.sanitySettings.contact[0].label}</li>
-            </a>
-            <a
-              href={`${data.sanitySettings.contact[1].url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <li>{data.sanitySettings.contact[1].label}</li>
-            </a>
-          </ul>
-        </Dropdown> */}
+        <Dropdown show={showContacts} dropdownHeight={dropdownHeight}>
+          <Contacts ref={contactsRef}>
+            {contact.map((item) => (
+              <a href={`${item.url}`} target="_blank" rel="noopener noreferrer">
+                <li>{item.label}</li>
+              </a>
+            ))}
+          </Contacts>
+        </Dropdown>
       </Grid>
     </Container>
   );

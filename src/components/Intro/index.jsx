@@ -72,7 +72,7 @@ const HoverImage = ({ background, image, isActive }) => {
 
 const portableComponents = {
   block: {
-    normal: ({ children }) => <p>{children}</p>
+    normal: ({ children }) => <p className="h1">{children}</p>
   },
   marks: {
     hoverImage: ({ children, value }) => {
@@ -81,6 +81,7 @@ const portableComponents = {
       return (
         <>
           <span
+            className="h1"
             css={css`
               color: var(--color-off-black);
               cursor: pointer;
@@ -103,7 +104,7 @@ const portableComponents = {
 };
 
 const Intro = ({ introduction }) => {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.5 });
   const { setIntroInView } = useApp();
 
   useEffect(() => {
