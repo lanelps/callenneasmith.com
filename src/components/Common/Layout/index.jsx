@@ -15,6 +15,8 @@ const Layout = ({ children, className, data }) => (
         flex-direction: column;
         justify-content: space-between;
 
+        background-color: var(--color-off-white);
+
         overflow: hidden;
       `}
     >
