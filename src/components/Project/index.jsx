@@ -7,7 +7,18 @@ import { Expand, Grid } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.article`
+  position: relative;
+  width: 100%;
+
+  background-color: ${({ isActive }) =>
+    isActive ? `var(--color-off-white)` : `var(--color-white)`};
   border-top: 0.5px solid var(--color-rich-black);
+
+  :hover {
+    background-color: var(--color-off-white);
+  }
+
+  transition: background-color 0.3s ease;
 `;
 
 const Circles = styled.div`
@@ -45,7 +56,7 @@ const Project = ({ project }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <Container>
+    <Container isActive={isActive}>
       {/* Project Title */}
       <Grid
         node="button"
