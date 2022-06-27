@@ -10,6 +10,7 @@ const FeaturedProjects = styled.section`
 
 const ProjectsTitle = styled.div`
   position: relative;
+  background-color: var(--color-white);
   border-top: 0.5px solid var(--color-rich-black);
 `;
 

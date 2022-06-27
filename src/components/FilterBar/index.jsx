@@ -6,6 +6,7 @@ import { Grid } from "~components";
 import { useSanityTags } from "~hooks";
 
 const Container = styled.div`
+  background-color: var(--color-white);
   border-top: 0.5px solid var(--color-rich-black);
 `;
 
