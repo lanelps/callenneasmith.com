@@ -16,8 +16,7 @@ const Container = styled.div`
 
   display: flex;
 
-  padding: 10px;
-  padding-left: 0px;
+  padding: 0.625rem 0;
   background-color: var(--color-white);
   color: var(--color-rich-black);
   border-bottom: 1px solid var(--color-rich-black);
@@ -57,7 +56,8 @@ const Dropdown = styled.div`
 
 const Contacts = styled.ul`
   position: relative;
-  padding: 12px 0px;
+  padding: 0.75rem 0;
+  color: var(--color-off-black);
 `;
 
 const NavBar = ({ title, role, contact }) => {
@@ -73,15 +73,11 @@ const NavBar = ({ title, role, contact }) => {
     }
   }, [contactsRef?.current]);
 
-  useEffect(() => {
-    console.log(`dropdownHeight`, dropdownHeight);
-  }, [dropdownHeight]);
-
   return (
     <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
       <Grid>
-        <Title>{title}</Title>
-        <Role>{role}</Role>
+        <Title className="h1">{title}</Title>
+        <Role className="h1">{role}</Role>
         <button
           type="button"
           css={css`
@@ -89,12 +85,13 @@ const NavBar = ({ title, role, contact }) => {
             grid-column: 6;
             text-align: left;
           `}
+          className="h1"
           onMouseEnter={() => setShowContacts(true)}
         >
           Contact
         </button>
         <Dropdown show={showContacts} dropdownHeight={dropdownHeight}>
-          <Contacts ref={contactsRef}>
+          <Contacts ref={contactsRef} className="h1">
             {contact.map((item) => (
               <a href={`${item.url}`} target="_blank" rel="noopener noreferrer">
                 <li>{item.label}</li>

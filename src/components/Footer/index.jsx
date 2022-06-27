@@ -2,43 +2,39 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
+import { Grid } from "~components";
+
 const Footer = styled.div`
-  background: #f7f7f7;
-  font-family: "Neue Haas Grotesk Display Pro";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 110%;
-  letter-spacing: 0.01em;
+  position: relative;
+  width: 100%;
+
+  padding: 3rem 0.75rem 0.75rem;
+
+  background: var(--color-white);
   text-transform: uppercase;
-  padding: 48px 12px 12px 12px;
-  display: flex;
+
+  a:first-of-type {
+    grid-column: 4 / span 1;
+  }
 `;
 
-const footer = () => (
-  <Footer>
-    <h5
-      css={css`
-        padding-right: 664px;
-      `}
-    >
-      Callen Neasmith 2022 ©
-    </h5>
-    <h5
-      css={css`
-        color: #595959;
-        padding-right: 105px;
-      `}
-    >
-      calneasmith@gmail.com
-    </h5>
-    <h5
-      css={css`
-        color: #595959;
-      `}
-    >
-      @callencallencallen
-    </h5>
+const footer = ({ className, contact }) => (
+  <Footer className={`${className} caption`}>
+    <Grid>
+      <h5>Callen Neasmith 2022 ©</h5>
+      {contact.map((item) => (
+        <a
+          href={`${item.url}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          css={css`
+            color: var(--color-off-black);
+          `}
+        >
+          {item.label}
+        </a>
+      ))}
+    </Grid>
   </Footer>
 );
 
