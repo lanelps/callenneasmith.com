@@ -81,11 +81,11 @@ const Fonts = () => (
       // breakpoints (ASC) //
 
       ${breakpoint(`large-tablet`)} {
-        .h1,
-        .b1 {
-          font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
-          font-weight: 500;
-        }
+        // .h1,
+        // .b1 {
+        //   font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
+        //   font-weight: 400;
+        // }
 
         //
         // headings //
