@@ -1,37 +1,36 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { useStaticQuery, graphql } from "gatsby";
+
 import { Grid } from "~components";
+import { useSanityTags } from "~hooks";
 
 const Container = styled.div`
-  font-size: 10px;
-  line-height: 110%;
-  border: 0.5px solid #000000;
+  border-top: 0.5px solid var(--color-rich-black);
 `;
+
 const Buttons = styled.div`
   display: flex;
-  padding: 10px 0px;
-  gap: 12px;
+  padding: 0.625rem 0;
+  gap: 0.75rem;
 `;
 
 const Button = styled.button`
-  border-radius: 40px;
-  padding: 4px 6px;
-  font-size: 10px;
+  border-radius: 2.5rem;
+  padding: 0.25rem 0.375rem;
 
   color: ${({ color }) => color || ``};
   border: 1px solid ${({ color }) => color || ``};
 
   :hover {
     background-color: ${({ color }) => color || ``};
-    color: #ffffff;
+    color: var(--color-white);
   }
 
   ${({ activeFilters, color, name }) =>
     activeFilters?.includes(name) &&
     `background-color: ${color || ``};
-    color: #ffffff;
+    color: var(--color-white);
     `}
 
   text-transform: uppercase;
@@ -40,27 +39,7 @@ const Button = styled.button`
 `;
 
 const FilterBar = ({ activeFilters, setActiveFilters }) => {
-  const data = useStaticQuery(graphql`
-    query Tags {
-      allSanityTag {
-        edges {
-          node {
-            id
-            name
-            colour {
-              value {
-                hex
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  const {
-    allSanityTag: { edges: tags }
-  } = data;
+  const tags = useSanityTags();
 
   const handleClick = (name) => {
     if (activeFilters?.includes(name)) {
@@ -75,13 +54,16 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
 
   return (
     <Container>
-      <Grid>
+      <Grid
+        css={css`
+          align-items: center;
+        `}
+      >
         <h2
           css={css`
             grid-column: 1 / span 3;
-            padding: 14px 0px;
-            font-weight: 500;
           `}
+          className="caption"
         >
           SELECTED PROJECTS
         </h2>
@@ -92,14 +74,15 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
         >
           {tags.map((tag) => (
             <Button
-              key={tag.node.id}
-              onClick={() => handleClick(tag.node.name)}
-              color={tag.node.colour.value.hex}
+              key={tag.id}
+              onClick={() => handleClick(tag.name)}
+              color={tag.colour.value.hex}
               activeFilters={activeFilters}
-              name={tag.node.name}
+              name={tag.name}
+              className="caption"
             >
               <span>
-                {tag.node.name} {activeFilters?.includes(tag.node.name) && `X`}
+                {tag.name} {activeFilters?.includes(tag.name) && `X`}
               </span>
             </Button>
           ))}
