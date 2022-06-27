@@ -8,12 +8,12 @@ import { Image } from "~components";
 const Container = styled.ul`
   position: relative;
   width: 100%;
-  height: 428px;
+  height: 28rem;
 
   display: flex;
   gap: 6px;
 
-  padding-bottom: 1rem;
+  padding-bottom: 0.75rem;
 
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
