@@ -1,12 +1,16 @@
 import React from "react";
 import { css, Global } from "@emotion/react";
-import FK_GROTESK_REGULAR_WOFF from "~assets/fonts/FKGrotesk-Regular.woff";
-import FK_GROTESK_REGULAR_WOFF2 from "~assets/fonts/FKGrotesk-Regular.woff2";
+
 import { breakpoint } from "~utils/css.js";
+
+import NEUE_HAAS_DISPLAY_ROMAN_WOFF2 from "~assets/fonts/NeueHaasDisplayRoman.woff2";
+import NEUE_HAAS_DISPLAY_ROMAN_WOFF from "~assets/fonts/NeueHaasDisplayRoman.woff";
+import NEUE_HAAS_DISPLAY_MEDIUM_WOFF2 from "~assets/fonts/NeueHaasDisplayMedium.woff2";
+import NEUE_HAAS_DISPLAY_MEDIUM_WOFF from "~assets/fonts/NeueHaasDisplayMedium.woff";
 
 const SANS_FALLBACKS = `"Helvetica Neue", "Helvetica", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
 
-const FK_GROTESK_TEXT_GROUP = `"FK Grotesk", ${SANS_FALLBACKS}`;
+const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Neue Haas Display", ${SANS_FALLBACKS}`;
 
 /** ============================================================================
  * @component
@@ -16,49 +20,52 @@ const Fonts = () => (
   <Global
     styles={css`
       @font-face {
-        font-family: "FK Grotesk";
-        src: url(${FK_GROTESK_REGULAR_WOFF2}) format("woff2"),
-          url(${FK_GROTESK_REGULAR_WOFF}) format("woff");
+        font-family: "Neue Haas Display";
+        src: url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF2}) format("woff2"),
+          url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF}) format("woff");
         font-display: block;
-        font-weight: normal;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Neue Haas Display";
+        src: url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF2}) format("woff2"),
+          url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF}) format("woff");
+        font-display: block;
+        font-weight: 500;
         font-style: normal;
       }
 
       //
       // common //
 
-      .d1,
       .h1,
-      .b1,
-      .caption {
-        font-family: ${FK_GROTESK_TEXT_GROUP};
-        font-weight: normal;
+      .b1 {
+        font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
+        font-weight: 400;
       }
 
-      //
-      // display //
-
-      .d1 {
-        font-size: max(13.33vw, 48px);
-        line-height: 1.1;
-        letter-spacing: -0.01em;
+      .caption {
+        font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
+        font-weight: 500;
       }
 
       //
       // headings //
 
       .h1 {
-        font-size: 28px;
-        line-height: 1;
-        letter-spacing: -0.03em;
+        font-size: 20px;
+        line-height: 23.2px;
+        letter-spacing: -0.02em;
       }
 
       //
       // body //
 
       .b1 {
-        font-size: 16px;
-        line-height: 1.2;
+        font-size: 14px;
+        line-height: 14.84px;
         letter-spacing: -0.01em;
       }
 
@@ -66,52 +73,43 @@ const Fonts = () => (
       // other //
 
       .caption {
-        font-size: 12px;
-        line-height: 1.2;
-        letter-spacing: 0.02em;
+        font-size: 9px;
+        line-height: 9.54px;
       }
 
       //
       // breakpoints (ASC) //
 
-      ${breakpoint(`tablet`)} {
-        .d1 {
-          font-size: 13.48vw;
-        }
-      }
-
       ${breakpoint(`large-tablet`)} {
-        //
-        // display //
-
-        .d1 {
-          font-size: min(10.42vw, 150px);
+        .h1,
+        .b1 {
+          font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
+          font-weight: 500;
         }
 
         //
         // headings //
 
         .h1 {
-          font-size: 60px;
-          line-height: 1.2;
-          letter-spacing: -0.03em;
+          font-size: 32px;
+          line-height: 38.4px;
+          letter-spacing: -0.01em;
         }
 
         //
         // body //
 
         .b1 {
-          font-size: 28px;
-          line-height: 1.15;
-          letter-spacing: -0.01em;
+          font-size: 18px;
+          line-height: 19.8px;
         }
 
         //
         // other //
 
         .caption {
-          font-size: 14px;
-          line-height: 1.2;
+          font-size: 10px;
+          line-height: 11px;
           letter-spacing: 0.01em;
         }
       }
