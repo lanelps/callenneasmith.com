@@ -87,7 +87,7 @@ const Project = ({ project }) => {
         )}
       </Grid>
 
-      <Expand project={project} isActive={isActive} />
+      <Expand project={project} isActive={isActive} setIsActive={setIsActive} />
     </Container>
   );
 };

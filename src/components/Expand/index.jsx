@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { PopOut, Grid, ImageCarousel } from "~components";
+import { Grid, ImageCarousel, PopOut } from "~components";
 
 const Container = styled.div`
   height: ${({ height }) => `${height}px`};
@@ -42,7 +42,7 @@ const Links = styled.div`
   color: var(--color-off-black);
 `;
 
-const Expand = ({ project, isActive }) => {
+const Expand = ({ project, isActive, setIsActive }) => {
   const [height, setHeight] = useState(0);
 
   const ref = useRef();
@@ -94,7 +94,11 @@ const Expand = ({ project, isActive }) => {
             </ExternalLinks>
           )}
 
-          {/* <PopOut /> */}
+          <PopOut
+            image={project?.images?.[0]}
+            isActive={isActive}
+            setIsActive={setIsActive}
+          />
         </ContentWrapper>
       </Grid>
     </Container>
