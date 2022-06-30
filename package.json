@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.9.3",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.2",
+    "@svgr/webpack": "^6.2.1",
     "dotenv": "^16.0.1",
     "embla-carousel-react": "^6.2.0",
     "gatsby": "^4.17.1",
@@ -31,6 +32,7 @@
     "gatsby-plugin-root-import": "^2.0.8",
     "gatsby-plugin-sharp": "^4.17.0",
     "gatsby-plugin-sitemap": "^5.17.0",
+    "gatsby-plugin-svgr": "^3.0.0-beta.0",
     "gatsby-source-filesystem": "^4.17.0",
     "gatsby-source-sanity": "^7.4.2",
     "gatsby-transformer-json": "^4.17.0",
@@ -40,6 +42,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
     "react-helmet": "^6.1.0",
     "react-intersection-observer": "^9.3.4"
   },

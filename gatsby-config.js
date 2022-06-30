@@ -52,6 +52,7 @@ module.exports = {
         watchMode: !isProd,
         overlayDrafts: !isProd || previewEnabled
       }
-    }
+    },
+    `gatsby-plugin-svgr`
   ]
 };
