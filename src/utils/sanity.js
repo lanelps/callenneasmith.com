@@ -5,7 +5,6 @@ export const sanityConfig = {
   projectId: process.env.GATSBY_SANITY_PROJECT_ID,
   dataset: process.env.GATSBY_SANITY_DATASET,
   apiVersion: `2022-06-21`, // use current UTC date - see "specifying API version"!
-  token: process.env.GATSBY_SANITY_TOKEN, // or leave blank for unauthenticated usage
   useCdn: true // `false` if you want to ensure fresh data
 };
 
