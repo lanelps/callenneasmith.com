@@ -19,19 +19,20 @@ const Footer = styled.div`
 `;
 
 const footer = ({ className, contact }) => (
-  <Footer className={`${className} caption`}>
+  <Footer className={`${(className && `${className} `) || ``}caption`}>
     <Grid>
       <h5>Callen Neasmith 2022 ©</h5>
       {contact.map((item) => (
         <a
-          href={`${item.url}`}
+          key={`${item?._key}-footer`}
+          href={`${item?.url}`}
           target="_blank"
           rel="noopener noreferrer"
           css={css`
             color: var(--color-off-black);
           `}
         >
-          {item.label}
+          {item?.label}
         </a>
       ))}
     </Grid>

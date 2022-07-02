@@ -93,8 +93,13 @@ const NavBar = ({ title, role, contact }) => {
         <Dropdown show={showContacts} dropdownHeight={dropdownHeight}>
           <Contacts ref={contactsRef} className="h1">
             {contact.map((item) => (
-              <a href={`${item.url}`} target="_blank" rel="noopener noreferrer">
-                <li>{item.label}</li>
+              <a
+                key={`${item?._key}-nav`}
+                href={`${item?.url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <li>{item?.label}</li>
               </a>
             ))}
           </Contacts>

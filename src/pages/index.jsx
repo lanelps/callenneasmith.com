@@ -20,6 +20,7 @@ export const query = graphql`
   query {
     sanitySettings {
       contact {
+        _key
         label
         url
       }
