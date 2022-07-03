@@ -2,32 +2,47 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import { Theme, NavBar, Footer } from "~components";
+import { Theme, NavBar, Footer, PopOutImage } from "~components";
+import { useApp } from "~hooks";
 
-const Layout = ({ children, className, data }) => (
-  <>
-    <Theme />
-    <div
-      css={css`
-        min-height: 100vh;
+const Layout = ({ children, className, data }) => {
+  const { popOuts } = useApp();
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+  return (
+    <>
+      <Theme />
+      <div
+        css={css`
+          min-height: 100vh;
 
-        background-color: var(--color-off-white);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
 
-        overflow: hidden;
-      `}
-    >
-      <NavBar {...data.sanitySettings} />
-      <main id="app-root" className={className}>
-        {children}
-      </main>
-      <Footer {...data.sanitySettings} />
-    </div>
-  </>
-);
+          background-color: var(--color-off-white);
+
+          overflow: hidden;
+        `}
+      >
+        <NavBar {...data.sanitySettings} />
+        <main id="app-root" className={className}>
+          {children}
+
+          {popOuts.map((popOut) => (
+            <PopOutImage
+              key={popOut?.id}
+              id={popOut?.id}
+              image={popOut?.image}
+              active={popOut?.active}
+              setActive={popOut?.setActive}
+            />
+          ))}
+        </main>
+        <Footer {...data.sanitySettings} />
+      </div>
+    </>
+  );
+};
 
 Layout.defaultProps = {
   className: ``

@@ -43,9 +43,10 @@ const Links = styled.div`
 `;
 
 const Expand = ({ project, isActive, setIsActive }) => {
-  const [height, setHeight] = useState(0);
-
   const ref = useRef();
+  const loadedRef = useRef(false);
+
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     if (!ref?.current) return;
@@ -56,6 +57,14 @@ const Expand = ({ project, isActive, setIsActive }) => {
       setHeight(0);
     }
   }, [isActive]);
+
+  useEffect(() => {
+    if (isActive && !loadedRef.current) {
+      loadedRef.current = true;
+    }
+  }, [isActive]);
+
+  useEffect(() => {}, []);
 
   return (
     <Container isActive={isActive} height={height}>
@@ -70,7 +79,7 @@ const Expand = ({ project, isActive, setIsActive }) => {
           css={css`
             grid-column: 1 / -1;
           `}
-          isActive={isActive}
+          loaded={loadedRef?.current}
         />
 
         <ContentWrapper>
@@ -95,8 +104,9 @@ const Expand = ({ project, isActive, setIsActive }) => {
           )}
 
           <PopOut
+            id={project?._id}
             image={project?.images?.[0]}
-            isActive={isActive}
+            loaded={loadedRef?.current}
             setIsActive={setIsActive}
           />
         </ContentWrapper>

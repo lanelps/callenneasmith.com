@@ -33,19 +33,12 @@ const Slide = styled.li`
   }
 `;
 
-const ImageCarousel = ({ images, className, isActive }) => {
+const ImageCarousel = ({ images, className, loaded }) => {
   const ref = useRef();
-  const loadedRef = useRef(false);
-
-  useEffect(() => {
-    if (isActive && !loadedRef.current) {
-      loadedRef.current = true;
-    }
-  }, [isActive]);
 
   return (
     <Container className={className} ref={ref}>
-      {loadedRef?.current &&
+      {loaded &&
         images.map((image, index) => (
           <Slide key={image?._key}>
             <figure>
