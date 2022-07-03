@@ -5,6 +5,10 @@ import { css } from "@emotion/react";
 import { Grid } from "~components";
 import { useApp } from "~hooks";
 
+import { breakpoint } from "~utils/css";
+
+import { ReactComponent as Cross } from "~assets/svg/cross.svg";
+
 const Container = styled.div`
   position: fixed;
   top: 0;
@@ -17,9 +21,9 @@ const Container = styled.div`
   display: flex;
 
   padding: 0.625rem 0;
-  background-color: var(--color-white);
+  background-color: var(--color-off-white);
   color: var(--color-rich-black);
-  border-bottom: 1px solid var(--color-rich-black);
+  border-bottom: 1px solid var(--color-off-black);
 
   font-family: "Neue Haas Grotesk Display Pro";
   font-size: 32px;
@@ -37,27 +41,58 @@ const Title = styled.h1`
 `;
 
 const Role = styled.h2`
-  grid-column: 4 / span 2;
+  display: none;
+
+  ${breakpoint(`large-tablet`)} {
+    display: block;
+    grid-column: 4 / span 2;
+  }
+`;
+
+const ContactButton = styled.button`
+  display: none;
+
+  ${breakpoint(`large-tablet`)} {
+    display: block;
+    color: var(--color-off-black);
+    grid-column: 6;
+    text-align: left;
+  }
 `;
 
 const Dropdown = styled.div`
   position: relative;
-  grid-column: 6 / span 1;
+  grid-column: 1 / -1;
 
   height: ${({ show, dropdownHeight }) => (show ? `${dropdownHeight}px` : `0`)};
-
   margin: 0;
+  border-top: 1px solid
+    ${({ show }) => (show ? `var(--color-off-black)` : `transparent`)};
 
   z-index: 2;
   overflow: hidden;
+  transition: height 0.3s ease, border-color 0.3s ease;
 
-  transition: height 0.3s ease;
+  ${breakpoint(`large-tablet`)} {
+    grid-column: 6 / span 1;
+    border: none;
+  }
 `;
 
 const Contacts = styled.ul`
   position: relative;
-  padding: 0.75rem 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  padding-top: 0.6rem;
   color: var(--color-off-black);
+
+  ${breakpoint(`large-tablet`)} {
+    padding: 0.75rem 0;
+    display: block;
+  }
 `;
 
 const NavBar = ({ title, role, contact }) => {
@@ -75,21 +110,52 @@ const NavBar = ({ title, role, contact }) => {
 
   return (
     <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
-      <Grid>
+      <Grid
+        css={css`
+          align-items: center;
+        `}
+      >
         <Title className="h1">{title}</Title>
         <Role className="h1">{role}</Role>
-        <button
+
+        <ContactButton
           type="button"
-          css={css`
-            color: var(--color-off-black);
-            grid-column: 6;
-            text-align: left;
-          `}
           className="h1"
           onMouseEnter={() => setShowContacts(true)}
         >
           Contact
+        </ContactButton>
+
+        <button
+          type="button"
+          css={css`
+            grid-column: 6 / span 1;
+            display: block;
+            padding: 0 0.5rem;
+
+            ${breakpoint(`large-tablet`)} {
+              display: none;
+            }
+          `}
+          onClick={() => setShowContacts(!showContacts)}
+        >
+          <Cross
+            css={css`
+              position: relative;
+              width: 1rem;
+              height: 1rem;
+
+              color: ${showContacts
+                ? `var(--color-off-black)`
+                : `var(--color-rich-black)`};
+
+              transform: rotate(${showContacts ? `-45deg` : `0deg`});
+
+              transition: transform 0.15s ease;
+            `}
+          />
         </button>
+
         <Dropdown show={showContacts} dropdownHeight={dropdownHeight}>
           <Contacts ref={contactsRef} className="h1">
             {contact.map((item) => (
