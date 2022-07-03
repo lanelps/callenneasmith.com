@@ -82,11 +82,13 @@ const Projects = ({ projects }) => {
       </ProjectsTitle>
 
       <AllProjects className="b1">
-        {allProjects.map((project) => (
-          <li key={project._id}>
-            <Project project={project} />
-          </li>
-        ))}
+        <ul>
+          {allProjects.map((project) => (
+            <li key={project._id}>
+              <Project project={project} />
+            </li>
+          ))}
+        </ul>
       </AllProjects>
     </section>
   );
