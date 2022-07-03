@@ -10,12 +10,17 @@ import { Image } from "~components";
 import { useApp } from "~hooks";
 
 import { sanityConfig } from "~utils/sanity";
+import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   padding: 0.5rem 0.75rem;
-  height: 25vw;
+  height: 107.2vw;
 
   overflow: hidden;
+
+  ${breakpoint(`large-tablet`)} {
+    height: 25vw;
+  }
 `;
 
 const HoverFigure = styled.figure`
