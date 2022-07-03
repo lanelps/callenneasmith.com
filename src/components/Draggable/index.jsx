@@ -16,7 +16,7 @@ const Container = styled.div`
 
   transform: ${({ position: { x, y } }) => `translate3d(${x}px, ${y}px, 0);`};
 
-  cursor: pointer;
+  cursor: ${({ canDrag }) => (canDrag ? `grabbing` : `grab`)};
 `;
 
 const Draggable = ({
@@ -113,6 +113,7 @@ const Draggable = ({
       onMouseDown={downHandler}
       onMouseUp={upHandler}
       onMouseMove={moveHandler}
+      canDrag={canDrag}
     >
       {children}
     </Container>
