@@ -69,7 +69,7 @@ const Projects = ({ projects }) => {
 
               text-transform: uppercase;
 
-              ${breakpoint(`large-tablet`)} {
+              ${breakpoint(`tablet`)} {
                 grid-column: 1 / span 3;
                 padding-top: 2rem;
               }

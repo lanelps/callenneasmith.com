@@ -41,7 +41,7 @@ const Grid = forwardRef(({ children, className, node, onClick }, ref) => {
           gap: 0 ${GRID_MOBILE_GAP_REM}rem;
           padding: 0 ${GRID_MOBILE_PADDING_REM}rem;
 
-          ${breakpoint(`large-tablet`)} {
+          ${breakpoint(`tablet`)} {
             gap: 0 ${GRID_GAP_REM}rem;
             padding: 0 ${GRID_PADDING_REM}rem;
           }

@@ -14,12 +14,16 @@ import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   padding: 0.5rem 0.75rem;
-  height: 107.2vw;
+  min-height: 107.2vw;
 
   overflow: hidden;
 
+  ${breakpoint(`large-mobile`)} {
+    min-height: 50vw;
+  }
+
   ${breakpoint(`large-tablet`)} {
-    height: 25vw;
+    min-height: 25vw;
   }
 `;
 
@@ -41,7 +45,7 @@ const HoverContainer = styled.div`
   cursor: pointer;
   z-index: 100;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     pointer-events: none;
   }
 `;

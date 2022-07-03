@@ -43,7 +43,7 @@ const Title = styled.h1`
 const Role = styled.h2`
   display: none;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     display: block;
     grid-column: 4 / span 2;
   }
@@ -52,7 +52,7 @@ const Role = styled.h2`
 const ContactButton = styled.button`
   display: none;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     display: block;
     color: var(--color-off-black);
     grid-column: 6;
@@ -73,7 +73,7 @@ const Dropdown = styled.div`
   overflow: hidden;
   transition: height 0.3s ease, border-color 0.3s ease;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     grid-column: 6 / span 1;
     border: none;
   }
@@ -89,7 +89,7 @@ const Contacts = styled.ul`
   padding-top: 0.6rem;
   color: var(--color-off-black);
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     padding: 0.75rem 0;
     display: block;
   }
@@ -133,7 +133,7 @@ const NavBar = ({ title, role, contact }) => {
             display: block;
             padding: 0 0.5rem;
 
-            ${breakpoint(`large-tablet`)} {
+            ${breakpoint(`tablet`)} {
               display: none;
             }
           `}

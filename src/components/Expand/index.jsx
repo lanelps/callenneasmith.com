@@ -24,7 +24,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   gap: 1.125rem;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     grid-column: 1 / span 3;
     gap: 1.5rem;
   }
@@ -81,7 +81,7 @@ const Expand = ({ project, isActive, setIsActive }) => {
         css={css`
           padding-bottom: 1.5rem;
 
-          ${breakpoint(`large-tablet`)} {
+          ${breakpoint(`tablet`)} {
             padding-bottom: 1.625rem;
           }
         `}

@@ -80,7 +80,7 @@ const Fonts = () => (
       //
       // breakpoints (ASC) //
 
-      ${breakpoint(`large-tablet`)} {
+      ${breakpoint(`tablet`)} {
         // .h1,
         // .b1 {
         //   font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};

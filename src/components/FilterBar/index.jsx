@@ -13,7 +13,7 @@ const Container = styled.div`
 
   padding: 0.75rem 0;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     padding: 0;
   }
 `;
@@ -25,7 +25,7 @@ const Buttons = styled.div`
 
   overflow-x: scroll;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     padding: 0.625rem 0;
   }
 `;
@@ -79,7 +79,7 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
             grid-column: 1 / -1;
             margin-bottom: 0.75rem;
 
-            ${breakpoint(`large-tablet`)} {
+            ${breakpoint(`tablet`)} {
               grid-column: 1 / span 3;
               margin-bottom: 0;
             }
@@ -92,7 +92,7 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
           css={css`
             grid-column: 1 / -1;
 
-            ${breakpoint(`large-tablet`)} {
+            ${breakpoint(`tablet`)} {
               grid-column: 4 / span 3;
             }
           `}

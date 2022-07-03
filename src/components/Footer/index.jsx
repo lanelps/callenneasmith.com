@@ -24,7 +24,7 @@ const Footer = styled.div`
     grid-column: 1 / span 3;
   }
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     padding: 3rem 0.75rem 0.75rem;
 
     h5 {

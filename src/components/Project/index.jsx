@@ -27,7 +27,7 @@ const ProjectName = styled.div`
   align-items: center;
   gap: 0.375rem;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     grid-column: 1 / span 3;
     gap: 0.625rem;
   }
@@ -37,7 +37,7 @@ const Circles = styled.div`
   display: flex;
   gap: 0.1875rem;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     gap: 0.25rem;
   }
 `;
@@ -48,7 +48,7 @@ const Circle = styled.div`
   background-color: ${({ color }) => color || `#000000`};
   border-radius: 100%;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     width: 0.75rem;
     height: 0.75rem;
   }
@@ -59,7 +59,7 @@ const ClientName = styled.p`
   color: var(--color-off-black);
   text-align: right;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     grid-column: 4 / span 2;
     text-align: left;
   }
@@ -73,7 +73,7 @@ const Time = styled.p`
   color: var(--color-off-black);
   text-align: left;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     grid-column: 6 / span 1;
     margin-top: 0;
   }
@@ -90,7 +90,7 @@ const Project = ({ project }) => {
         css={css`
           padding: 0.75rem;
 
-          ${breakpoint(`large-tablet`)} {
+          ${breakpoint(`tablet`)} {
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
           }

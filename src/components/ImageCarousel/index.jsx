@@ -20,7 +20,7 @@ const Container = styled.ul`
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
 
-  ${breakpoint(`large-tablet`)} {
+  ${breakpoint(`tablet`)} {
     height: 31vw;
     padding-bottom: 0.75rem;
   }
