@@ -82,9 +82,7 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
               name={tag.name}
               className="caption"
             >
-              <span>
-                {tag.name} {activeFilters?.includes(tag.name) && `X`}
-              </span>
+              <span>{tag.name}</span>
             </Button>
           ))}
         </Buttons>
