@@ -53,6 +53,17 @@ module.exports = {
         overlayDrafts: !isProd || previewEnabled
       }
     },
-    `gatsby-plugin-svgr`
+    `gatsby-plugin-svgr`,
+    {
+      resolve: `gatsby-plugin-breakpoints`,
+      options: {
+        queries: {
+          isMobile: `(max-width: 428px)`,
+          isTablet: `(min-width: 429px)`,
+          isDesktop: `(min-width: 1025px)`,
+          isLarge: `(min-width: 1441px)`
+        }
+      }
+    }
   ]
 };

@@ -21,35 +21,62 @@ const Container = styled.article`
   transition: background-color 0.3s ease;
 `;
 
+const ProjectName = styled.div`
+  grid-column: 1 / span 4;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+
+  ${breakpoint(`large-tablet`)} {
+    grid-column: 1 / span 3;
+    gap: 0.625rem;
+  }
+`;
+
 const Circles = styled.div`
   display: flex;
-  gap: 0.25rem;
+  gap: 0.1875rem;
+
+  ${breakpoint(`large-tablet`)} {
+    gap: 0.25rem;
+  }
 `;
 
 const Circle = styled.div`
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.5rem;
+  height: 0.5rem;
   background-color: ${({ color }) => color || `#000000`};
   border-radius: 100%;
-`;
 
-const ProjectName = styled.div`
-  grid-column: 1 / span 3;
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
+  ${breakpoint(`large-tablet`)} {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
 `;
 
 const ClientName = styled.p`
-  grid-column: 4 / span 2;
+  grid-column: 5 / span 2;
   color: var(--color-off-black);
-  text-align: left;
+  text-align: right;
+
+  ${breakpoint(`large-tablet`)} {
+    grid-column: 4 / span 2;
+    text-align: left;
+  }
 `;
 
 const Time = styled.p`
-  grid-column: 6 / span 1;
+  grid-column: 1 / -1;
+
+  margin-top: 0.125rem;
+
   color: var(--color-off-black);
   text-align: left;
+
+  ${breakpoint(`large-tablet`)} {
+    grid-column: 6 / span 1;
+    margin-top: 0;
+  }
 `;
 
 const Project = ({ project }) => {
@@ -61,6 +88,8 @@ const Project = ({ project }) => {
       <Grid
         node="button"
         css={css`
+          padding: 0.75rem;
+
           ${breakpoint(`large-tablet`)} {
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;

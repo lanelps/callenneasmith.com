@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { Grid, ImageCarousel, PopOut } from "~components";
+
+import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   height: ${({ height }) => `${height}px`};
@@ -15,11 +18,16 @@ const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
 
-  grid-column: 1 / span 3;
+  grid-column: 1 / -1;
 
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.125rem;
+
+  ${breakpoint(`large-tablet`)} {
+    grid-column: 1 / span 3;
+    gap: 1.5rem;
+  }
 `;
 
 const Description = styled.p``;
@@ -48,6 +56,8 @@ const Expand = ({ project, isActive, setIsActive }) => {
 
   const [height, setHeight] = useState(0);
 
+  const { isDesktop } = useBreakpoint();
+
   useEffect(() => {
     if (!ref?.current) return;
 
@@ -64,14 +74,16 @@ const Expand = ({ project, isActive, setIsActive }) => {
     }
   }, [isActive]);
 
-  useEffect(() => {}, []);
-
   return (
     <Container isActive={isActive} height={height}>
       <Grid
         ref={ref}
         css={css`
-          padding-bottom: 1.625rem !important;
+          padding-bottom: 1.5rem;
+
+          ${breakpoint(`large-tablet`)} {
+            padding-bottom: 1.625rem;
+          }
         `}
       >
         <ImageCarousel
@@ -103,12 +115,14 @@ const Expand = ({ project, isActive, setIsActive }) => {
             </ExternalLinks>
           )}
 
-          <PopOut
-            id={project?._id}
-            image={project?.images?.[0]}
-            loaded={loadedRef?.current}
-            setIsActive={setIsActive}
-          />
+          {isDesktop && (
+            <PopOut
+              id={project?._id}
+              image={project?.images?.[0]}
+              loaded={loadedRef?.current}
+              setIsActive={setIsActive}
+            />
+          )}
         </ContentWrapper>
       </Grid>
     </Container>

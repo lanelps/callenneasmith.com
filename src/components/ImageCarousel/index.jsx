@@ -5,18 +5,25 @@ import { css } from "@emotion/react";
 
 import { Image } from "~components";
 
+import { breakpoint } from "~utils/css";
+
 const Container = styled.ul`
   position: relative;
   width: 100%;
-  height: 28rem;
+  height: 62.4vw;
 
   display: flex;
   gap: 6px;
 
-  padding-bottom: 0.75rem;
+  padding-bottom: 1rem;
 
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
+
+  ${breakpoint(`large-tablet`)} {
+    height: 31vw;
+    padding-bottom: 0.75rem;
+  }
 `;
 
 const Slide = styled.li`
@@ -30,6 +37,7 @@ const Slide = styled.li`
 
     display: flex;
     flex-direction: column;
+    gap: 0.375rem;
   }
 `;
 
