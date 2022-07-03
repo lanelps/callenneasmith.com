@@ -3,6 +3,8 @@ import { FilterBar, Project, Grid } from "~components";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
+import { breakpoint } from "~utils/css";
+
 const FeaturedProjects = styled.section`
   position: relative;
   width: 100%;
@@ -60,10 +62,17 @@ const Projects = ({ projects }) => {
         <Grid>
           <h2
             css={css`
-              grid-column: 1 / span 3;
-              padding-top: 2rem;
+              grid-column: 1 / -1;
+
+              padding-top: 2.25rem;
               padding-bottom: 0.625rem;
+
               text-transform: uppercase;
+
+              ${breakpoint(`large-tablet`)} {
+                grid-column: 1 / span 3;
+                padding-top: 2rem;
+              }
             `}
             className="caption"
           >

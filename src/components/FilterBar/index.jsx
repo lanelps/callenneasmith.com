@@ -5,15 +5,29 @@ import { css } from "@emotion/react";
 import { Grid } from "~components";
 import { useSanityTags } from "~hooks";
 
+import { breakpoint } from "~utils/css";
+
 const Container = styled.div`
   background-color: var(--color-white);
   border-top: 0.5px solid var(--color-rich-black);
+
+  padding: 0.75rem 0;
+
+  ${breakpoint(`large-tablet`)} {
+    padding: 0;
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
-  padding: 0.625rem 0;
+  padding: 0;
   gap: 0.75rem;
+
+  overflow-x: scroll;
+
+  ${breakpoint(`large-tablet`)} {
+    padding: 0.625rem 0;
+  }
 `;
 
 const Button = styled.button`
@@ -62,7 +76,13 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
       >
         <h2
           css={css`
-            grid-column: 1 / span 3;
+            grid-column: 1 / -1;
+            margin-bottom: 0.75rem;
+
+            ${breakpoint(`large-tablet`)} {
+              grid-column: 1 / span 3;
+              margin-bottom: 0;
+            }
           `}
           className="caption"
         >
@@ -70,7 +90,11 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
         </h2>
         <Buttons
           css={css`
-            grid-column: 4 / span 3;
+            grid-column: 1 / -1;
+
+            ${breakpoint(`large-tablet`)} {
+              grid-column: 4 / span 3;
+            }
           `}
         >
           {tags.map((tag) => (

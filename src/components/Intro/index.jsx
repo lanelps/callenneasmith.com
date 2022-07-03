@@ -14,6 +14,8 @@ import { sanityConfig } from "~utils/sanity";
 const Container = styled.div`
   padding: 0.5rem 0.75rem;
   height: 25vw;
+
+  overflow: hidden;
 `;
 
 const HoverFigure = styled.figure`
