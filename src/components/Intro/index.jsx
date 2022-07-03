@@ -23,8 +23,31 @@ const Container = styled.div`
   }
 `;
 
-const HoverFigure = styled.figure`
+const HoverContainer = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: ${({ isActive }) =>
+    isActive ? `rgba(0,0,0,0.4)` : `rgba(0,0,0,0)`};
+
+  transition: background-color 0.3s ease;
+
+  pointer-events: ${({ isActive }) => (isActive ? `auto` : `none`)};
+  cursor: pointer;
+  z-index: 100;
+
+  ${breakpoint(`large-tablet`)} {
+    pointer-events: none;
+  }
+`;
+
+const HoverFigure = styled.figure`
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -34,11 +57,9 @@ const HoverFigure = styled.figure`
 
   opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
   transition: opacity 0.3s ease;
-
-  pointer-events: none;
 `;
 
-const HoverImage = ({ background, image, isActive }) => {
+const HoverImage = ({ background, image, isActive, setIsActive }) => {
   const [doucmentExists, setDocumentExists] = useState(false);
 
   useEffect(() => {
@@ -60,9 +81,14 @@ const HoverImage = ({ background, image, isActive }) => {
 
   if (doucmentExists) {
     return createPortal(
-      <HoverFigure background={background} isActive={isActive}>
-        <Image image={imageSrc} css={css``} />
-      </HoverFigure>,
+      <HoverContainer
+        isActive={isActive}
+        onPointerUp={() => setIsActive(false)}
+      >
+        <HoverFigure background={background} isActive={isActive}>
+          <Image image={imageSrc} css={css``} />
+        </HoverFigure>
+      </HoverContainer>,
       document.getElementById(`app-root`)
     );
   }
@@ -88,6 +114,7 @@ const portableComponents = {
             `}
             onMouseEnter={() => setIsActive(true)}
             onMouseLeave={() => setIsActive(false)}
+            onClick={() => setIsActive(true)}
           >
             {children}
           </span>
@@ -96,6 +123,7 @@ const portableComponents = {
             image={value?.image}
             background={value?.backgroundColour?.value?.hex}
             isActive={isActive}
+            setIsActive={setIsActive}
           />
         </>
       );
