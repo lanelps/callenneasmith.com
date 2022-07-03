@@ -4,17 +4,37 @@ import { css } from "@emotion/react";
 
 import { Grid } from "~components";
 
+import { breakpoint } from "~utils/css";
+
 const Footer = styled.div`
   position: relative;
   width: 100%;
 
-  padding: 3rem 0.75rem 0.75rem;
+  padding: 1.5rem 0.75rem 0.75rem;
 
   background: var(--color-white);
   text-transform: uppercase;
 
+  h5 {
+    grid-column: 1 / -1;
+    margin-bottom: 1.5rem;
+  }
+
   a:first-of-type {
-    grid-column: 4 / span 1;
+    grid-column: 1 / span 3;
+  }
+
+  ${breakpoint(`large-tablet`)} {
+    padding: 3rem 0.75rem 0.75rem;
+
+    h5 {
+      grid-column: 1 / span 3;
+      margin-bottom: 0;
+    }
+
+    a:first-of-type {
+      grid-column: 4 / span 1;
+    }
   }
 `;
 
