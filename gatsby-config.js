@@ -11,16 +11,17 @@ const previewEnabled =
 
 module.exports = {
   siteMetadata: {
-    author: `Lane Le Prevost-Smith`,
-    description: `A bare bones Gatsby boilerplate`,
+    author: `Callen Nea Smith`,
+    description: ``,
     facebook: ``,
+    favicon: `/favicon.jpg`,
     instagram: ``,
     image: `/share.jpg`,
     keywords: ``,
     siteLanguage: `en`,
-    siteUrl: `https://www.example.com`,
-    title: `Gatsby Tinderbox`,
-    titleTemplate: `%s - Gatsby Tinderbox`
+    siteUrl: `https://callenneasmith.netlify.app/`,
+    title: `callenneasmith`,
+    titleTemplate: `%s - callenneasmith`
   },
   plugins: [
     `gatsby-plugin-image`,
