@@ -50,27 +50,20 @@ const Links = styled.div`
   color: var(--color-off-black);
 `;
 
-const Expand = ({ project, isActive, setIsActive }) => {
+const Expand = ({ project, isActive, setIsActive, loaded }) => {
   const ref = useRef();
-  const loadedRef = useRef(false);
 
   const [height, setHeight] = useState(0);
 
   const { isDesktop } = useBreakpoint();
 
   useEffect(() => {
-    if (!ref?.current) return;
+    if (!ref?.current || !loaded) return;
 
     if (isActive) {
       setHeight(ref.current.clientHeight);
     } else {
       setHeight(0);
-    }
-  }, [isActive]);
-
-  useEffect(() => {
-    if (isActive && !loadedRef.current) {
-      loadedRef.current = true;
     }
   }, [isActive]);
 
@@ -91,7 +84,7 @@ const Expand = ({ project, isActive, setIsActive }) => {
           css={css`
             grid-column: 1 / -1;
           `}
-          loaded={loadedRef?.current}
+          loaded={loaded}
         />
 
         <ContentWrapper>
@@ -119,7 +112,7 @@ const Expand = ({ project, isActive, setIsActive }) => {
             <PopOut
               id={project?._id}
               image={project?.images?.[0]}
-              loaded={loadedRef?.current}
+              loaded={loaded}
               setIsActive={setIsActive}
             />
           )}

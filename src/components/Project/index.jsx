@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
@@ -81,9 +81,16 @@ const Time = styled.p`
 
 const Project = ({ project }) => {
   const [isActive, setIsActive] = useState(false);
+  const loadedRef = useRef(false);
+
+  const handleEnter = () => {
+    if (loadedRef.current) return;
+
+    loadedRef.current = true;
+  };
 
   return (
-    <Container isActive={isActive}>
+    <Container isActive={isActive} onMouseEnter={handleEnter}>
       {/* Project Title */}
       <Grid
         node="button"
@@ -116,7 +123,12 @@ const Project = ({ project }) => {
         )}
       </Grid>
 
-      <Expand project={project} isActive={isActive} setIsActive={setIsActive} />
+      <Expand
+        project={project}
+        isActive={isActive}
+        setIsActive={setIsActive}
+        loaded={loadedRef?.current}
+      />
     </Container>
   );
 };

@@ -55,7 +55,7 @@ const Fonts = () => (
       // headings //
 
       .h1 {
-        font-size: 1.25rem;
+        font-size: 1.25rem; // 20px
         line-height: 1.45rem;
         letter-spacing: -0.02em;
       }
@@ -64,7 +64,7 @@ const Fonts = () => (
       // body //
 
       .b1 {
-        font-size: 0.875rem;
+        font-size: 0.875rem; // 14px
         line-height: 0.9275rem;
         letter-spacing: -0.01em;
       }
@@ -73,7 +73,7 @@ const Fonts = () => (
       // other //
 
       .caption {
-        font-size: 0.5625rem;
+        font-size: 0.5625rem; // 9px
         line-height: 0.59625rem;
       }
 
@@ -91,7 +91,7 @@ const Fonts = () => (
         // headings //
 
         .h1 {
-          font-size: 2rem;
+          font-size: 2rem; // 32px
           line-height: 2.4rem;
           letter-spacing: -0.01em;
         }
@@ -100,7 +100,7 @@ const Fonts = () => (
         // body //
 
         .b1 {
-          font-size: 1.125rem;
+          font-size: 1.125rem; // 18px
           line-height: 1.2375rem;
         }
 
@@ -108,7 +108,7 @@ const Fonts = () => (
         // other //
 
         .caption {
-          font-size: 0.625rem;
+          font-size: 0.625rem; // 10px
           line-height: 0.6875rem;
           letter-spacing: 0.01em;
         }
