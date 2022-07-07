@@ -83,14 +83,18 @@ const Project = ({ project }) => {
   const [isActive, setIsActive] = useState(false);
   const loadedRef = useRef(false);
 
-  const handleEnter = () => {
-    if (loadedRef.current) return;
+  const handleLoaded = () => {
+    if (loadedRef?.current) return;
 
     loadedRef.current = true;
   };
 
   return (
-    <Container isActive={isActive} onMouseEnter={handleEnter}>
+    <Container
+      isActive={isActive}
+      onMouseEnter={handleLoaded}
+      onPointerDown={handleLoaded}
+    >
       {/* Project Title */}
       <Grid
         node="button"
@@ -103,6 +107,7 @@ const Project = ({ project }) => {
           }
         `}
         onClick={() => setIsActive(!isActive)}
+        onPointerDown={() => setIsActive(!isActive)}
       >
         <ProjectName>
           <h2>{project?.name}</h2>
