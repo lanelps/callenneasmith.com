@@ -49,6 +49,9 @@ const ImageCarousel = ({ images, className, loaded }) => {
   const cursorRef = useRef();
   const size = useSize(ref);
 
+  const [offsetX, setOffsetX] = useState(
+    ref?.current?.getBoundingClientRect()?.left
+  );
   const [arrowActive, setArrowActive] = useState(false);
   const [arrowDirection, setArrowDirection] = useState(`right`);
 
@@ -57,11 +60,14 @@ const ImageCarousel = ({ images, className, loaded }) => {
   const handleMove = (e) => {
     if (!arrowActive) return;
 
-    if (e.clientX > 0 && e.clientX <= size.width / 2) {
+    if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
       setArrowDirection(`left`);
     }
 
-    if (e.clientX > size.width / 2 && e.clientX < size.width) {
+    if (
+      e.clientX > size.width / 2 + offsetX &&
+      e.clientX <= size.width + offsetX
+    ) {
       setArrowDirection(`right`);
     }
 
@@ -78,6 +84,10 @@ const ImageCarousel = ({ images, className, loaded }) => {
   const handleLeave = () => {
     setArrowActive(false);
   };
+
+  useEffect(() => {
+    setOffsetX(ref?.current?.getBoundingClientRect()?.left);
+  }, [size]);
 
   return (
     <Container
