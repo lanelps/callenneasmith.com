@@ -1,30 +1,49 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { ReactComponent as Arrow } from "~assets/svg/arrow.svg";
 
-const Cursor = ({ width = `16`, height = `16`, color = `black` }) => {
-  const cursorRef = useRef();
+const ArrowContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
 
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [offSet, setOffSet] = useState({ x: 0, y: 0 });
+  transform: translate3d(
+    ${({ position }) => `${position.x}px, ${position.y}px, 0px`}
+  );
+  pointer-events: none;
+  mix-blend-mode: difference;
 
-  return (
+  opacity: ${({ active }) => (active ? 1 : 0)};
+  transition: opacity 0.3s ease;
+
+  z-index: 1;
+`;
+
+const Cursor = ({
+  width = `16`,
+  height = `16`,
+  color = `white`,
+  position,
+  direction,
+  active
+}) => (
+  <ArrowContainer position={position} active={active}>
     <Arrow
-      ref={cursorRef}
       width={width}
       height={height}
       color={color}
       css={css`
-        position: fixed;
-        top: 0;
-        left: 0;
+        transform: rotate(
+          ${(direction === `left` && `-180deg`) ||
+          (direction === `right` && `0deg`)}
+        );
 
-        z-index: 1;
+        transition: transform 0.3s ease;
       `}
     />
-  );
-};
+  </ArrowContainer>
+);
 
 export default Cursor;

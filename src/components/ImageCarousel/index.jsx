@@ -8,8 +8,6 @@ import { useSize } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
-import { ReactComponent as Arrow } from "~assets/svg/arrow.svg";
-
 const Container = styled.ul`
   position: relative;
   width: 100%;
@@ -46,7 +44,6 @@ const Slide = styled.li`
 
 const ImageCarousel = ({ images, className, loaded }) => {
   const ref = useRef();
-  const cursorRef = useRef();
   const size = useSize(ref);
 
   const [offsetX, setOffsetX] = useState(
@@ -57,9 +54,7 @@ const ImageCarousel = ({ images, className, loaded }) => {
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMove = (e) => {
-    if (!arrowActive) return;
-
+  const direction = (e) => {
     if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
       setArrowDirection(`left`);
     }
@@ -70,6 +65,12 @@ const ImageCarousel = ({ images, className, loaded }) => {
     ) {
       setArrowDirection(`right`);
     }
+  };
+
+  const handleMove = (e) => {
+    if (!arrowActive) return;
+
+    direction(e);
 
     setPosition({
       x: e.clientX - 16 / 2,
@@ -97,38 +98,11 @@ const ImageCarousel = ({ images, className, loaded }) => {
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
-      {/* Cursor */}
-      <div
-        ref={cursorRef}
-        css={css`
-          position: fixed;
-          top: 0;
-          left: 0;
-
-          transform: ${`translate3d(${position.x}px, ${position.y}px, 0)`};
-          pointer-events: none;
-          mix-blend-mode: difference;
-
-          opacity: ${arrowActive ? 1 : 0};
-          transition: opacity 0.3s ease;
-
-          z-index: 1;
-        `}
-      >
-        <Arrow
-          width="16"
-          height="16"
-          color="white"
-          css={css`
-            transform: rotate(
-              ${(arrowDirection === `left` && `-180deg`) ||
-              (arrowDirection === `right` && `0deg`)}
-            );
-
-            transition: transform 0.3s ease;
-          `}
-        />
-      </div>
+      <Cursor
+        position={position}
+        direction={arrowDirection}
+        active={arrowActive}
+      />
 
       {loaded &&
         images.map((image, index) => (
