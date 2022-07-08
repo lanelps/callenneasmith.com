@@ -51,8 +51,9 @@ const ImageCarousel = ({ images, className, loaded }) => {
   );
   const [arrowActive, setArrowActive] = useState(false);
   const [arrowDirection, setArrowDirection] = useState(`right`);
-
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const cursorSize = 16;
 
   const direction = (e) => {
     if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
@@ -73,8 +74,8 @@ const ImageCarousel = ({ images, className, loaded }) => {
     direction(e);
 
     setPosition({
-      x: e.clientX - 16 / 2,
-      y: e.clientY - 16 / 2
+      x: e.clientX - cursorSize / 2,
+      y: e.clientY - cursorSize / 2
     });
   };
 
@@ -99,6 +100,8 @@ const ImageCarousel = ({ images, className, loaded }) => {
       onMouseLeave={handleLeave}
     >
       <Cursor
+        width={cursorSize}
+        height={cursorSize}
         position={position}
         direction={arrowDirection}
         active={arrowActive}
