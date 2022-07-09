@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { Image, Cursor } from "~components";
+import { Image, Cursor, Carousel } from "~components";
 import { useSize } from "~hooks";
 
 import { breakpoint } from "~utils/css";
@@ -12,13 +12,7 @@ const Container = styled.ul`
   position: relative;
   width: 100%;
 
-  display: flex;
-  gap: 0.375rem;
-
   padding-bottom: 1rem;
-
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
 
   cursor: none;
 
@@ -27,11 +21,9 @@ const Container = styled.ul`
   }
 `;
 
-const Slide = styled.li`
+const Slide = styled.div`
   position: relative;
   height: 100%;
-
-  scroll-snap-align: start;
 
   figure {
     height: 100%;
@@ -42,59 +34,73 @@ const Slide = styled.li`
   }
 `;
 
-const ImageCarousel = ({ images, className, loaded }) => {
-  const ref = useRef();
-  const size = useSize(ref);
+const SlideImg = styled(Image)`
+  aspect-ratio: 1/1;
+  width: max-content;
+  height: 60.55vw;
+
+  user-drag: none;
+  pointer-events: none;
+  user-select: none;
+
+  ${breakpoint(`tablet`)} {
+    height: 29.72vw;
+  }
+`;
+
+const ImageCarousel = ({ className, images, loaded }) => {
+  const carouselRef = useRef();
+  const size = useSize(carouselRef);
 
   const [offsetX, setOffsetX] = useState(
-    ref?.current?.getBoundingClientRect()?.left
+    carouselRef?.current?.getBoundingClientRect()?.left
   );
-  const [arrowActive, setArrowActive] = useState(false);
-  const [arrowDirection, setArrowDirection] = useState(`right`);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [cursorActive, setCursorActive] = useState(false);
+  const [cursorDirection, setCursorDirection] = useState(`right`);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const cursorSize = 16;
 
   const direction = (e) => {
     if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
-      setArrowDirection(`left`);
+      setCursorDirection(`left`);
     }
 
     if (
       e.clientX > size.width / 2 + offsetX &&
       e.clientX <= size.width + offsetX
     ) {
-      setArrowDirection(`right`);
+      setCursorDirection(`right`);
     }
   };
 
   const handleMove = (e) => {
-    if (!arrowActive) return;
+    if (!cursorActive) return;
 
     direction(e);
 
-    setPosition({
+    setCursorPosition({
       x: e.clientX - cursorSize / 2,
       y: e.clientY - cursorSize / 2
     });
   };
 
   const handleEnter = () => {
-    setArrowActive(true);
+    setCursorActive(true);
   };
 
   const handleLeave = () => {
-    setArrowActive(false);
+    setCursorActive(false);
   };
 
   useEffect(() => {
-    setOffsetX(ref?.current?.getBoundingClientRect()?.left);
+    setOffsetX(carouselRef?.current?.getBoundingClientRect()?.left);
   }, [size]);
 
   return (
     <Container
       className={className}
-      ref={ref}
+      ref={carouselRef}
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -102,37 +108,27 @@ const ImageCarousel = ({ images, className, loaded }) => {
       <Cursor
         width={cursorSize}
         height={cursorSize}
-        position={position}
-        direction={arrowDirection}
-        active={arrowActive}
+        position={cursorPosition}
+        direction={cursorDirection}
+        active={cursorActive}
       />
 
-      {loaded &&
-        images.map((image, index) => (
-          <Slide key={image?._key}>
-            <figure>
-              <Image
-                image={image}
-                css={css`
-                  aspect-ratio: 1/1;
-                  width: max-content;
-                  height: 60.55vw;
-
-                  user-drag: none;
-                  pointer-events: none;
-                  user-select: none;
-
-                  ${breakpoint(`tablet`)} {
-                    height: 29.72vw;
-                  }
-                `}
-              />
-              <figcaption className="caption">
-                {index + 1}/{images.length}
-              </figcaption>
-            </figure>
-          </Slide>
-        ))}
+      {loaded && (
+        <Carousel
+          slides={() =>
+            images.map((image, index) => (
+              <Slide key={image?._key}>
+                <figure>
+                  <SlideImg image={image} />
+                  <figcaption className="caption">
+                    {index + 1}/{images.length}
+                  </figcaption>
+                </figure>
+              </Slide>
+            ))
+          }
+        />
+      )}
     </Container>
   );
 };

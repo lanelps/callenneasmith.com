@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { Grid, ImageCarousel, PopOut } from "~components";
+import { Grid, PopOut, ImageCarousel } from "~components";
+import { useSize } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
@@ -52,6 +53,7 @@ const Links = styled.div`
 
 const Expand = ({ project, isActive, setIsActive, loaded }) => {
   const ref = useRef();
+  const size = useSize(ref);
 
   const [height, setHeight] = useState(0);
 
@@ -61,11 +63,11 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
     if (!ref?.current || !loaded) return;
 
     if (isActive) {
-      setHeight(ref.current.clientHeight);
+      setHeight(ref.current?.getBoundingClientRect()?.height);
     } else {
       setHeight(0);
     }
-  }, [isActive]);
+  }, [isActive, size]);
 
   return (
     <Container isActive={isActive} height={height}>
@@ -81,10 +83,10 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
       >
         <ImageCarousel
           images={project?.images}
-          css={css`
-            grid-column: 1 / -1;
-          `}
           loaded={loaded}
+          css={css`
+            grid-column: 1/-1;
+          `}
         />
 
         <ContentWrapper>

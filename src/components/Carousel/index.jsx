@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import useEmblaCarousel from "embla-carousel-react";
+import { v4 as uuidv4 } from "uuid";
 
 /** ============================================================================
  * @css
@@ -22,6 +23,8 @@ const EmblaContainer = styled.ul`
 const EmblaSlide = styled.li`
   position: relative;
   height: 100%;
+  max-width: 100%;
+  flex: 0 0 auto;
 `;
 
 /** ============================================================================
@@ -78,6 +81,7 @@ const Carousel = ({
         <EmblaContainer className="embla__container">
           {slides({ current }).map((slide) => (
             <EmblaSlide
+              key={uuidv4()}
               css={css`
                 flex: 0 0 auto;
                 margin-right: ${spaceBetween}px;
