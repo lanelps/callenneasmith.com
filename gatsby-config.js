@@ -10,6 +10,9 @@ const previewEnabled =
   (process.env.GATSBY_IS_PREVIEW || `false`).toLowerCase() === `true`;
 
 module.exports = {
+  flags: {
+    DEV_SSR: true
+  },
   siteMetadata: {
     author: `Callen Nea Smith`,
     description: ``,
