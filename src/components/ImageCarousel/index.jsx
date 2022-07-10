@@ -38,7 +38,6 @@ const Slide = styled.div`
 
 const SlideImg = styled(Image)`
   aspect-ratio: 1/1;
-  // width: max-content;
   height: 60.55vw;
 
   user-drag: none;

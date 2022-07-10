@@ -81,14 +81,16 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
           }
         `}
       >
-        <ImageCarousel
-          expandIsActive={isActive}
-          images={project?.images}
-          loaded={loaded}
-          css={css`
-            grid-column: 1/-1;
-          `}
-        />
+        {project?.images?.length > 0 && (
+          <ImageCarousel
+            expandIsActive={isActive}
+            images={project?.images}
+            loaded={loaded}
+            css={css`
+              grid-column: 1/-1;
+            `}
+          />
+        )}
 
         <ContentWrapper>
           <Description className="b1">{project?.description}</Description>
@@ -111,7 +113,7 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
             </ExternalLinks>
           )}
 
-          {isDesktop && (
+          {isDesktop && project?.images?.length > 0 && (
             <PopOut
               id={project?._id}
               image={project?.images?.[0]}
