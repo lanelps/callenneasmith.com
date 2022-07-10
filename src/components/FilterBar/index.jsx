@@ -34,19 +34,15 @@ const Button = styled.button`
   border-radius: 2.5rem;
   padding: 0.25rem 0.375rem;
 
-  color: ${({ color }) => color || ``};
-  border: 1px solid ${({ color }) => color || ``};
+  color: ${({ isActive, color }) => (isActive && `white`) || color};
+  border: 1px solid ${({ color }) => color};
+  background-color: ${({ isActive, color }) =>
+    (isActive && color) || `transparent`};
 
   :hover {
-    background-color: ${({ color }) => color || ``};
+    background-color: ${({ color }) => color};
     color: var(--color-white);
   }
-
-  ${({ activeFilters, color, name }) =>
-    activeFilters?.includes(name) &&
-    `background-color: ${color || ``};
-    color: var(--color-white);
-    `}
 
   text-transform: uppercase;
 
@@ -100,9 +96,9 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
           {tags.map((tag) => (
             <Button
               key={tag.id}
-              onClick={() => handleClick(tag.name)}
+              onPointerDown={() => handleClick(tag.name)}
               color={tag.colour.value.hex}
-              activeFilters={activeFilters}
+              isActive={activeFilters?.includes(tag.name)}
               name={tag.name}
               className="caption"
             >
