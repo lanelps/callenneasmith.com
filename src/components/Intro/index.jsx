@@ -87,7 +87,7 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
     return createPortal(
       <HoverContainer
         isActive={isActive}
-        onPointerUp={() => setIsActive(false)}
+        onPointerDown={() => setIsActive(false)}
       >
         <HoverFigure background={background} isActive={isActive}>
           <Image image={imageSrc} css={css``} />
@@ -118,7 +118,7 @@ const portableComponents = {
             `}
             onMouseEnter={() => setIsActive(true)}
             onMouseLeave={() => setIsActive(false)}
-            onClick={() => setIsActive(true)}
+            onPointerDown={() => setIsActive(true)}
           >
             {children}
           </span>
