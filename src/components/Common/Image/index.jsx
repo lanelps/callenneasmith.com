@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 import React from "react";
-import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 import {
   GatsbyImage,
@@ -78,16 +77,3 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
 };
 
 export default Image;
-
-Image.defaultProps = {
-  alt: null,
-  loading: null,
-  title: null
-};
-Image.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string])
-    .isRequired,
-  alt: PropTypes.string,
-  loading: PropTypes.string,
-  title: PropTypes.string
-};

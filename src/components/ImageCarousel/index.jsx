@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 import { Image, Cursor, Carousel } from "~components";
 import { useSize } from "~hooks";
@@ -37,26 +38,32 @@ const Slide = styled.div`
 
 const SlideImg = styled(Image)`
   aspect-ratio: 1/1;
-  width: max-content;
+  // width: max-content;
   height: 60.55vw;
 
   user-drag: none;
   pointer-events: none;
   user-select: none;
+  overflow: hidden;
 
   ${breakpoint(`tablet`)} {
     height: 29.72vw;
   }
 `;
 
-const ImageCarousel = ({ className, images, loaded }) => {
+const wheelGestures = WheelGesturesPlugin({ forceWheelAxis: `x` });
+
+const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: `start`,
-    loop: false,
-    slidesToScroll: 1
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: `start`,
+      loop: false,
+      slidesToScroll: 1
+    },
+    [wheelGestures]
+  );
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
@@ -107,6 +114,12 @@ const ImageCarousel = ({ className, images, loaded }) => {
   const handleLeave = () => {
     setCursorActive(false);
   };
+
+  useEffect(() => {
+    if (!expandIsActive) {
+      setCursorActive(false);
+    }
+  }, [expandIsActive]);
 
   useEffect(() => {
     setOffsetX(carouselRef?.current?.getBoundingClientRect()?.left);

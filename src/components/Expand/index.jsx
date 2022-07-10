@@ -82,6 +82,7 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
         `}
       >
         <ImageCarousel
+          expandIsActive={isActive}
           images={project?.images}
           loaded={loaded}
           css={css`
