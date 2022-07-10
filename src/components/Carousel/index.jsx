@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
  */
 const Embla = styled.div`
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   height: 100%;
 `;
 
@@ -17,7 +17,7 @@ const EmblaContainer = styled.ul`
   height: 100%;
   position: relative;
   display: flex;
-  gap: 6px;
+  column-gap: 6px;
 `;
 
 const EmblaSlide = styled.li`
@@ -36,7 +36,6 @@ const Carousel = ({
   embla,
   className = ``,
   // slidesPerView = 1,
-  spaceBetween = 0,
   slides = []
 }) => {
   // --------------------------------------------------------------------------
@@ -84,7 +83,6 @@ const Carousel = ({
               key={uuidv4()}
               css={css`
                 flex: 0 0 auto;
-                margin-right: ${spaceBetween}px;
               `}
               className="embla__slide"
             >

@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import useEmblaCarousel from "embla-carousel-react";
 
 import { Image, Cursor, Carousel } from "~components";
 import { useSize } from "~hooks";
@@ -51,6 +52,11 @@ const SlideImg = styled(Image)`
 const ImageCarousel = ({ className, images, loaded }) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: `start`,
+    loop: false,
+    slidesToScroll: 1
+  });
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
@@ -58,7 +64,6 @@ const ImageCarousel = ({ className, images, loaded }) => {
   const [cursorActive, setCursorActive] = useState(false);
   const [cursorDirection, setCursorDirection] = useState(`right`);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-
   const cursorSize = 16;
 
   const direction = (e) => {
@@ -85,6 +90,16 @@ const ImageCarousel = ({ className, images, loaded }) => {
     });
   };
 
+  const handleClick = () => {
+    if (cursorDirection === `left`) {
+      emblaApi.scrollPrev();
+    }
+
+    if (cursorDirection === `right`) {
+      emblaApi.scrollNext();
+    }
+  };
+
   const handleEnter = () => {
     setCursorActive(true);
   };
@@ -104,6 +119,7 @@ const ImageCarousel = ({ className, images, loaded }) => {
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onClick={handleClick}
     >
       <Cursor
         width={cursorSize}
@@ -115,6 +131,10 @@ const ImageCarousel = ({ className, images, loaded }) => {
 
       {loaded && (
         <Carousel
+          embla={{
+            api: emblaApi,
+            ref: emblaRef
+          }}
           slides={() =>
             images.map((image, index) => (
               <Slide key={image?._key}>
