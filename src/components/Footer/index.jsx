@@ -10,7 +10,7 @@ const Footer = styled.div`
   position: relative;
   width: 100%;
 
-  padding: 1.5rem 0.75rem 0.75rem;
+  padding: 1.5rem 0;
 
   background: var(--color-white);
   text-transform: uppercase;
@@ -25,7 +25,7 @@ const Footer = styled.div`
   }
 
   ${breakpoint(`tablet`)} {
-    padding: 3rem 0.75rem 0.75rem;
+    padding: 3rem 0;
 
     h5 {
       grid-column: 1 / span 3;
