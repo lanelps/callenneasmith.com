@@ -14,7 +14,10 @@ import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   padding: 0.5rem 0.75rem;
+  max-width: 1440px;
   min-height: 107.2vw;
+
+  margin: 0 auto;
 
   overflow: hidden;
 
