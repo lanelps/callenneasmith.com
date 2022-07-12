@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import useEmblaCarousel from "embla-carousel-react";
-import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 import { Image, Cursor, Carousel } from "~components";
 import { useSize } from "~hooks";
@@ -50,19 +49,14 @@ const SlideImg = styled(Image)`
   }
 `;
 
-const wheelGestures = WheelGesturesPlugin({ forceWheelAxis: `x` });
-
 const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      align: `start`,
-      loop: false,
-      slidesToScroll: 1
-    },
-    [wheelGestures]
-  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: `start`,
+    loop: false,
+    slidesToScroll: 1
+  });
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left

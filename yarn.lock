@@ -5835,13 +5835,6 @@ embla-carousel-react@^6.2.0:
   dependencies:
     embla-carousel "6.2.0"
 
-embla-carousel-wheel-gestures@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/embla-carousel-wheel-gestures/-/embla-carousel-wheel-gestures-2.2.0.tgz#04ee1cfafe0667a5b96d16341642b3124fe8894e"
-  integrity sha512-IoRGblg8QWrIgZEW0NbDcIl2fO++BLFf6197k2JNair3pfbyiMYtva6rROgeRiI0sIj2kFwlSEgudTy5f8TzNQ==
-  dependencies:
-    wheel-gestures "^2.2.5"
-
 embla-carousel@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-6.2.0.tgz#c16b18abe50e05ccd03d0b8d0b738f6a87aea1e0"
@@ -12502,11 +12495,6 @@ whatwg-url@^7.0.0:
     lodash.sortby "^4.7.0"
     tr46 "^1.0.1"
     webidl-conversions "^4.0.2"
-
-wheel-gestures@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.2.5.tgz#d4a7cdcd402500de26f65aabc8553b657515fb7d"
-  integrity sha512-01BlXRjBVt5Gy0VH2rRqMeccHruTGq2Gd1fx0UqCPN8KDeDCmlTXsRGc/hXJk6W+wnO9CNJp2xfntMNRArBxKQ==
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
