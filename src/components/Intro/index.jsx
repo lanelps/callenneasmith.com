@@ -114,7 +114,6 @@ const portableComponents = {
             className="h1"
             css={css`
               color: var(--color-off-black);
-              cursor: pointer;
             `}
             onMouseEnter={() => setIsActive(true)}
             onMouseLeave={() => setIsActive(false)}

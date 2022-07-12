@@ -17,6 +17,12 @@ const Button = styled.button`
   color: var(--color-off-black);
 
   text-transform: uppercase;
+
+  :hover {
+    color: var(--color-rich-black);
+  }
+
+  transition: color 0.3s ease;
 `;
 
 const PopOut = ({ id, image, loaded, setIsActive }) => {

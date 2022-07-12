@@ -5,6 +5,8 @@ import { css } from "@emotion/react";
 
 import { Image, Draggable } from "~components";
 
+import { ReactComponent as Cross } from "~assets/svg/cross.svg";
+
 const PopOutImage = ({ id, image, active, setActive }) => (
   <Draggable
     id={id}
@@ -13,9 +15,10 @@ const PopOutImage = ({ id, image, active, setActive }) => (
       pointer-events: ${active ? `auto` : `none`};
 
       transition: opacity 0.3s ease;
+
+      z-index: 100;
     `}
     startPosition={[`5vw`, `5vw`]}
-    onClick={() => setActive(false)}
   >
     <figure
       css={css`
@@ -31,6 +34,23 @@ const PopOutImage = ({ id, image, active, setActive }) => (
         `}
       />
     </figure>
+    <Cross
+      css={css`
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+
+        width: 1rem;
+        height: 1rem;
+
+        color: var(--color-white);
+        transform: rotate(-45deg);
+        mix-blend-mode: difference;
+
+        cursor: pointer;
+      `}
+      onPointerDown={() => setActive(false)}
+    />
   </Draggable>
 );
 

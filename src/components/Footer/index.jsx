@@ -50,6 +50,12 @@ const footer = ({ className, contact }) => (
           rel="noopener noreferrer"
           css={css`
             color: var(--color-off-black);
+
+            :hover {
+              color: var(--color-rich-black);
+            }
+
+            transition: color 0.3s ease;
           `}
         >
           {item?.label}

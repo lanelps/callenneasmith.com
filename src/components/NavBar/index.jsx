@@ -54,9 +54,16 @@ const ContactButton = styled.button`
 
   ${breakpoint(`tablet`)} {
     display: block;
-    color: var(--color-off-black);
+    color: ${({ active }) =>
+      active ? `var(--color-rich-black)` : `var(--color-off-black)`};
     grid-column: 6;
     text-align: left;
+
+    :hover {
+      color: var(--color-rich-black);
+    }
+
+    transition: color 0.3s ease;
   }
 `;
 
@@ -66,8 +73,6 @@ const Dropdown = styled.div`
 
   height: ${({ show, dropdownHeight }) => (show ? `${dropdownHeight}px` : `0`)};
   margin: 0;
-  border-top: 1px solid
-    ${({ show }) => (show ? `var(--color-off-black)` : `transparent`)};
 
   z-index: 2;
   overflow: hidden;
@@ -103,10 +108,14 @@ const NavBar = ({ title, role, contact }) => {
   const [dropdownHeight, setDropdownHeight] = useState(0);
 
   useEffect(() => {
-    if (contactsRef?.current) {
-      setDropdownHeight(contactsRef.current.clientHeight);
+    if (!contactsRef?.current) return;
+
+    if (showContacts) {
+      setDropdownHeight(contactsRef.current?.getBoundingClientRect()?.height);
+    } else {
+      setDropdownHeight(0);
     }
-  }, [contactsRef?.current]);
+  }, [showContacts]);
 
   return (
     <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
@@ -122,6 +131,7 @@ const NavBar = ({ title, role, contact }) => {
           type="button"
           className="h1"
           onMouseEnter={() => setShowContacts(true)}
+          active={showContacts}
         >
           Contact
         </ContactButton>
@@ -164,6 +174,13 @@ const NavBar = ({ title, role, contact }) => {
                 href={`${item?.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                css={css`
+                  :hover {
+                    color: var(--color-rich-black);
+                  }
+
+                  transition: color 0.3s ease;
+                `}
               >
                 <li>{item?.label}</li>
               </a>
