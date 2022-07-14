@@ -9,7 +9,7 @@ import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   background-color: var(--color-white);
-  border-top: 0.5px solid var(--color-rich-black);
+  border-top: 0.5px solid var(--color-off-black);
 
   padding: 0.75rem 0;
 

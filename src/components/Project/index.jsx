@@ -12,7 +12,7 @@ const Container = styled.article`
 
   background-color: ${({ isActive }) =>
     isActive ? `var(--color-off-white)` : `var(--color-white)`};
-  border-top: 0.5px solid var(--color-rich-black);
+  border-top: 0.5px solid var(--color-off-black);
 
   :hover {
     background-color: var(--color-off-white);

@@ -23,7 +23,7 @@ const Container = styled.div`
   padding: 0.625rem 0;
   background-color: var(--color-off-white);
   color: var(--color-rich-black);
-  border-bottom: 1px solid var(--color-off-black);
+  border-bottom: 0.5px solid var(--color-off-black);
 
   font-family: "Neue Haas Grotesk Display Pro";
   font-size: 32px;

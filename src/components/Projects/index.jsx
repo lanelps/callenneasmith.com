@@ -13,13 +13,13 @@ const FeaturedProjects = styled.section`
 const ProjectsTitle = styled.div`
   position: relative;
   background-color: var(--color-white);
-  border-top: 0.5px solid var(--color-rich-black);
+  border-top: 0.5px solid var(--color-off-black);
 `;
 
 const AllProjects = styled.section`
   position: relative;
   width: 100%;
-  border-bottom: 0.5px solid var(--color-rich-black);
+  border-bottom: 0.5px solid var(--color-off-black);
 `;
 
 const Projects = ({ projects }) => {
