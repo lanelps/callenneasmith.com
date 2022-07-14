@@ -27,6 +27,8 @@ const ProjectName = styled.div`
   align-items: center;
   gap: 0.375rem;
 
+  text-align: left;
+
   ${breakpoint(`tablet`)} {
     grid-column: 1 / span 3;
     gap: 0.625rem;

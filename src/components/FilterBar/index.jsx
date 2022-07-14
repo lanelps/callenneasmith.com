@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
@@ -28,25 +28,6 @@ const Buttons = styled.div`
   ${breakpoint(`tablet`)} {
     padding: 0.625rem 0;
   }
-`;
-
-const Button = styled.button`
-  border-radius: 2.5rem;
-  padding: 0.25rem 0.375rem;
-
-  color: ${({ isActive, color }) => (isActive && `white`) || color};
-  border: 1px solid ${({ color }) => color};
-  background-color: ${({ isActive, color }) =>
-    (isActive && color) || `transparent`};
-
-  :hover {
-    background-color: ${({ color }) => color};
-    color: var(--color-white);
-  }
-
-  text-transform: uppercase;
-
-  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 const FilterBar = ({ activeFilters, setActiveFilters }) => {
@@ -96,14 +77,10 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
           {tags.map((tag) => (
             <Button
               key={tag.id}
+              tag={tag}
+              activeFilters={activeFilters}
               onPointerDown={() => handleClick(tag.name)}
-              color={tag.colour.value.hex}
-              isActive={activeFilters?.includes(tag.name)}
-              name={tag.name}
-              className="caption"
-            >
-              <span>{tag.name}</span>
-            </Button>
+            />
           ))}
         </Buttons>
       </Grid>
@@ -112,3 +89,47 @@ const FilterBar = ({ activeFilters, setActiveFilters }) => {
 };
 
 export default FilterBar;
+
+const ButtonContainer = styled.button`
+  border-radius: 2.5rem;
+  padding: 0.25rem 0.375rem;
+
+  color: ${({ isActive, color }) => (isActive && `white`) || color};
+  border: 1px solid ${({ color }) => color};
+  background-color: ${({ isActive, color }) =>
+    (isActive && color) || `transparent`};
+
+  :hover {
+    background-color: ${({ color }) => color};
+    color: var(--color-white);
+  }
+
+  text-transform: uppercase;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+`;
+
+const Button = ({ activeFilters, onPointerDown, tag }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (activeFilters?.includes(tag.name)) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [activeFilters]);
+
+  return (
+    <ButtonContainer
+      key={tag.id}
+      onPointerDown={onPointerDown}
+      color={tag.colour.value.hex}
+      isActive={isActive}
+      name={tag.name}
+      className="caption"
+    >
+      <span>{tag.name}</span>
+    </ButtonContainer>
+  );
+};
