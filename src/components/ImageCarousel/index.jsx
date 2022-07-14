@@ -108,6 +108,26 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
     setCursorActive(false);
   };
 
+  const preventEdgeScrolling = (embla) => {
+    const { limit, target, location, scrollTo } = embla.internalEngine();
+    console.log(`target`, target.get());
+
+    return () => {
+      if (limit.reachedMax(target.get())) {
+        console.log(`reached Max`);
+        if (limit.reachedMax(location.get())) location.set(limit.max);
+        target.set(limit.max);
+        scrollTo.distance(0, false);
+      }
+      if (limit.reachedMin(target.get())) {
+        console.log(`reached Min`);
+        if (limit.reachedMin(location.get())) location.set(limit.min);
+        target.set(limit.min);
+        scrollTo.distance(0, false);
+      }
+    };
+  };
+
   useEffect(() => {
     if (!expandIsActive) {
       setCursorActive(false);
@@ -117,6 +137,12 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   useEffect(() => {
     setOffsetX(carouselRef?.current?.getBoundingClientRect()?.left);
   }, [size]);
+
+  useEffect(() => {
+    if (!loaded) return;
+
+    emblaApi.reInit();
+  }, [loaded]);
 
   return (
     <Container
@@ -135,13 +161,13 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
         active={cursorActive}
       />
 
-      {loaded && (
-        <Carousel
-          embla={{
-            api: emblaApi,
-            ref: emblaRef
-          }}
-          slides={() =>
+      <Carousel
+        embla={{
+          api: emblaApi,
+          ref: emblaRef
+        }}
+        slides={() =>
+          (loaded &&
             images.map((image, index) => (
               <Slide key={image?._key}>
                 <figure>
@@ -151,10 +177,10 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
                   </figcaption>
                 </figure>
               </Slide>
-            ))
-          }
-        />
-      )}
+            ))) ||
+          []
+        }
+      />
     </Container>
   );
 };
