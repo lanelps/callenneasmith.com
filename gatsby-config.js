@@ -68,6 +68,14 @@ module.exports = {
           isLarge: `(min-width: 1441px)`
         }
       }
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          process.env.GA_MEASUREMENT_ID // Google Analytics / GA
+        ]
+      }
     }
   ]
 };
