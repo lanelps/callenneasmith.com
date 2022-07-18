@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import useEmblaCarousel from "embla-carousel-react";
 import { v4 as uuidv4 } from "uuid";
 
+import { breakpoint } from "~utils/css";
+
 /** ============================================================================
  * @css
  */
@@ -22,7 +24,6 @@ const EmblaContainer = styled.ul`
 
 const EmblaSlide = styled.li`
   position: relative;
-  height: 100%;
   max-width: 100%;
   flex: 0 0 auto;
 `;

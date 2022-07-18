@@ -35,20 +35,6 @@ const Slide = styled.div`
   }
 `;
 
-const SlideImg = styled(Image)`
-  aspect-ratio: 1/1;
-  height: 60.55vw;
-
-  user-drag: none;
-  pointer-events: none;
-  user-select: none;
-  overflow: hidden;
-
-  ${breakpoint(`tablet`)} {
-    height: 29.72vw;
-  }
-`;
-
 const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
@@ -168,16 +154,31 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
         }}
         slides={() =>
           (loaded &&
-            images.map((image, index) => (
-              <Slide key={image?._key}>
-                <figure>
-                  <SlideImg image={image} />
-                  <figcaption className="caption">
-                    {index + 1}/{images.length}
-                  </figcaption>
-                </figure>
-              </Slide>
-            ))) ||
+            images.map((image, index) => {
+              const { width, height } = image?.asset?.gatsbyImageData;
+              const widthRatio = width / height;
+
+              return (
+                <Slide key={image?._key}>
+                  <figure>
+                    <Image
+                      image={image}
+                      css={css`
+                        width: calc(${widthRatio} * 60.55vw);
+                        height: 60.55vw;
+                        ${breakpoint(`tablet`)} {
+                          width: calc(${widthRatio} * 29.72vw);
+                          height: 29.72vw;
+                        }
+                      `}
+                    />
+                    <figcaption className="caption">
+                      {index + 1}/{images.length}
+                    </figcaption>
+                  </figure>
+                </Slide>
+              );
+            })) ||
           []
         }
       />
