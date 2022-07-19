@@ -21,7 +21,9 @@ const Container = styled.div`
 const Buttons = styled.div`
   display: flex;
   padding: 0;
-  gap: 0.75rem;
+  > * + * {
+    margin-left: 0.75rem;
+  }
 
   overflow-x: scroll;
 

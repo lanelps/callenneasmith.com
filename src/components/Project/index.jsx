@@ -25,22 +25,30 @@ const ProjectName = styled.div`
   grid-column: 1 / span 4;
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  > * + * {
+    margin-left: 0.375rem;
+  }
 
   text-align: left;
 
   ${breakpoint(`tablet`)} {
     grid-column: 1 / span 3;
-    gap: 0.625rem;
+    > * + * {
+      margin-left: 0.625rem;
+    }
   }
 `;
 
 const Circles = styled.div`
   display: flex;
-  gap: 0.1875rem;
+  > * + * {
+    margin-left: 0.1875rem;
+  }
 
   ${breakpoint(`tablet`)} {
-    gap: 0.25rem;
+    > * + * {
+      margin-left: 0.25rem;
+    }
   }
 `;
 

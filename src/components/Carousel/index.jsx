@@ -19,7 +19,10 @@ const EmblaContainer = styled.ul`
   height: 100%;
   position: relative;
   display: flex;
-  column-gap: 6px;
+
+  > * + * {
+    margin-left: 6px;
+  }
 `;
 
 const EmblaSlide = styled.li`

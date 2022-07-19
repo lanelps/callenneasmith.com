@@ -89,7 +89,9 @@ const Contacts = styled.ul`
 
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  > * + * {
+    margin-top: 1.25rem;
+  }
 
   padding-top: 0.6rem;
   color: var(--color-off-black);

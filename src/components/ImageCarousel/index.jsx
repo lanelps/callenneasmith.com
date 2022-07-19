@@ -31,7 +31,9 @@ const Slide = styled.div`
 
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
+    > * + * {
+      margin-top: 0.375rem;
+    }
   }
 `;
 

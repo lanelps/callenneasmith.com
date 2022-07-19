@@ -23,11 +23,16 @@ const ContentWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 1.125rem;
+
+  > * + * {
+    margin-top: 1.125rem;
+  }
 
   ${breakpoint(`tablet`)} {
     grid-column: 1 / span 3;
-    gap: 1.5rem;
+    > * + * {
+      margin-top: 1.5rem;
+    }
   }
 `;
 
@@ -39,7 +44,9 @@ const ExternalLinks = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  > * + * {
+    margin-top: 0.75rem;
+  }
 
   text-transform: uppercase;
   grid-column: 1 / -1;
@@ -47,7 +54,9 @@ const ExternalLinks = styled.div`
 
 const Links = styled.div`
   display: flex;
-  gap: 1.5rem;
+  > * + * {
+    margin-left: 1.5rem;
+  }
   color: var(--color-off-black);
 `;
 
