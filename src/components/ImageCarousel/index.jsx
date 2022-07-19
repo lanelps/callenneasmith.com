@@ -37,7 +37,14 @@ const Slide = styled.div`
   }
 `;
 
-const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
+const ImageCarousel = ({
+  className,
+  images,
+  loaded,
+  expandIsActive,
+  cursorActive,
+  setCursorActive
+}) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -49,7 +56,7 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
   );
-  const [cursorActive, setCursorActive] = useState(false);
+
   const [cursorDirection, setCursorDirection] = useState(`right`);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const cursorSize = 16;
@@ -89,38 +96,20 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   };
 
   const handleEnter = () => {
-    setCursorActive(true);
+    if (!expandIsActive) {
+      setCursorActive(false);
+    } else {
+      setCursorActive(true);
+    }
   };
 
   const handleLeave = () => {
     setCursorActive(false);
   };
 
-  const preventEdgeScrolling = (embla) => {
-    const { limit, target, location, scrollTo } = embla.internalEngine();
-    console.log(`target`, target.get());
-
-    return () => {
-      if (limit.reachedMax(target.get())) {
-        console.log(`reached Max`);
-        if (limit.reachedMax(location.get())) location.set(limit.max);
-        target.set(limit.max);
-        scrollTo.distance(0, false);
-      }
-      if (limit.reachedMin(target.get())) {
-        console.log(`reached Min`);
-        if (limit.reachedMin(location.get())) location.set(limit.min);
-        target.set(limit.min);
-        scrollTo.distance(0, false);
-      }
-    };
+  const handleOut = () => {
+    setCursorActive(false);
   };
-
-  useEffect(() => {
-    if (!expandIsActive) {
-      setCursorActive(false);
-    }
-  }, [expandIsActive]);
 
   useEffect(() => {
     setOffsetX(carouselRef?.current?.getBoundingClientRect()?.left);
@@ -139,6 +128,7 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onMouseOut={handleOut}
       onClick={handleClick}
     >
       <Cursor
@@ -150,6 +140,12 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
       />
 
       <Carousel
+        css={css`
+          ${breakpoint(`tablet`)} {
+            pointer-events: none;
+            user-select: none;
+          }
+        `}
         embla={{
           api: emblaApi,
           ref: emblaRef
@@ -171,6 +167,10 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
                         ${breakpoint(`tablet`)} {
                           width: calc(${widthRatio} * 29.72vw);
                           height: 29.72vw;
+                        }
+                        ${breakpoint(`desktop`)} {
+                          width: calc(${widthRatio} * 428px);
+                          height: 428px;
                         }
                       `}
                     />
