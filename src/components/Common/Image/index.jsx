@@ -9,7 +9,15 @@ import {
   withArtDirection
 } from "gatsby-plugin-image";
 
-const Image = ({ className, image, alt, loading, title, contain }) => {
+const Image = ({
+  className,
+  image,
+  alt,
+  loading,
+  title,
+  contain,
+  imgStyle
+}) => {
   if (typeof image === `string`) {
     return (
       <>
@@ -59,6 +67,7 @@ const Image = ({ className, image, alt, loading, title, contain }) => {
       alt={alt || ``}
       title={title || alt || ``}
       objectFit={contain ? `contain` : `cover`}
+      imgStyle={imgStyle}
     />
   ) : (
     <img

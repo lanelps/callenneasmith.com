@@ -36,8 +36,14 @@ const HoverContainer = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 4rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   background-color: ${({ isActive }) =>
     isActive ? `rgba(0,0,0,0.4)` : `rgba(0,0,0,0)`};
@@ -54,13 +60,11 @@ const HoverContainer = styled.div`
 `;
 
 const HoverFigure = styled.figure`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  ${({ background }) =>
-    background && `box-shadow: 0px 0px 30px 15px ${background};`}
+  position: relative;
+  width: max-content;
+  max-width: 50vw;
+  height: 100%;
+  max-height: 100%;
 
   opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
   transition: opacity 0.3s ease;
@@ -82,7 +86,7 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
 
   const imageSrc = getGatsbyImageData(
     image.asset._id,
-    { maxWidth: 1920 },
+    { maxWidth: 1440 },
     sanityConfig
   );
 
@@ -93,7 +97,19 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
         onPointerDown={() => setIsActive(false)}
       >
         <HoverFigure background={background} isActive={isActive}>
-          <Image image={imageSrc} css={css``} />
+          <Image
+            image={imageSrc}
+            css={css`
+              height: 100%;
+              ${background && `box-shadow: 0px 0px 30px 15px ${background};`}
+
+              > div:first-child {
+                height: 100%;
+              }
+            `}
+            imgStyle={{ width: `auto`, height: `aut0`, maxHeight: `100%` }}
+            contain
+          />
         </HoverFigure>
       </HoverContainer>,
       document.getElementById(`app-root`)
