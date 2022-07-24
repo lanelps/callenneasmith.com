@@ -142,7 +142,10 @@ const NavBar = ({ title, role, contact }) => {
           type="button"
           css={css`
             grid-column: 6 / span 1;
-            display: block;
+            display: flex;
+            justify-content: end;
+
+            margin-right: -0.5rem;
             padding: 0 0.5rem;
 
             ${breakpoint(`tablet`)} {

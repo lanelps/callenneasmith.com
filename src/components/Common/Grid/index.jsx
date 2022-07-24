@@ -12,7 +12,7 @@ export const GRID_MOBILE_GAP_REM = 0.5;
 export const GRID_GAP_PX = remToPx(GRID_GAP_REM);
 
 export const GRID_PADDING_REM = 0.75;
-export const GRID_MOBILE_PADDING_REM = 0.9375;
+export const GRID_MOBILE_PADDING_REM = 0.75;
 export const GRID_PADDING_PX = remToPx(GRID_GAP_REM);
 
 /**
