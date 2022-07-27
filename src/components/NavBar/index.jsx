@@ -143,7 +143,7 @@ const NavBar = ({ title, role, contact }) => {
           css={css`
             grid-column: 6 / span 1;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
 
             margin-right: -0.5rem;
             padding: 0 0.5rem;
