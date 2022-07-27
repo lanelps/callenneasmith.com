@@ -57,6 +57,14 @@ module.exports = {
         overlayDrafts: !isProd || previewEnabled
       }
     },
+    {
+      resolve: `gatsby-plugin-sanity-image`,
+      options: {
+        projectId: GATSBY_SANITY_PROJECT_ID,
+        dataset: GATSBY_SANITY_DATASET,
+        token: SANITY_TOKEN
+      }
+    },
     `gatsby-plugin-svgr`,
     {
       resolve: `gatsby-plugin-breakpoints`,

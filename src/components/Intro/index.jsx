@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { PortableText } from "@portabletext/react";
-import { getGatsbyImageData } from "gatsby-source-sanity";
+import PortableText from "react-portable-text";
+import SanityImage from "gatsby-plugin-sanity-image";
 import { useInView } from "react-intersection-observer";
 
-import { Image } from "~components";
+// import { Image } from "~components";
 import { useApp } from "~hooks";
 
-import { sanityConfig } from "~utils/sanity";
+// import { sanityConfig } from "~utils/sanity";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
@@ -61,13 +61,22 @@ const HoverContainer = styled.div`
 
 const HoverFigure = styled.figure`
   position: relative;
-  width: max-content;
-  max-width: 50vw;
+  width: 100%;
+  max-width: 75vw;
   height: 100%;
   max-height: 100%;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
   transition: opacity 0.3s ease;
+
+  ${breakpoint(`tablet`)} {
+    width: auto;
+    max-width: 50vw;
+  }
 `;
 
 const HoverImage = ({ background, image, isActive, setIsActive }) => {
@@ -84,12 +93,6 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
     setDocumentExists(true);
   }, []);
 
-  const imageSrc = getGatsbyImageData(
-    image.asset._id,
-    { maxWidth: 1440 },
-    sanityConfig
-  );
-
   if (doucmentExists) {
     return createPortal(
       <HoverContainer
@@ -97,18 +100,19 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
         onPointerDown={() => setIsActive(false)}
       >
         <HoverFigure background={background} isActive={isActive}>
-          <Image
-            image={imageSrc}
+          <SanityImage
+            asset={image?.asset}
+            alt={image?.altText}
+            width={720}
+            sizes="(max-width: 720px) 75vw, 50vw, 720px"
             css={css`
-              height: 100%;
+              display: block;
+              height: auto;
+              max-height: 100%;
+              width: auto;
+              max-width: 100%;
               ${background && `box-shadow: 0px 0px 30px 15px ${background};`}
-
-              > div:first-child {
-                height: 100%;
-              }
             `}
-            imgStyle={{ width: `auto`, height: `aut0`, maxHeight: `100%` }}
-            contain
           />
         </HoverFigure>
       </HoverContainer>,
@@ -120,36 +124,33 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
 };
 
 const portableComponents = {
-  block: {
-    normal: ({ children }) => <p className="h1">{children}</p>
-  },
-  marks: {
-    hoverImage: ({ children, value }) => {
-      const [isActive, setIsActive] = useState(false);
+  normal: ({ children }) => <p className="h1">{children}</p>,
+  hoverImage: (props) => {
+    const { children, image, backgroundColour } = props;
+    const [isActive, setIsActive] = useState(false);
 
-      return (
-        <>
-          <span
-            className="h1"
-            css={css`
-              color: var(--color-off-black);
-            `}
-            onMouseEnter={() => setIsActive(true)}
-            onMouseLeave={() => setIsActive(false)}
-            onPointerDown={() => setIsActive(true)}
-          >
-            {children}
-          </span>
+    return (
+      <>
+        <span
+          className="h1"
+          css={css`
+            color: var(--color-off-black);
+          `}
+          onPointerEnter={() => setIsActive(true)}
+          onPointerLeave={() => setIsActive(false)}
+          onPointerDown={() => setIsActive(true)}
+        >
+          {children}
+        </span>
 
-          <HoverImage
-            image={value?.image}
-            background={value?.backgroundColour?.value?.hex}
-            isActive={isActive}
-            setIsActive={setIsActive}
-          />
-        </>
-      );
-    }
+        <HoverImage
+          image={image}
+          background={backgroundColour?.value?.hex}
+          isActive={isActive}
+          setIsActive={setIsActive}
+        />
+      </>
+    );
   }
 };
 
@@ -163,7 +164,7 @@ const Intro = ({ introduction }) => {
 
   return (
     <Container ref={ref}>
-      <PortableText value={introduction} components={portableComponents} />
+      <PortableText content={introduction} serializers={portableComponents} />
     </Container>
   );
 };
