@@ -136,8 +136,8 @@ const portableComponents = {
           css={css`
             color: var(--color-off-black);
           `}
-          onPointerEnter={() => setIsActive(true)}
-          onPointerLeave={() => setIsActive(false)}
+          onMouseEnter={() => setIsActive(true)}
+          onMouseLeave={() => setIsActive(false)}
           onPointerDown={() => setIsActive(true)}
         >
           {children}
