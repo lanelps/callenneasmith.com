@@ -45,9 +45,6 @@ const HoverContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({ isActive }) =>
-    isActive ? `rgba(0,0,0,0.4)` : `rgba(0,0,0,0)`};
-
   transition: background-color 0.3s ease;
 
   pointer-events: ${({ isActive }) => (isActive ? `auto` : `none`)};
