@@ -89,8 +89,9 @@ const Contacts = styled.ul`
 
   display: flex;
   flex-direction: column;
+
   > * + * {
-    margin-top: 1.25rem;
+    margin-top: 0.6rem;
   }
 
   padding-top: 0.6rem;
@@ -98,7 +99,10 @@ const Contacts = styled.ul`
 
   ${breakpoint(`tablet`)} {
     padding: 0.75rem 0;
-    display: block;
+
+    > * + * {
+      margin-top: 0.75rem;
+    }
   }
 `;
 
