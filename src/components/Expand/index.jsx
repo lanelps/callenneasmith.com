@@ -67,7 +67,6 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
   const { isDesktop } = useBreakpoint();
 
   const [height, setHeight] = useState(0);
-  const [cursorActive, setCursorActive] = useState(false);
 
   useEffect(() => {
     if (!ref?.current || !loaded) return;
@@ -94,13 +93,8 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
         {project?.images?.length > 0 && (
           <ImageCarousel
             expandIsActive={isActive}
-            cursorActive={cursorActive}
-            setCursorActive={setCursorActive}
             images={project?.images}
             loaded={loaded}
-            css={css`
-              grid-column: 1/-1;
-            `}
           />
         )}
 

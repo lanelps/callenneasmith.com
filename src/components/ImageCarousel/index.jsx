@@ -1,65 +1,46 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import useEmblaCarousel from "embla-carousel-react";
+import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { Image, Cursor, Carousel } from "~components";
-import { useSize } from "~hooks";
+import { Cursor, ExampleCarousel } from "~components";
+import { useSize, usePrevNextButtons } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
-const Container = styled.ul`
+const Container = styled.div`
   position: relative;
   width: 100%;
+  grid-column: 1 / -1;
 
   padding-bottom: 1rem;
 
-  cursor: none;
-
   ${breakpoint(`tablet`)} {
+    cursor: none;
     padding-bottom: 0.75rem;
   }
 `;
 
-const Slide = styled.div`
-  position: relative;
-  height: 100%;
-
-  figure {
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    > * + * {
-      margin-top: 0.375rem;
-    }
-  }
-`;
-
-const ImageCarousel = ({
-  className,
-  images,
-  loaded,
-  expandIsActive,
-  cursorActive,
-  setCursorActive
-}) => {
+const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: `start`,
-    loop: false,
-    slidesToScroll: 1
+    containScroll: `trimSnaps`
   });
+
+  const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
   );
-
+  const [cursorActive, setCursorActive] = useState(false);
   const [cursorDirection, setCursorDirection] = useState(`right`);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const cursorSize = 16;
+
+  const { isTablet } = useBreakpoint();
 
   const direction = (e) => {
     if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
@@ -86,12 +67,14 @@ const ImageCarousel = ({
   };
 
   const handleClick = () => {
+    if (!isTablet) return;
+
     if (cursorDirection === `left`) {
-      emblaApi.scrollPrev();
+      onPrevButtonClick();
     }
 
     if (cursorDirection === `right`) {
-      emblaApi.scrollNext();
+      onNextButtonClick();
     }
   };
 
@@ -131,59 +114,17 @@ const ImageCarousel = ({
       onMouseOut={handleOut}
       onClick={handleClick}
     >
-      <Cursor
-        width={cursorSize}
-        height={cursorSize}
-        position={cursorPosition}
-        direction={cursorDirection}
-        active={cursorActive}
-      />
+      {isTablet && (
+        <Cursor
+          width={cursorSize}
+          height={cursorSize}
+          position={cursorPosition}
+          direction={cursorDirection}
+          active={cursorActive}
+        />
+      )}
 
-      <Carousel
-        css={css`
-          ${breakpoint(`tablet`)} {
-            pointer-events: none;
-            user-select: none;
-          }
-        `}
-        embla={{
-          api: emblaApi,
-          ref: emblaRef
-        }}
-        slides={() =>
-          (loaded &&
-            images.map((image, index) => {
-              const { width, height } = image?.asset?.gatsbyImageData;
-              const widthRatio = width / height;
-
-              return (
-                <Slide key={image?._key}>
-                  <figure>
-                    <Image
-                      image={image}
-                      css={css`
-                        width: calc(${widthRatio} * 60.55vw);
-                        height: 60.55vw;
-                        ${breakpoint(`tablet`)} {
-                          width: calc(${widthRatio} * 29.72vw);
-                          height: 29.72vw;
-                        }
-                        ${breakpoint(`desktop`)} {
-                          width: calc(${widthRatio} * 428px);
-                          height: 428px;
-                        }
-                      `}
-                    />
-                    <figcaption className="caption">
-                      {index + 1}/{images.length}
-                    </figcaption>
-                  </figure>
-                </Slide>
-              );
-            })) ||
-          []
-        }
-      />
+      <ExampleCarousel ref={emblaRef} slides={(loaded && images) || []} />
     </Container>
   );
 };
