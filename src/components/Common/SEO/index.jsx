@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 const SEO = ({
   site,
   location,
+  title,
   seoTitle,
   seoDescription,
   seoKeywords,
@@ -15,7 +16,7 @@ const SEO = ({
 
   const seo = {
     author: site?.siteMetadata?.author,
-    title: seoTitle || site?.siteMetadata?.title,
+    title: seoTitle || title || site?.siteMetadata?.title,
     titleTemplate: site?.siteMetadata?.titleTemplate,
     description: seoDescription || site?.siteMetadata?.description,
     keywords: seoKeywords || site?.siteMetadata?.keywords,

@@ -17,18 +17,10 @@ const Index = ({
   const colors = allSanityColour.edges.map(({ node }) => node);
   const tags = allSanityTag.edges.map(({ node }) => node);
 
-  const seo = {
-    title: sanitySettings.seoTitle,
-    description: sanitySettings.seoDescription,
-    keywords: sanitySettings.seoKeywords,
-    image: sanitySettings.seoImage
-  };
-
   return (
     <Layout
       data={{ sanitySettings }}
       location={location}
-      seo={seo}
       colors={colors}
       site={site}
     >

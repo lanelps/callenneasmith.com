@@ -7,14 +7,26 @@ import { useApp } from "~hooks";
 import { Theme, NavBar, Footer, PopOutImage } from "~components";
 import SEO from "../SEO";
 
-const Layout = ({ children, className, data, location, seo, colors, site }) => {
+const Layout = ({ children, className, data, location, colors, site }) => {
   const { popOuts } = useApp();
+
+  const seo = {
+    seoTitle: data?.sanitySettings?.seoTitle,
+    seoDescription: data?.sanitySettings?.seoDescription,
+    seoKeywords: data?.sanitySettings?.seoKeywords,
+    seoImage: data?.sanitySettings?.seoImage
+  };
 
   return (
     <>
       <Theme colors={colors} />
 
-      <SEO location={location} {...seo} site={site} />
+      <SEO
+        location={location}
+        {...seo}
+        title={data?.sanitySettings?.title}
+        site={site}
+      />
 
       <div
         css={css`
