@@ -11,10 +11,10 @@ const previewEnabled =
 
 module.exports = {
   flags: {
-    DEV_SSR: false
+    // DEV_SSR: false
   },
   siteMetadata: {
-    author: `Callen Nea Smith`,
+    author: `Callen Neasmith`,
     description: ``,
     facebook: ``,
     favicon: `/favicon.jpg`,

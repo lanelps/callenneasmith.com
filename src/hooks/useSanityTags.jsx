@@ -1,25 +1,28 @@
 import { useStaticQuery, graphql } from "gatsby";
 
-const useSanityTags = () => {
-  const data = useStaticQuery(graphql`
-    query Tags {
-      allSanityTag {
-        edges {
-          node {
-            id
-            name
-            colour {
-              value {
-                hex
-              }
+const query = graphql`
+  query Tags {
+    allSanityTag {
+      edges {
+        node {
+          id
+          name
+          colour {
+            value {
+              hex
             }
           }
         }
       }
     }
-  `);
+  }
+`;
 
-  const tags = data.allSanityTag.edges.map(({ node }) => node);
+const useSanityTags = () => {
+  // const data = useStaticQuery(query);
+
+  // const tags = data.allSanityTag.edges.map(({ node }) => node);
+  const tags = [];
 
   return tags;
 };

@@ -1,27 +1,28 @@
 import { useStaticQuery, graphql } from "gatsby";
 
-const useSiteMetadata = () => {
-  const { site } = useStaticQuery(
-    graphql`
-      query SiteMetaData {
-        site {
-          buildTime(formatString: "YYYY-MM-DD")
-          siteMetadata {
-            author
-            description
-            facebook
-            instagram
-            image
-            keywords
-            siteLanguage
-            siteUrl
-            title
-            titleTemplate
-          }
-        }
+const query = graphql`
+  query SiteMetaData {
+    site {
+      buildTime(formatString: "YYYY-MM-DD")
+      siteMetadata {
+        author
+        description
+        facebook
+        instagram
+        image
+        keywords
+        siteLanguage
+        siteUrl
+        title
+        titleTemplate
       }
-    `
-  );
+    }
+  }
+`;
+
+const useSiteMetadata = () => {
+  // const { site } = useStaticQuery(query);
+  const site = {};
 
   return site;
 };

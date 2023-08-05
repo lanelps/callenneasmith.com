@@ -3,8 +3,19 @@ import { graphql } from "gatsby";
 
 import { Layout, Intro, Projects } from "~components";
 
-const Index = ({ data: { sanitySettings, allSanityProject }, location }) => {
+const Index = ({
+  data: {
+    sanitySettings,
+    allSanityProject,
+    allSanityColour,
+    site,
+    allSanityTag
+  },
+  location
+}) => {
   const projects = allSanityProject.edges.map(({ node }) => node);
+  const colors = allSanityColour.edges.map(({ node }) => node);
+  const tags = allSanityTag.edges.map(({ node }) => node);
 
   const seo = {
     title: sanitySettings.seoTitle,
@@ -14,9 +25,15 @@ const Index = ({ data: { sanitySettings, allSanityProject }, location }) => {
   };
 
   return (
-    <Layout data={{ sanitySettings }} location={location} seo={seo}>
+    <Layout
+      data={{ sanitySettings }}
+      location={location}
+      seo={seo}
+      colors={colors}
+      site={site}
+    >
       <Intro introduction={sanitySettings._rawIntroduction} />
-      <Projects projects={projects} />
+      <Projects projects={projects} tags={tags} />
     </Layout>
   );
 };
@@ -49,7 +66,49 @@ export const query = graphql`
       }
     }
 
-    allSanityProject(sort: { fields: started, order: DESC }) {
+    allSanityColour(sort: { name: ASC }) {
+      edges {
+        node {
+          id
+          name
+          value {
+            hex
+          }
+        }
+      }
+    }
+
+    site {
+      buildTime(formatString: "YYYY-MM-DD")
+      siteMetadata {
+        author
+        description
+        facebook
+        instagram
+        image
+        keywords
+        siteLanguage
+        siteUrl
+        title
+        titleTemplate
+      }
+    }
+
+    allSanityTag {
+      edges {
+        node {
+          id
+          name
+          colour {
+            value {
+              hex
+            }
+          }
+        }
+      }
+    }
+
+    allSanityProject(sort: { started: DESC }) {
       edges {
         node {
           _id

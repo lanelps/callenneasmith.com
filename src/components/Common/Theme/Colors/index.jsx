@@ -1,10 +1,10 @@
 import React from "react";
 import { css, Global } from "@emotion/react";
 
-import { useSanityColours } from "~hooks";
+// import { useSanityColours } from "~hooks";
 
-const Colors = () => {
-  const colors = useSanityColours();
+const Colors = ({ colors }) => {
+  // const colors = useSanityColours();
 
   return (
     <Global

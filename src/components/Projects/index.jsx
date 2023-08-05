@@ -22,7 +22,7 @@ const AllProjects = styled.section`
   border-bottom: 0.5px solid var(--color-off-black);
 `;
 
-const Projects = ({ projects }) => {
+const Projects = ({ projects, tags }) => {
   const [activeFilters, setActiveFilters] = useState([]);
   const [allProjects, setAllProjects] = useState(projects);
 
@@ -43,6 +43,7 @@ const Projects = ({ projects }) => {
       <FilterBar
         activeFilters={activeFilters}
         setActiveFilters={setActiveFilters}
+        tags={tags}
       />
 
       <FeaturedProjects className="b1">

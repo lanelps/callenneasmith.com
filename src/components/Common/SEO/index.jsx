@@ -1,66 +1,38 @@
 import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
-import { css } from "@emotion/react";
 import { Helmet } from "react-helmet";
 
-const query = graphql`
-  query SEO {
-    site {
-      buildTime(formatString: "YYYY-MM-DD")
-      siteMetadata {
-        author
-        description
-        favicon
-        instagram
-        image
-        keywords
-        siteLanguage
-        siteUrl
-        title
-        titleTemplate
-      }
-    }
-  }
-`;
+// import { useSiteMetadata } from "~hooks";
 
-const SEO = ({ location, seoTitle, seoDescription, seoKeywords, seoImage }) => {
-  const { site } = useStaticQuery(query);
-
-  const {
-    buildTime,
-    siteMetadata: {
-      author,
-      description,
-      favicon,
-      instagram,
-      image,
-      keywords,
-      siteLanguage,
-      siteUrl,
-      title,
-      titleTemplate
-    }
-  } = site;
+const SEO = ({
+  site,
+  location,
+  seoTitle,
+  seoDescription,
+  seoKeywords,
+  seoImage
+}) => {
+  // const site = useSiteMetadata();
 
   const seo = {
-    author,
-    title: seoTitle || title,
-    titleTemplate,
-    description: seoDescription || description,
-    keywords: seoKeywords || keywords,
-    favicon: `${siteUrl}${favicon}`,
-    image: seoImage || `${siteUrl}${image}`,
-    url: `${siteUrl}${location?.pathname || ``}`,
-    language: siteLanguage
+    author: site?.siteMetadata?.author,
+    title: seoTitle || site?.siteMetadata?.title,
+    titleTemplate: site?.siteMetadata?.titleTemplate,
+    description: seoDescription || site?.siteMetadata?.description,
+    keywords: seoKeywords || site?.siteMetadata?.keywords,
+    favicon: `${site?.siteMetadata?.siteUrl}${site?.siteMetadata?.favicon}`,
+    image:
+      seoImage || `${site?.siteMetadata?.siteUrl}${site?.siteMetadata?.image}`,
+    url: `${site?.siteMetadata?.siteUrl}${location?.pathname || ``}`,
+    language: site?.siteMetadata?.siteLanguage
   };
 
   const schemaOrgWebPage = {
     "@context": `http://schema.org`,
     "@type": `WebPage`,
-    url: siteUrl,
+    url: site?.siteMetadata?.siteUrl,
     headline: seo.title,
     inLanguage: seo.language,
-    mainEntityOfPage: siteUrl,
+    mainEntityOfPage: site?.siteMetadata?.siteUrl,
     description: seo.description,
     name: seo.title,
     author: {
@@ -80,8 +52,8 @@ const SEO = ({ location, seoTitle, seoDescription, seoKeywords, seoImage }) => {
       "@type": `Person`,
       name: seo.author
     },
-    datePublished: buildTime,
-    dateModified: buildTime,
+    datePublished: site?.buildTime,
+    dateModified: site?.buildTime,
     image: {
       "@type": `ImageObject`,
       url: seo.image
@@ -97,7 +69,7 @@ const SEO = ({ location, seoTitle, seoDescription, seoKeywords, seoImage }) => {
       {
         "@type": `ListItem`,
         item: {
-          "@id": siteUrl,
+          "@id": site?.siteMetadata?.siteUrl,
           name: `Homepage`
         },
         position: 1

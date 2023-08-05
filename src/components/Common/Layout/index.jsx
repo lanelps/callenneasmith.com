@@ -2,17 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import { Theme, NavBar, Footer, PopOutImage, SEO } from "~components";
 import { useApp } from "~hooks";
 
-const Layout = ({ children, className, data, location, seo }) => {
+import { Theme, NavBar, Footer, PopOutImage } from "~components";
+import SEO from "../SEO";
+
+const Layout = ({ children, className, data, location, seo, colors, site }) => {
   const { popOuts } = useApp();
 
   return (
     <>
-      <Theme />
+      <Theme colors={colors} />
 
-      <SEO location={location} {...seo} />
+      <SEO location={location} {...seo} site={site} />
 
       <div
         css={css`

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { Grid } from "~components";
-import { useSanityTags } from "~hooks";
+// import { useSanityTags } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
@@ -32,8 +32,8 @@ const Buttons = styled.div`
   }
 `;
 
-const FilterBar = ({ activeFilters, setActiveFilters }) => {
-  const tags = useSanityTags();
+const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
+  // const tags = useSanityTags();
 
   const handleClick = (name) => {
     if (activeFilters?.includes(name)) {
@@ -108,7 +108,9 @@ const ButtonContainer = styled.button`
 
   text-transform: uppercase;
 
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 `;
 
 const Button = ({ activeFilters, onPointerDown, tag }) => {

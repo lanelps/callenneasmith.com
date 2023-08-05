@@ -4,7 +4,7 @@ import { Animations, Colors, Fonts } from "~components";
 
 import "~node_modules/modern-normalize/modern-normalize.css";
 
-const Theme = () => (
+const Theme = ({ colors }) => (
   <>
     <Global
       styles={css`
@@ -85,7 +85,7 @@ const Theme = () => (
     />
 
     <Animations />
-    <Colors />
+    <Colors colors={colors} />
     <Fonts />
   </>
 );
