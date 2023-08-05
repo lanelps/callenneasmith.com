@@ -99,6 +99,18 @@ const Project = ({ project }) => {
     loadedRef.current = true;
   };
 
+  const generateTime = () => {
+    if (!project?.started) return ``;
+
+    if (project?.started === project?.ended) return project?.started;
+
+    return `${project?.started} - ${
+      project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended
+    }`;
+  };
+
+  const time = generateTime();
+
   return (
     <Container
       isActive={isActive}
@@ -130,12 +142,7 @@ const Project = ({ project }) => {
 
         <ClientName>{project?.client?.name}</ClientName>
 
-        {project?.started && (
-          <Time>
-            {project?.started} -{` `}
-            {project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended}
-          </Time>
-        )}
+        {time && <Time>{time}</Time>}
       </Grid>
 
       <Expand
