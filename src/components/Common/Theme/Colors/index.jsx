@@ -11,7 +11,8 @@ const Colors = ({ colors }) => {
       styles={[
         css`
           :root {
-            ${colors.map((color) => {
+            ${colors?.length > 0 &&
+            colors?.map((color) => {
               const name = color.name.toLowerCase().split(` `).join(`-`);
               return `--color-${name}: ${color.value.hex}`;
             })}
