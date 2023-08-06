@@ -1,17 +1,20 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { Grid, PopOut, ImageCarousel } from "~components";
-import { useSize } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  height: ${({ height }) => `${height}px`};
+  display: grid;
+  grid-template-rows: ${({ isActive }) => (isActive && `1fr`) || `0fr`};
 
-  transition: height 0.3s ease;
+  transition: grid-template-rows 0.3s ease;
+`;
+
+const Wrapper = styled.div`
   overflow: hidden;
 `;
 
@@ -61,81 +64,67 @@ const Links = styled.div`
 `;
 
 const Expand = ({ project, isActive, setIsActive, loaded }) => {
-  const ref = useRef();
-  const size = useSize(ref);
-
   const { isDesktop } = useBreakpoint();
 
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (!ref?.current || !loaded) return;
-
-    if (isActive) {
-      setHeight(ref.current?.getBoundingClientRect()?.height);
-    } else {
-      setHeight(0);
-    }
-  }, [isActive, size]);
-
   return (
-    <Container isActive={isActive} height={height}>
-      <Grid
-        ref={ref}
-        css={css`
-          padding-bottom: 1.5rem;
+    <Container isActive={isActive}>
+      <Wrapper>
+        <Grid
+          css={css`
+            padding-bottom: 1.5rem;
 
-          ${breakpoint(`tablet`)} {
-            padding-bottom: 1.625rem;
-          }
-        `}
-      >
-        {project?.images?.length > 0 && (
-          <ImageCarousel
-            expandIsActive={isActive}
-            images={project?.images}
-            loaded={loaded}
-          />
-        )}
-
-        <ContentWrapper>
-          <Description className="b1">{project?.description}</Description>
-
-          {project?.links?.length > 0 && (
-            <ExternalLinks className="caption">
-              <h5>EXTERNAL LINKS</h5>
-              <Links>
-                {project?.links.map((link) => (
-                  <a
-                    key={link?._key}
-                    href={link?.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    css={css`
-                      :hover {
-                        color: var(--color-rich-black);
-                      }
-
-                      transition: color 0.3s ease;
-                    `}
-                  >
-                    {link?.label}
-                  </a>
-                ))}
-              </Links>
-            </ExternalLinks>
-          )}
-
-          {isDesktop && project?.images?.length > 0 && (
-            <PopOut
-              id={project?._id}
-              image={project?.images?.[0]}
+            ${breakpoint(`tablet`)} {
+              padding-bottom: 1.625rem;
+            }
+          `}
+        >
+          {project?.images?.length > 0 && (
+            <ImageCarousel
+              expandIsActive={isActive}
+              images={project?.images}
               loaded={loaded}
-              setIsActive={setIsActive}
             />
           )}
-        </ContentWrapper>
-      </Grid>
+
+          <ContentWrapper>
+            <Description className="b1">{project?.description}</Description>
+
+            {project?.links?.length > 0 && (
+              <ExternalLinks className="caption">
+                <h5>EXTERNAL LINKS</h5>
+                <Links>
+                  {project?.links.map((link) => (
+                    <a
+                      key={link?._key}
+                      href={link?.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      css={css`
+                        :hover {
+                          color: var(--color-rich-black);
+                        }
+
+                        transition: color 0.3s ease;
+                      `}
+                    >
+                      {link?.label}
+                    </a>
+                  ))}
+                </Links>
+              </ExternalLinks>
+            )}
+
+            {isDesktop && project?.images?.length > 0 && (
+              <PopOut
+                id={project?._id}
+                image={project?.images?.[0]}
+                loaded={loaded}
+                setIsActive={setIsActive}
+              />
+            )}
+          </ContentWrapper>
+        </Grid>
+      </Wrapper>
     </Container>
   );
 };
