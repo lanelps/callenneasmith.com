@@ -22,9 +22,9 @@ module.exports = {
     image: `/share.jpg`,
     keywords: ``,
     siteLanguage: `en`,
-    siteUrl: `https://callenneasmith.netlify.app/`,
-    title: `callenneasmith`,
-    titleTemplate: `%s - callenneasmith`
+    siteUrl: `https://callenneasmith.com/`,
+    title: `Callen Neasmith`,
+    titleTemplate: `%s - Callen Neasmith`
   },
   plugins: [
     `gatsby-plugin-image`,
