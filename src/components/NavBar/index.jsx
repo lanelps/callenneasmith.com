@@ -49,7 +49,7 @@ const Role = styled.h2`
   }
 `;
 
-const ContactButton = styled.button`
+const ContactButton = styled.p`
   display: none;
 
   ${breakpoint(`tablet`)} {
@@ -67,21 +67,42 @@ const ContactButton = styled.button`
   }
 `;
 
+const MobileButton = styled.button`
+  grid-column: 6 / span 1;
+  display: flex;
+  justify-content: flex-end;
+
+  margin-right: -0.5rem;
+  padding: 0 0.5rem;
+
+  ${breakpoint(`tablet`)} {
+    display: none;
+  }
+`;
+
 const Dropdown = styled.div`
   position: relative;
   grid-column: 1 / -1;
 
-  height: ${({ show, dropdownHeight }) => (show ? `${dropdownHeight}px` : `0`)};
+  display: grid;
+  grid-template-rows: ${({ show }) => (show ? `1fr` : `0fr`)};
+
   margin: 0;
 
   z-index: 2;
   overflow: hidden;
-  transition: height 0.3s ease, border-color 0.3s ease;
+  transition:
+    grid-template-rows 0.3s ease,
+    border-color 0.3s ease;
 
   ${breakpoint(`tablet`)} {
     grid-column: 6 / span 1;
     border: none;
   }
+`;
+
+const DropdownWrapper = styled.div`
+  overflow: hidden;
 `;
 
 const Contacts = styled.ul`
@@ -107,21 +128,8 @@ const Contacts = styled.ul`
 `;
 
 const NavBar = ({ title, role, contact }) => {
-  const contactsRef = useRef();
-
   const { introInView } = useApp();
   const [showContacts, setShowContacts] = useState(false);
-  const [dropdownHeight, setDropdownHeight] = useState(0);
-
-  useEffect(() => {
-    if (!contactsRef?.current) return;
-
-    if (showContacts) {
-      setDropdownHeight(contactsRef.current?.getBoundingClientRect()?.height);
-    } else {
-      setDropdownHeight(0);
-    }
-  }, [showContacts]);
 
   return (
     <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
@@ -142,20 +150,9 @@ const NavBar = ({ title, role, contact }) => {
           Contact
         </ContactButton>
 
-        <button
+        {/* mobile */}
+        <MobileButton
           type="button"
-          css={css`
-            grid-column: 6 / span 1;
-            display: flex;
-            justify-content: flex-end;
-
-            margin-right: -0.5rem;
-            padding: 0 0.5rem;
-
-            ${breakpoint(`tablet`)} {
-              display: none;
-            }
-          `}
           onClick={() => setShowContacts(!showContacts)}
         >
           <Cross
@@ -173,28 +170,30 @@ const NavBar = ({ title, role, contact }) => {
               transition: transform 0.15s ease;
             `}
           />
-        </button>
+        </MobileButton>
 
-        <Dropdown show={showContacts} dropdownHeight={dropdownHeight}>
-          <Contacts ref={contactsRef} className="h1">
-            {contact.map((item) => (
-              <a
-                key={`${item?._key}-nav`}
-                href={`${item?.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                css={css`
-                  :hover {
-                    color: var(--color-rich-black);
-                  }
+        <Dropdown show={showContacts}>
+          <DropdownWrapper>
+            <Contacts className="h1">
+              {contact.map((item) => (
+                <a
+                  key={`${item?._key}-nav`}
+                  href={`${item?.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  css={css`
+                    :hover {
+                      color: var(--color-rich-black);
+                    }
 
-                  transition: color 0.3s ease;
-                `}
-              >
-                <li>{item?.label}</li>
-              </a>
-            ))}
-          </Contacts>
+                    transition: color 0.3s ease;
+                  `}
+                >
+                  <li>{item?.label}</li>
+                </a>
+              ))}
+            </Contacts>
+          </DropdownWrapper>
         </Dropdown>
       </Grid>
     </Container>
