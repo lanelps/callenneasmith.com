@@ -23,6 +23,9 @@ dependencies:
   '@svgr/webpack':
     specifier: ^8.1.0
     version: 8.1.0(typescript@5.2.2)
+  deepmerge:
+    specifier: ^4.3.1
+    version: 4.3.1
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
@@ -32,6 +35,9 @@ dependencies:
   gatsby:
     specifier: ^5.12.5
     version: 5.12.5(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+  gatsby-core-utils:
+    specifier: ^4.12.0
+    version: 4.12.0
   gatsby-link:
     specifier: ^5.12.0
     version: 5.12.0(@gatsbyjs/reach-router@2.0.1)(react-dom@18.2.0)(react@18.2.0)
