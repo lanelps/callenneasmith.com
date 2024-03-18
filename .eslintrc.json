@@ -1,61 +1,54 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "prettier"
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "emotion"],
+  "rules": {
+    "quotes": ["error", "backtick"],
+    "comma-dangle": ["error", "never"],
+    "jsx-a11y/media-has-caption": 0,
+    "import/extensions": 0,
+    "import/no-unresolved": 0, // todo: investigate index.jsx not resolving
+    "prettier/prettier": ["error"],
+    "no-param-reassign": 0,
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
     ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "prettier"
-    ],
-    "rules": {
-        "quotes": ["error", "backtick"],
-        "comma-dangle": ["error", "never"],
-        "jsx-a11y/media-has-caption": 0,
-        "import/extensions": 0,
-        "import/no-unresolved": 0, // todo: investigate index.jsx not resolving
-        "prettier/prettier": ["error"],
-        "no-param-reassign": 0,
-        "react/function-component-definition": [
-          2,
-          { "namedComponents": "arrow-function" }
-        ],
-        "no-underscore-dangle": 0,
-        "prefer-default-export": 0,
-        "radix": 0,
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "react/jsx-no-useless-fragment": 0,
-        "react/react-in-jsx-scope": 0,
-        "react/prop-types": 0,
-        "semi": [2, "always"]
-      },
-      "settings": {
-        "import/resolver": {
-          "alias": [
-            ["~assets", "./src/assets"],
-            ["~components", "./src/components"],
-            ["~context", "./src/context"],
-            ["~data", "./src/data"],
-            ["~hooks", "./src/hooks"],
-            ["~node_modules", "./node_modules"],
-            ["~templates", "./src/templates"],
-            ["~utils", "./src/utils"]
-          ],
-          "node": {
-            "extensions": [".js", ".jsx"],
-            "paths": ["src", "src/components"]
-          }
-        }
+    "no-underscore-dangle": 0,
+    "prefer-default-export": 0,
+    "radix": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-useless-fragment": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/prop-types": 0,
+    "semi": [2, "always"]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": [
+        ["~assets", "./src/assets"],
+        ["~components", "./src/components"],
+        ["~context", "./src/context"],
+        ["~data", "./src/data"],
+        ["~hooks", "./src/hooks"],
+        ["~node_modules", "./node_modules"],
+        ["~templates", "./src/templates"],
+        ["~utils", "./src/utils"]
+      ],
+      "node": {
+        "extensions": [".js", ".jsx"],
+        "paths": ["src", "src/components"]
       }
+    }
+  }
 }
