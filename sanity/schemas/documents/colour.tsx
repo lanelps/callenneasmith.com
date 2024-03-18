@@ -14,40 +14,40 @@ const Color = styled.div`
 `;
 
 export default {
-  name: `colour`,
-  title: `Colour`,
-  type: `document`,
+  name: "colour",
+  title: "Colour",
+  type: "document",
   fieldsets: [
     {
-      name: `seo`,
-      title: `SEO`,
+      name: "seo",
+      title: "SEO",
       options: { collapsible: true, collapsed: false }
     }
   ],
   fields: [
     {
-      name: `name`,
-      title: `Name`,
-      type: `string`
+      name: "name",
+      title: "Name",
+      type: "string"
     },
     {
-      name: `value`,
-      title: `Value`,
-      type: `color`
+      name: "value",
+      title: "Value",
+      type: "color"
     },
     {
-      name: `seoIcon`,
-      title: `Icon`,
-      type: `altImage`,
-      fieldset: `seo`,
-      description: `Icon to show in sanity studio`
+      name: "seoIcon",
+      title: "Icon",
+      type: "altImage",
+      fieldset: "seo",
+      description: "Icon to show in sanity studio"
     }
   ],
   preview: {
     select: {
-      name: `name`,
-      value: `value.hex`,
-      icon: `seoIcon`
+      name: "name",
+      value: "value.hex",
+      icon: "seoIcon"
     },
     prepare: ({ name, value, icon }) => ({
       title: name,

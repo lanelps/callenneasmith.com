@@ -20,42 +20,42 @@ const Tag = styled.div`
 `;
 
 export default {
-  name: `tag`,
-  title: `Tag`,
-  type: `document`,
+  name: "tag",
+  title: "Tag",
+  type: "document",
   fieldsets: [
     {
-      name: `seo`,
-      title: `SEO`,
+      name: "seo",
+      title: "SEO",
       options: { collapsible: true, collapsed: false }
     }
   ],
   fields: [
     {
-      name: `name`,
-      title: `Name`,
-      type: `string`
+      name: "name",
+      title: "Name",
+      type: "string"
     },
     {
-      name: `colour`,
-      title: `Colour`,
-      type: `reference`,
-      to: [{ type: `colour` }]
+      name: "colour",
+      title: "Colour",
+      type: "reference",
+      to: [{ type: "colour" }]
     },
     {
-      name: `seoIcon`,
-      title: `Icon`,
-      type: `altImage`,
-      fieldset: `seo`,
-      description: `Icon to show in sanity studio`
+      name: "seoIcon",
+      title: "Icon",
+      type: "altImage",
+      fieldset: "seo",
+      description: "Icon to show in sanity studio"
     }
   ],
   preview: {
     select: {
-      name: `name`,
-      colourName: `colour.name`,
-      colourValue: `colour.value`,
-      icon: `seoIcon`
+      name: "name",
+      colourName: "colour.name",
+      colourValue: "colour.value",
+      icon: "seoIcon"
     },
     prepare: ({ name, colourName, colourValue, icon }) => ({
       title: name,
