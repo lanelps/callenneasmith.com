@@ -3,14 +3,12 @@ import { css, Global } from "@emotion/react";
 
 import { breakpoint } from "~utils/css.js";
 
-import NEUE_HAAS_DISPLAY_ROMAN_WOFF2 from "~assets/fonts/NeueHaasDisplayRoman.woff2";
-import NEUE_HAAS_DISPLAY_ROMAN_WOFF from "~assets/fonts/NeueHaasDisplayRoman.woff";
-import NEUE_HAAS_DISPLAY_MEDIUM_WOFF2 from "~assets/fonts/NeueHaasDisplayMedium.woff2";
-import NEUE_HAAS_DISPLAY_MEDIUM_WOFF from "~assets/fonts/NeueHaasDisplayMedium.woff";
+import HELVETICA_NEUE_NORMAL_WOFF2 from "~assets/fonts/helveticaneue.woff2";
+import HELVETICA_NEUE_MEDIUM_WOFF2 from "~assets/fonts/helveticaneue-medium.woff2";
 
-const SANS_FALLBACKS = `"Helvetica Neue", "Helvetica", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
+const SANS_FALLBACKS = `"Helvetica", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
 
-const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Neue Haas Display", ${SANS_FALLBACKS}`;
+const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Helvetica Neue", ${SANS_FALLBACKS}`;
 
 /** ============================================================================
  * @component
@@ -20,20 +18,16 @@ const Fonts = () => (
   <Global
     styles={css`
       @font-face {
-        font-family: "Neue Haas Display";
-        src:
-          url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF2}) format("woff2"),
-          url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF}) format("woff");
+        font-family: "Helvetica Neue";
+        src: url(${HELVETICA_NEUE_NORMAL_WOFF2}) format("woff2");
         font-display: block;
         font-weight: 400;
         font-style: normal;
       }
 
       @font-face {
-        font-family: "Neue Haas Display";
-        src:
-          url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF2}) format("woff2"),
-          url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF}) format("woff");
+        font-family: "Helvetica Neue";
+        src: url(${HELVETICA_NEUE_MEDIUM_WOFF2}) format("woff2");
         font-display: block;
         font-weight: 500;
         font-style: normal;
@@ -44,11 +38,7 @@ const Fonts = () => (
 
       .h1,
       .b1,
-      .b2 {
-        font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
-        font-weight: 400;
-      }
-
+      .b2,
       .caption {
         font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
         font-weight: 500;
@@ -59,7 +49,7 @@ const Fonts = () => (
 
       .h1 {
         font-size: 1rem; // 16px
-        line-height: 1.08;
+        line-height: 1.16;
         letter-spacing: -0.02em;
       }
 
@@ -68,7 +58,13 @@ const Fonts = () => (
 
       .b1 {
         font-size: 0.875rem; // 14px
-        line-height: 0.9275rem;
+        line-height: 1.06;
+        letter-spacing: -0.01em;
+      }
+
+      .b2 {
+        font-size: 0.75rem; // 12px
+        line-height: 1.1;
         letter-spacing: -0.01em;
       }
 
@@ -77,43 +73,33 @@ const Fonts = () => (
 
       .caption {
         font-size: 0.5625rem; // 9px
-        line-height: 0.59625rem;
+        line-height: 1.06;
       }
 
       //
       // breakpoints (ASC) //
 
       ${breakpoint(`tablet`)} {
-        // .h1,
-        // .b1 {
-        //   font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
-        //   font-weight: 400;
-        // }
-
         //
         // headings //
 
         .h1 {
-          font-size: 2rem; // 32px
-          line-height: 2.4rem;
-          letter-spacing: -0.01em;
+          line-height: 1.08;
         }
 
         //
         // body //
 
         .b1 {
-          font-size: 1.125rem; // 18px
-          line-height: 1.2375rem;
+          font-size: 1rem; // 16px
+          line-height: 1.1;
         }
 
         //
         // other //
 
         .caption {
-          font-size: 0.625rem; // 10px
-          line-height: 0.6875rem;
-          letter-spacing: 0.01em;
+          line-height: 1.1;
         }
       }
     `}
