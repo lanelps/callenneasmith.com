@@ -20,10 +20,10 @@ const Container = styled.div`
 
   display: flex;
 
-  padding: 0.625rem 0;
-  background-color: var(--color-off-white);
+  padding: 0.625rem 0 2rem;
+  // background-color: var(--color-off-white);
   color: var(--color-rich-black);
-  border-bottom: 0.5px solid var(--color-off-black);
+  backdrop-filter: blur(0.5rem);
 
   font-family: "Neue Haas Grotesk Display Pro";
   font-size: 32px;
@@ -37,7 +37,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 2;
 `;
 
 const Role = styled.h2`
@@ -45,7 +45,7 @@ const Role = styled.h2`
 
   ${breakpoint(`tablet`)} {
     display: block;
-    grid-column: 4 / span 2;
+    grid-column: 3 / span 2;
   }
 `;
 
@@ -56,7 +56,7 @@ const ContactButton = styled.p`
     display: block;
     color: ${({ active }) =>
       active ? `var(--color-rich-black)` : `var(--color-off-black)`};
-    grid-column: 6;
+    grid-column-start: 6;
     text-align: left;
 
     :hover {

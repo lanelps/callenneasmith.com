@@ -7,8 +7,8 @@ import { Image } from "~components";
 import { breakpoint } from "~utils/css";
 
 const ViewPort = styled.ul`
-  --slide-spacing: 1rem;
-  --slide-height: 428px;
+  --slide-spacing: 0.25rem;
+  height: 100%;
   overflow: hidden;
 
   ${breakpoint(`tablet`)} {
@@ -18,6 +18,7 @@ const ViewPort = styled.ul`
 `;
 
 const Container = styled.div`
+  height: 100%;
   backface-visibility: hidden;
   display: flex;
   touch-action: pan-y;
@@ -25,16 +26,17 @@ const Container = styled.div`
 `;
 
 const Slide = styled.div`
-  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: 100%;
   min-width: 0;
   padding-left: var(--slide-spacing);
   position: relative;
+  height: 100%;
 
   figure {
-    height: 100%;
+    width: 100%;
+    height: auto;
 
-    display: flex;
-    flex-direction: column;
     > * + * {
       margin-top: 0.375rem;
     }
@@ -50,37 +52,18 @@ const EmblaCarousel = (props, ref) => {
         {slides.map((image, index) => {
           if (!image) return null;
 
-          const { width, height } = image.asset.gatsbyImageData;
-          const widthRatio = width / height;
-
           return (
             <Slide key={image?._key}>
-              <figure>
-                <Image
-                  css={css`
-                    display: block;
-                    height: var(--slide-height);
-                    width: 100%;
-                    object-fit: cover;
-
-                    width: calc(${widthRatio} * 60.55vw);
-                    height: 60.55vw;
-                    ${breakpoint(`tablet`)} {
-                      width: calc(${widthRatio} * 29.72vw);
-                      height: 29.72vw;
-                    }
-                    ${breakpoint(`desktop`)} {
-                      width: calc(${widthRatio} * var(--slide-height));
-                      height: var(--slide-height);
-                    }
-                  `}
-                  image={image}
-                  alt="Your alt text"
-                />
-                <figcaption className="caption">
-                  {index + 1}/{slides.length}
-                </figcaption>
-              </figure>
+              <Image
+                css={css`
+                  display: block;
+                  height: 100%;
+                  width: 100%;
+                `}
+                image={image}
+                alt="Your alt text"
+                contain
+              />
             </Slide>
           );
         })}

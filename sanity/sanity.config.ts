@@ -4,7 +4,6 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { dashboardTool } from "@sanity/dashboard";
 import { netlifyWidget } from "sanity-plugin-dashboard-widget-netlify";
-import { colorInput } from "@sanity/color-input";
 
 import { schemaTypes } from "./schemas";
 import deskStructure from "./deskStructure";
@@ -34,8 +33,7 @@ export default defineConfig({
           ]
         })
       ]
-    }),
-    colorInput()
+    })
   ],
 
   schema: {

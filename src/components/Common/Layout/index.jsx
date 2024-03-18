@@ -36,13 +36,22 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           flex-direction: column;
           justify-content: space-between;
 
-          background-color: var(--color-off-white);
+          background-color: var(--color-light-grey);
 
           overflow: hidden;
         `}
       >
         <NavBar {...data.sanitySettings} />
-        <main id="app-root" className={className}>
+        <main
+          id="app-root"
+          css={[
+            css`
+              background-color: var(--color-off-white);
+              margin-bottom: 1.5rem;
+            `,
+            className
+          ]}
+        >
           {children}
 
           {popOuts.map((popOut) => (

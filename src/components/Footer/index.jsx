@@ -12,7 +12,7 @@ const Footer = styled.div`
 
   padding: 1.5rem 0 0.75rem;
 
-  background: var(--color-white);
+  background: var(--color-laser);
   text-transform: uppercase;
 
   h5 {
@@ -21,19 +21,19 @@ const Footer = styled.div`
   }
 
   a:first-of-type {
-    grid-column: 1 / span 3;
+    grid-column: span 2;
   }
 
   ${breakpoint(`tablet`)} {
     padding: 3rem 0 0.75rem;
 
     h5 {
-      grid-column: 1 / span 3;
+      grid-column: 1 / span 1;
       margin-bottom: 0;
     }
 
     a:first-of-type {
-      grid-column: 4 / span 1;
+      grid-column: span 1;
     }
   }
 `;

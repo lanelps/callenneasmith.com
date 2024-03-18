@@ -13,7 +13,7 @@ import { useApp } from "~hooks";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   // max-width: 1440px;
   min-height: 107.2vw;
 
@@ -76,7 +76,7 @@ const HoverFigure = styled.figure`
   }
 `;
 
-const HoverImage = ({ background, image, isActive, setIsActive }) => {
+const HoverImage = ({ image, isActive, setIsActive }) => {
   const [doucmentExists, setDocumentExists] = useState(false);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
         isActive={isActive}
         onPointerDown={() => setIsActive(false)}
       >
-        <HoverFigure background={background} isActive={isActive}>
+        <HoverFigure isActive={isActive}>
           <SanityImage
             asset={image?.asset}
             alt={image?.altText}
@@ -108,7 +108,6 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
               max-height: 100%;
               width: auto;
               max-width: 100%;
-              ${background && `box-shadow: 0px 0px 30px 15px ${background};`}
             `}
           />
         </HoverFigure>
@@ -123,7 +122,7 @@ const HoverImage = ({ background, image, isActive, setIsActive }) => {
 const portableComponents = {
   normal: ({ children }) => <p className="h1">{children}</p>,
   hoverImage: (props) => {
-    const { children, image, backgroundColour } = props;
+    const { children, image } = props;
     const [isActive, setIsActive] = useState(false);
 
     return (
@@ -131,7 +130,12 @@ const portableComponents = {
         <span
           className="h1"
           css={css`
-            color: var(--color-off-black);
+            color: var(--color-blue);
+            transition: color 0.3s ease-in-out;
+
+            :hover {
+              color: var(--color-laser);
+            }
           `}
           onMouseEnter={() => setIsActive(true)}
           onMouseLeave={() => setIsActive(false)}
@@ -142,7 +146,6 @@ const portableComponents = {
 
         <HoverImage
           image={image}
-          background={backgroundColour?.value?.hex}
           isActive={isActive}
           setIsActive={setIsActive}
         />

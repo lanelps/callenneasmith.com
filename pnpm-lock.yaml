@@ -154,6 +154,9 @@ devDependencies:
   eslint-import-resolver-alias:
     specifier: ^1.1.2
     version: 1.1.2(eslint-plugin-import@2.29.1)
+  eslint-plugin-emotion:
+    specifier: ^11.0.0
+    version: 11.0.0
   eslint-plugin-import:
     specifier: ^2.29.1
     version: 2.29.1(@typescript-eslint/parser@5.62.0)(eslint@8.57.0)
@@ -6052,6 +6055,11 @@ packages:
       eslint-import-resolver-node: 0.3.9
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-emotion@11.0.0:
+    resolution: {integrity: sha512-SKYyFYRFgOQTtBetn1mTKC2V1J6sbTnJh2/giWzg/OaTBSvJFwew8OkoxA3R9IhyaXYyPE+1TWzRhUJvVvBjVA==}
+    engines: {node: '>=6'}
     dev: true
 
   /eslint-plugin-flowtype@5.10.0(eslint@8.57.0):

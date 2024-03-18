@@ -8,14 +8,11 @@ const Theme = ({ colors }) => (
   <>
     <Global
       styles={css`
-        html {
-          font-size: 16px;
-        }
-
         a {
           text-decoration: none;
           color: inherit;
           cursor: pointer;
+          font-size: inherit;
         }
 
         button {
@@ -24,6 +21,7 @@ const Theme = ({ colors }) => (
           border-width: 0;
           padding: 0;
           cursor: pointer;
+          font-size: inherit;
         }
 
         a:focus,
@@ -65,7 +63,6 @@ const Theme = ({ colors }) => (
         h6 {
           margin: 0;
           font-size: inherit;
-          font-weight: inherit;
         }
 
         p {

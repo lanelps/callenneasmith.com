@@ -1,25 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FilterBar, Project, Grid } from "~components";
+import { FilterBar, Project } from "~components";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-
-import { breakpoint } from "~utils/css";
-
-const FeaturedProjects = styled.section`
-  position: relative;
-  width: 100%;
-`;
-
-const ProjectsTitle = styled.div`
-  position: relative;
-  background-color: var(--color-white);
-  border-top: 0.5px solid var(--color-off-black);
-`;
 
 const AllProjects = styled.section`
   position: relative;
   width: 100%;
-  border-bottom: 0.5px solid var(--color-off-black);
 `;
 
 const Projects = ({ projects, tags }) => {
@@ -45,42 +30,6 @@ const Projects = ({ projects, tags }) => {
         setActiveFilters={setActiveFilters}
         tags={tags}
       />
-
-      <FeaturedProjects className="b1">
-        <ul>
-          {allProjects.map(
-            (project) =>
-              project.isFeatured && (
-                <li key={`${project._id}-featured`}>
-                  <Project project={project} />
-                </li>
-              )
-          )}
-        </ul>
-      </FeaturedProjects>
-
-      <ProjectsTitle>
-        <Grid>
-          <h2
-            css={css`
-              grid-column: 1 / -1;
-
-              padding-top: 2.25rem;
-              padding-bottom: 0.625rem;
-
-              text-transform: uppercase;
-
-              ${breakpoint(`tablet`)} {
-                grid-column: 1 / span 3;
-                padding-top: 2rem;
-              }
-            `}
-            className="caption"
-          >
-            Project Archive (Newest to Oldest)
-          </h2>
-        </Grid>
-      </ProjectsTitle>
 
       <AllProjects className="b1">
         <ul>

@@ -11,57 +11,21 @@ const Container = styled.article`
   width: 100%;
 
   background-color: ${({ isActive }) =>
-    isActive ? `var(--color-off-white)` : `var(--color-white)`};
-  border-top: 0.5px solid var(--color-off-black);
+    isActive ? `var(--color-light-grey)` : `var(--color-off-white)`};
 
   :hover {
-    background-color: var(--color-off-white);
+    background-color: var(--color-light-grey);
   }
 
   transition: background-color 0.3s ease;
 `;
 
 const ProjectName = styled.div`
-  grid-column: 1 / span 4;
+  grid-column: 1 / span 2;
   display: flex;
   align-items: center;
-  > * + * {
-    margin-left: 0.375rem;
-  }
 
   text-align: left;
-
-  ${breakpoint(`tablet`)} {
-    grid-column: 1 / span 3;
-    > * + * {
-      margin-left: 0.625rem;
-    }
-  }
-`;
-
-const Circles = styled.div`
-  display: flex;
-  > * + * {
-    margin-left: 0.1875rem;
-  }
-
-  ${breakpoint(`tablet`)} {
-    > * + * {
-      margin-left: 0.25rem;
-    }
-  }
-`;
-
-const Circle = styled.div`
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: ${({ color }) => color || `#000000`};
-  border-radius: 100%;
-
-  ${breakpoint(`tablet`)} {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
 `;
 
 const ClientName = styled.p`
@@ -70,22 +34,19 @@ const ClientName = styled.p`
   text-align: right;
 
   ${breakpoint(`tablet`)} {
-    grid-column: 4 / span 2;
+    grid-column: 3 / span 1;
     text-align: left;
   }
 `;
 
-const Time = styled.p`
+const Tag = styled.p`
   grid-column: 1 / -1;
 
-  margin-top: 0.125rem;
-
   color: var(--color-off-black);
-  text-align: left;
+  opacity: 0.6;
 
   ${breakpoint(`tablet`)} {
-    grid-column: 6 / span 1;
-    margin-top: 0;
+    grid-column: 5 / -1;
   }
 `;
 
@@ -99,33 +60,32 @@ const Project = ({ project }) => {
     loadedRef.current = true;
   };
 
-  const generateTime = () => {
-    if (!project?.started) return ``;
+  // const generateTime = () => {
+  //   if (!project?.started) return ``;
 
-    if (project?.started === project?.ended) return project?.started;
+  //   if (project?.started === project?.ended) return project?.started;
 
-    return `${project?.started} - ${
-      project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended
-    }`;
-  };
+  //   return `${project?.started} - ${
+  //     project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended
+  //   }`;
+  // };
 
-  const time = generateTime();
+  // const time = generateTime();
 
   return (
     <Container
       isActive={isActive}
       onMouseEnter={handleLoaded}
       onPointerDown={handleLoaded}
+      className="h1"
     >
       {/* Project Title */}
       <Grid
         node="button"
         css={css`
-          padding: 0.75rem;
-
           ${breakpoint(`tablet`)} {
-            padding-top: 0.7rem;
-            padding-bottom: 0.7rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
           }
         `}
         onClick={() => setIsActive(!isActive)}
@@ -133,16 +93,11 @@ const Project = ({ project }) => {
       >
         <ProjectName>
           <h2>{project?.name}</h2>
-          <Circles>
-            {project?.tags.map((tag) => (
-              <Circle key={tag?._id} color={tag?.colour?.value?.hex} />
-            ))}
-          </Circles>
         </ProjectName>
 
         <ClientName>{project?.client?.name}</ClientName>
 
-        {time && <Time>{time}</Time>}
+        <Tag>{project?.tags?.map((tag) => tag?.name).join(`, `)}</Tag>
       </Grid>
 
       <Expand
