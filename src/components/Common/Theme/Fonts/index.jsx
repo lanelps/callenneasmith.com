@@ -21,7 +21,8 @@ const Fonts = () => (
     styles={css`
       @font-face {
         font-family: "Neue Haas Display";
-        src: url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF2}) format("woff2"),
+        src:
+          url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF2}) format("woff2"),
           url(${NEUE_HAAS_DISPLAY_ROMAN_WOFF}) format("woff");
         font-display: block;
         font-weight: 400;
@@ -30,7 +31,8 @@ const Fonts = () => (
 
       @font-face {
         font-family: "Neue Haas Display";
-        src: url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF2}) format("woff2"),
+        src:
+          url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF2}) format("woff2"),
           url(${NEUE_HAAS_DISPLAY_MEDIUM_WOFF}) format("woff");
         font-display: block;
         font-weight: 500;
@@ -41,7 +43,8 @@ const Fonts = () => (
       // common //
 
       .h1,
-      .b1 {
+      .b1,
+      .b2 {
         font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
         font-weight: 400;
       }
@@ -55,8 +58,8 @@ const Fonts = () => (
       // headings //
 
       .h1 {
-        font-size: 1.25rem; // 20px
-        line-height: 1.45rem;
+        font-size: 1rem; // 16px
+        line-height: 1.08;
         letter-spacing: -0.02em;
       }
 

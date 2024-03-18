@@ -72,12 +72,6 @@ export default {
                 title: "Image",
                 name: "image",
                 type: "altImage"
-              },
-              {
-                name: "backgroundColour",
-                title: "Background Colour",
-                type: "reference",
-                to: [{ type: "colour" }]
               }
             ]
           }

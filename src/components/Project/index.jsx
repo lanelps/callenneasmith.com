@@ -39,31 +39,6 @@ const ProjectName = styled.div`
   }
 `;
 
-const Circles = styled.div`
-  display: flex;
-  > * + * {
-    margin-left: 0.1875rem;
-  }
-
-  ${breakpoint(`tablet`)} {
-    > * + * {
-      margin-left: 0.25rem;
-    }
-  }
-`;
-
-const Circle = styled.div`
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: ${({ color }) => color || `#000000`};
-  border-radius: 100%;
-
-  ${breakpoint(`tablet`)} {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-`;
-
 const ClientName = styled.p`
   grid-column: 5 / span 2;
   color: var(--color-off-black);
@@ -133,11 +108,6 @@ const Project = ({ project }) => {
       >
         <ProjectName>
           <h2>{project?.name}</h2>
-          <Circles>
-            {project?.tags.map((tag) => (
-              <Circle key={tag?._id} color={tag?.colour?.value?.hex} />
-            ))}
-          </Circles>
         </ProjectName>
 
         <ClientName>{project?.client?.name}</ClientName>

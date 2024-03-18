@@ -4,26 +4,14 @@ import { graphql } from "gatsby";
 import { Layout, Intro, Projects } from "~components";
 
 const Index = ({
-  data: {
-    sanitySettings,
-    allSanityProject,
-    allSanityColour,
-    site,
-    allSanityTag
-  },
+  data: { sanitySettings, allSanityProject, site, allSanityTag },
   location
 }) => {
   const projects = allSanityProject.edges.map(({ node }) => node);
-  const colors = allSanityColour.edges.map(({ node }) => node);
   const tags = allSanityTag.edges.map(({ node }) => node);
 
   return (
-    <Layout
-      data={{ sanitySettings }}
-      location={location}
-      colors={colors}
-      site={site}
-    >
+    <Layout data={{ sanitySettings }} location={location} site={site}>
       <Intro introduction={sanitySettings._rawIntroduction} />
       <Projects projects={projects} tags={tags} />
     </Layout>
@@ -58,18 +46,6 @@ export const query = graphql`
       }
     }
 
-    allSanityColour(sort: { name: ASC }) {
-      edges {
-        node {
-          id
-          name
-          value {
-            hex
-          }
-        }
-      }
-    }
-
     site {
       buildTime(formatString: "YYYY-MM-DD")
       siteMetadata {
@@ -91,11 +67,6 @@ export const query = graphql`
         node {
           id
           name
-          colour {
-            value {
-              hex
-            }
-          }
         }
       }
     }
@@ -115,12 +86,6 @@ export const query = graphql`
           tags {
             _id
             name
-            colour {
-              name
-              value {
-                hex
-              }
-            }
           }
           description
           links {

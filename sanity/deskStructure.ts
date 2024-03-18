@@ -23,13 +23,6 @@ export default (S) =>
 
       //
 
-      S.listItem()
-        .title("Colours")
-        .child(S.documentTypeList("colour"))
-        .icon(() => "🎨"),
-
-      //
-
       S.divider(),
 
       //

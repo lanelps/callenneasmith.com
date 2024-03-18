@@ -3,14 +3,10 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 import { Grid } from "~components";
-// import { useSanityTags } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  background-color: var(--color-white);
-  border-top: 0.5px solid var(--color-off-black);
-
   padding: 0.75rem 0;
 
   ${breakpoint(`tablet`)} {
@@ -33,8 +29,6 @@ const Buttons = styled.div`
 `;
 
 const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
-  // const tags = useSanityTags();
-
   const handleClick = (name) => {
     if (activeFilters?.includes(name)) {
       const index = activeFilters?.indexOf(name);
@@ -93,24 +87,16 @@ const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
 export default FilterBar;
 
 const ButtonContainer = styled.button`
-  border-radius: 2.5rem;
-  padding: 0.25rem 0.375rem;
+  color: var(--color-dark-grey);
 
-  color: ${({ isActive, color }) => (isActive && `white`) || color};
-  border: 1px solid ${({ color }) => color};
-  background-color: ${({ isActive, color }) =>
-    (isActive && color) || `transparent`};
+  text-transform: capitalize;
+  ${({ isActive }) => isActive && `text-decoration: underline;`}
+
+  transition: color 0.3s ease;
 
   :hover {
-    background-color: ${({ color }) => color};
-    color: var(--color-white);
+    text-decoration: underline;
   }
-
-  text-transform: uppercase;
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 `;
 
 const Button = ({ activeFilters, onPointerDown, tag }) => {
@@ -128,10 +114,9 @@ const Button = ({ activeFilters, onPointerDown, tag }) => {
     <ButtonContainer
       key={tag.id}
       onPointerDown={onPointerDown}
-      color={tag.colour.value.hex}
       isActive={isActive}
       name={tag.name}
-      className="caption"
+      className="b1"
     >
       <span>{tag.name}</span>
     </ButtonContainer>
