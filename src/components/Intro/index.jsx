@@ -13,7 +13,7 @@ import { useApp } from "~hooks";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   // max-width: 1440px;
   min-height: 107.2vw;
 
@@ -130,7 +130,7 @@ const portableComponents = {
         <span
           className="h1"
           css={css`
-            color: var(--color-off-black);
+            color: var(--color-blue);
           `}
           onMouseEnter={() => setIsActive(true)}
           onMouseLeave={() => setIsActive(false)}
