@@ -10,6 +10,7 @@ import { breakpoint } from "~utils/css";
 const Container = styled.div`
   display: grid;
   grid-template-rows: ${({ isActive }) => (isActive && `1fr`) || `0fr`};
+  pointer-events: auto;
 
   transition: grid-template-rows 0.3s ease;
 `;
@@ -69,13 +70,26 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
   return (
     <Container isActive={isActive}>
       <Wrapper>
-        <Grid
+        <div
           css={css`
-            padding-bottom: 1.5rem;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            max-height: 100vh;
 
-            ${breakpoint(`tablet`)} {
-              padding-bottom: 1.625rem;
-            }
+            display: ${isActive ? `flex` : `none`};
+            flex-direction: column;
+            justify-content: space-between;
+
+            pointer-events: ${isActive ? `auto` : `none`};
+
+            pointer-events: none;
+
+            z-index: 50;
           `}
         >
           {project?.images?.length > 0 && (
@@ -85,7 +99,17 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
               loaded={loaded}
             />
           )}
+        </div>
 
+        <Grid
+          css={css`
+            padding-bottom: 1.5rem;
+
+            ${breakpoint(`tablet`)} {
+              padding-bottom: 1.625rem;
+            }
+          `}
+        >
           <ContentWrapper>
             <Description className="b1">{project?.description}</Description>
 

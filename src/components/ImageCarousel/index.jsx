@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { Cursor, ExampleCarousel } from "~components";
+import { Grid, Cursor, ExampleCarousel } from "~components";
 import { useSize, usePrevNextButtons } from "~hooks";
 
 import { breakpoint } from "~utils/css";
@@ -12,13 +13,15 @@ import { breakpoint } from "~utils/css";
 const Container = styled.div`
   position: relative;
   width: 100%;
-  grid-column: 1 / -1;
+  height: 100%;
 
-  padding-bottom: 1rem;
+  pointer-events: auto;
+  overflow: hidden;
+
+  grid-column: 6 / -1;
 
   ${breakpoint(`tablet`)} {
     cursor: none;
-    padding-bottom: 0.75rem;
   }
 `;
 
@@ -105,27 +108,50 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
   }, [loaded]);
 
   return (
-    <Container
-      className={className}
-      ref={carouselRef}
-      onMouseMove={handleMove}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onMouseOut={handleOut}
-      onClick={handleClick}
-    >
-      {isTablet && (
-        <Cursor
-          width={cursorSize}
-          height={cursorSize}
-          position={cursorPosition}
-          direction={cursorDirection}
-          active={cursorActive}
-        />
-      )}
+    <>
+      <Grid
+        css={css`
+          height: 100%;
+          overflow: hidden;
+        `}
+      >
+        <Container
+          className={className}
+          ref={carouselRef}
+          onMouseMove={handleMove}
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+          onMouseOut={handleOut}
+          onClick={handleClick}
+        >
+          {isTablet && (
+            <Cursor
+              width={cursorSize}
+              height={cursorSize}
+              position={cursorPosition}
+              direction={cursorDirection}
+              active={cursorActive}
+            />
+          )}
 
-      <ExampleCarousel ref={emblaRef} slides={(loaded && images) || []} />
-    </Container>
+          <ExampleCarousel ref={emblaRef} slides={(loaded && images) || []} />
+        </Container>
+      </Grid>
+
+      <Grid>
+        <nav
+          css={css`
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--color-white);
+            grid-column: 4 / -1;
+            pointer-events: auto;
+          `}
+        >
+          <button>Close Overlay</button>
+        </nav>
+      </Grid>
+    </>
   );
 };
 
