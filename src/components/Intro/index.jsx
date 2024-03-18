@@ -131,6 +131,11 @@ const portableComponents = {
           className="h1"
           css={css`
             color: var(--color-blue);
+            transition: color 0.3s ease-in-out;
+
+            :hover {
+              color: var(--color-laser);
+            }
           `}
           onMouseEnter={() => setIsActive(true)}
           onMouseLeave={() => setIsActive(false)}

@@ -36,12 +36,16 @@ const Fonts = () => (
       //
       // common //
 
+      body,
+      main,
+      p,
       .h1,
       .b1,
       .b2,
       .caption {
         font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
         font-weight: 500;
+        text-align: left;
       }
 
       //

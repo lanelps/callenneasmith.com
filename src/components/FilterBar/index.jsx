@@ -66,7 +66,7 @@ const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
             grid-column: 1 / -1;
 
             ${breakpoint(`tablet`)} {
-              grid-column: 4 / span 3;
+              grid-column: 5 / -1;
             }
           `}
         >
