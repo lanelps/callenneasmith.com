@@ -87,6 +87,8 @@ const Project = ({ project }) => {
 
           ${breakpoint(`tablet`)} {
             row-gap: 0;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
           }
         `}
         onClick={() => setIsActive(!isActive)}

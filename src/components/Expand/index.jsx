@@ -82,7 +82,7 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
             max-height: 100vh;
 
             display: ${isActive ? `flex` : `none`};
-            flex-direction: column;
+            flex-direction: column-reverse;
             justify-content: space-between;
 
             pointer-events: ${isActive ? `auto` : `none`};
@@ -90,11 +90,16 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
             pointer-events: none;
 
             z-index: 50;
+
+            ${breakpoint(`tablet`)} {
+              flex-direction: column;
+            }
           `}
         >
           {project?.images?.length > 0 && (
             <ImageCarousel
               expandIsActive={isActive}
+              setExpandIsActive={setIsActive}
               images={project?.images}
               loaded={loaded}
             />

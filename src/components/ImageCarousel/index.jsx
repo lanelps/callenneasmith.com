@@ -18,14 +18,21 @@ const Container = styled.div`
   pointer-events: auto;
   overflow: hidden;
 
-  grid-column: 6 / -1;
+  grid-column: 1 / -1;
 
   ${breakpoint(`tablet`)} {
     cursor: none;
+    grid-column: 6 / -1;
   }
 `;
 
-const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
+const ImageCarousel = ({
+  className,
+  images,
+  loaded,
+  expandIsActive,
+  setExpandIsActive
+}) => {
   const carouselRef = useRef();
   const size = useSize(carouselRef);
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -144,11 +151,17 @@ const ImageCarousel = ({ className, images, loaded, expandIsActive }) => {
             width: 100%;
             padding: 0.5rem;
             background-color: var(--color-white);
-            grid-column: 4 / -1;
+            grid-column: 1 / -1;
             pointer-events: auto;
+
+            ${breakpoint(`tablet`)} {
+              grid-column: 4 / -1;
+            }
           `}
         >
-          <button>Close Overlay</button>
+          <button onClick={() => setExpandIsActive(false)}>
+            Close Overlay
+          </button>
         </nav>
       </Grid>
     </>
