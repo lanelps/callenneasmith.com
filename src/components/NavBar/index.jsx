@@ -20,7 +20,7 @@ const Container = styled.div`
 
   display: flex;
 
-  padding: 0.625rem 0 2rem;
+  padding: 0.75rem;
   // background-color: var(--color-white);
   color: var(--color-rich-black);
   backdrop-filter: blur(0.5rem);
@@ -34,10 +34,14 @@ const Container = styled.div`
   transition: all 0.3s ease;
 
   z-index: 20;
+
+  ${breakpoint(`tablet`)} {
+    padding: 0.625rem 0 2rem;
+  }
 `;
 
 const Title = styled.h1`
-  grid-column: 1 / span 2;
+  grid-column: 1 / span 8;
 `;
 
 const Role = styled.h2`
@@ -68,7 +72,7 @@ const ContactButton = styled.p`
 `;
 
 const MobileButton = styled.button`
-  grid-column: 6 / span 1;
+  grid-column: -1;
   display: flex;
   justify-content: flex-end;
 
