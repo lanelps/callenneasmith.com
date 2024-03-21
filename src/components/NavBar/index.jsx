@@ -33,7 +33,7 @@ const Container = styled.div`
   transform: translateY(${({ show }) => (show ? `0%` : `-100%`)});
   transition: all 0.3s ease;
 
-  z-index: 20;
+  z-index: 100;
 
   ${breakpoint(`tablet`)} {
     padding: 0.625rem 0 2rem;
