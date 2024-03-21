@@ -41,7 +41,7 @@ const Footer = styled.div`
 const footer = ({ className, contact }) => (
   <Footer className={`${(className && `${className} `) || ``}caption`}>
     <Grid>
-      <h5>Callen Neasmith 2022 ©</h5>
+      <h5 className="caption">Callen Neasmith 2022 ©</h5>
       {contact.map((item) => (
         <a
           key={`${item?._key}-footer`}
