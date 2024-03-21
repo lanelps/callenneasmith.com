@@ -11,7 +11,6 @@ const Colors = () => (
           --color-dark-grey: #3a3a3a;
           --color-light-grey: #e2e2e2;
           --color-white: #fff;
-          --color-off-white: #f6f6f6;
           --color-laser: #bdff00;
           --color-blue: #0000ee;
         }

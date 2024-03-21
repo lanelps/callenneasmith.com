@@ -11,7 +11,7 @@ const Container = styled.article`
   width: 100%;
 
   background-color: ${({ isActive }) =>
-    isActive ? `var(--color-light-grey)` : `var(--color-off-white)`};
+    isActive ? `var(--color-light-grey)` : `var(--color-white)`};
 
   :hover {
     background-color: var(--color-light-grey);

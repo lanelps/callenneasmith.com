@@ -21,7 +21,7 @@ const Container = styled.div`
   display: flex;
 
   padding: 0.625rem 0 2rem;
-  // background-color: var(--color-off-white);
+  // background-color: var(--color-white);
   color: var(--color-rich-black);
   backdrop-filter: blur(0.5rem);
 

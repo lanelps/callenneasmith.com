@@ -46,7 +46,7 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           id="app-root"
           css={[
             css`
-              background-color: var(--color-off-white);
+              background-color: var(--color-white);
               margin-bottom: 1.5rem;
             `,
             className
