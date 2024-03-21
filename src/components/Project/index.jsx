@@ -29,13 +29,11 @@ const ProjectName = styled.div`
 `;
 
 const ClientName = styled.p`
-  grid-column: 5 / span 2;
+  grid-column: 3 / span 2;
   color: var(--color-off-black);
-  text-align: right;
 
   ${breakpoint(`tablet`)} {
     grid-column: 3 / span 1;
-    text-align: left;
   }
 `;
 
@@ -83,9 +81,12 @@ const Project = ({ project }) => {
       <Grid
         node="button"
         css={css`
+          row-gap: 0.125rem;
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+
           ${breakpoint(`tablet`)} {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            row-gap: 0;
           }
         `}
         onClick={() => setIsActive(!isActive)}

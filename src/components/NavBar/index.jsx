@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  grid-column: 1 / span 8;
+  grid-column: 1 / -2;
 `;
 
 const Role = styled.h2`

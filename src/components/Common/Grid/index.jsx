@@ -5,6 +5,7 @@ import { remToPx } from "~utils/helpers";
 import { breakpoint } from "~utils/css";
 
 export const GRID_COLUMNS = 8;
+export const GRID_COLUMNS_MOBILE = 4;
 export const GRID_MAX_WIDTH_PX = 1440;
 
 export const GRID_GAP_REM = 0.25;
@@ -37,11 +38,12 @@ const Grid = forwardRef(({ children, className, node, onClick }, ref) => {
           display: grid;
           margin: 0 auto;
           // max-width: ${GRID_MAX_WIDTH_PX}px;
-          grid-template-columns: repeat(${GRID_COLUMNS}, minmax(0, 1fr));
+          grid-template-columns: repeat(${GRID_COLUMNS_MOBILE}, minmax(0, 1fr));
           grid-gap: 0 ${GRID_MOBILE_GAP_REM}rem;
           padding: 0 ${GRID_MOBILE_PADDING_REM}rem;
 
           ${breakpoint(`tablet`)} {
+            grid-template-columns: repeat(${GRID_COLUMNS}, minmax(0, 1fr));
             grid-gap: 0 ${GRID_GAP_REM}rem;
             padding: 0 ${GRID_PADDING_REM}rem;
           }

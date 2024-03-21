@@ -64,9 +64,11 @@ const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
         <Buttons
           css={css`
             grid-column: 1 / -1;
+            display: none;
 
             ${breakpoint(`tablet`)} {
               grid-column: 5 / -1;
+              display: block;
             }
           `}
         >
