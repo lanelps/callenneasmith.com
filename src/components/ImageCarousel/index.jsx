@@ -40,7 +40,8 @@ const ImageCarousel = ({
     containScroll: `trimSnaps`
   });
 
-  const { onPrevButtonClick, onNextButtonClick } = usePrevNextButtons(emblaApi);
+  const { onPrevButtonClick, onNextButtonClick, activeSlideIndex } =
+    usePrevNextButtons(emblaApi);
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
@@ -159,8 +160,18 @@ const ImageCarousel = ({
             }
           `}
         >
-          <button onClick={() => setExpandIsActive(false)}>
-            Close Overlay
+          <button
+            onClick={() => setExpandIsActive(false)}
+            css={css`
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+            `}
+          >
+            <span>Close Overlay</span>
+            <span>
+              {activeSlideIndex + 1}/{images?.length}
+            </span>
           </button>
         </nav>
       </Grid>

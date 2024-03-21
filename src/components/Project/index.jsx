@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
+import { useKeyPress } from "~hooks";
 import { Expand, Grid } from "~components";
 
 import { breakpoint } from "~utils/css";
@@ -57,6 +58,14 @@ const Project = ({ project }) => {
 
     loadedRef.current = true;
   };
+
+  const escPressed = useKeyPress(`Escape`);
+
+  useEffect(() => {
+    if (escPressed && isActive) {
+      setIsActive(false);
+    }
+  }, [escPressed]);
 
   // const generateTime = () => {
   //   if (!project?.started) return ``;

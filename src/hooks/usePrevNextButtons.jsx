@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 const usePrevNextButtons = (emblaApi) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0); // New state for the active slide index
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
@@ -17,6 +18,7 @@ const usePrevNextButtons = (emblaApi) => {
   const onSelect = useCallback((api) => {
     setPrevBtnDisabled(!api.canScrollPrev());
     setNextBtnDisabled(!api.canScrollNext());
+    setActiveSlideIndex(api.selectedScrollSnap()); // Set the active slide index
   }, []);
 
   useEffect(() => {
@@ -31,7 +33,8 @@ const usePrevNextButtons = (emblaApi) => {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
-    onNextButtonClick
+    onNextButtonClick,
+    activeSlideIndex
   };
 };
 
