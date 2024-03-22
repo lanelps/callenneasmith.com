@@ -33,16 +33,26 @@ const Container = styled.div`
 const NavItems = styled.ul`
   width: 100%;
 
-  grid-column: 1 / span 4;
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
 
   row-gap: 1.5rem;
+
+  ${breakpoint(`tablet`)} {
+    grid-column: 1 / span 4;
+  }
 `;
 
 const NavItem = styled.li`
   display: flex;
-  column-gap: 0.25rem;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  ${breakpoint(`tablet`)} {
+    flex-direction: row;
+    column-gap: 0.25rem;
+  }
 
   & > * {
     width: 100%;
@@ -204,6 +214,7 @@ const Intro = ({ introduction, items }) => {
       <Grid
         css={css`
           row-gap: 1.5rem !important;
+          padding: 0 !important;
         `}
       >
         <PortableText
@@ -213,10 +224,10 @@ const Intro = ({ introduction, items }) => {
           content={introduction}
           serializers={portableComponents}
         />
-        <NavItems className="b1">
+        <NavItems className="h1">
           {items.map((item) => (
             <NavItem key={item._key}>
-              <h3 className="b1">{item.title}</h3>
+              <h3 className="h1">{item.title}</h3>
               <PortableText
                 css={css`
                   display: flex;
