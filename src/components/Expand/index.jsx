@@ -6,6 +6,7 @@ import { useBreakpoint } from "gatsby-plugin-breakpoints";
 import { Grid, PopOut, ImageCarousel } from "~components";
 
 import { breakpoint } from "~utils/css";
+import { ReactComponent as External } from "~assets/svg/external-link.svg";
 
 const Container = styled.div`
   display: grid;
@@ -129,6 +130,10 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       css={css`
+                        display: flex;
+                        align-items: center;
+                        gap: 0.125rem;
+
                         :hover {
                           color: var(--color-rich-black);
                         }
@@ -137,6 +142,11 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
                       `}
                     >
                       {link?.label}
+                      <External
+                        css={css`
+                          width: 0.375rem;
+                        `}
+                      />
                     </a>
                   ))}
                 </Links>
