@@ -42,6 +42,10 @@ const Container = styled.div`
 
 const Title = styled.h1`
   grid-column: 1 / -2;
+
+  ${breakpoint(`tablet`)} {
+    grid-column: 1 / span 2;
+  }
 `;
 
 const Role = styled.h2`
