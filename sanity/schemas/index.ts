@@ -7,6 +7,8 @@ import settings from "./documents/settings";
 import altImage from "./objects/altImage";
 import link from "./objects/link";
 import blockContent from "./objects/blockContent";
+import navItem from "./objects/navItem";
+import simpleContent from "./objects/simpleContent";
 
 export const schemaTypes = [
   // documents
@@ -18,5 +20,7 @@ export const schemaTypes = [
   // objects
   altImage,
   link,
-  blockContent
+  blockContent,
+  navItem,
+  simpleContent
 ];

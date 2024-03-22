@@ -25,15 +25,21 @@ export default {
       type: "string"
     },
     {
-      name: "contact",
-      title: "Contact links",
-      type: "array",
-      of: [{ type: "link" }]
+      name: `navItems`,
+      title: `Nav Items`,
+      type: `array`,
+      of: [{ type: `navItem` }]
     },
     {
       name: "introduction",
       title: "Introduction",
       type: "blockContent"
+    },
+    {
+      name: "contact",
+      title: "Contact links",
+      type: "array",
+      of: [{ type: "link" }]
     },
     {
       name: "seoTitle",

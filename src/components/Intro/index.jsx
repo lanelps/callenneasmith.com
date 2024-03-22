@@ -6,18 +6,18 @@ import PortableText from "react-portable-text";
 import SanityImage from "gatsby-plugin-sanity-image";
 import { useInView } from "react-intersection-observer";
 
-// import { Image } from "~components";
 import { useApp } from "~hooks";
+import { Grid, Go } from "~components";
 
 // import { sanityConfig } from "~utils/sanity";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  padding: 0.25rem 0.5rem;
   // max-width: 1440px;
   min-height: 107.2vw;
 
   margin: 0 auto;
+  padding: 0.25rem 0.5rem;
 
   overflow: hidden;
 
@@ -27,6 +27,25 @@ const Container = styled.div`
 
   ${breakpoint(`large-tablet`)} {
     min-height: 25vw;
+  }
+`;
+
+const NavItems = styled.ul`
+  width: 100%;
+
+  grid-column: 1 / span 4;
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 1.5rem;
+`;
+
+const NavItem = styled.li`
+  display: flex;
+  column-gap: 0.25rem;
+
+  & > * {
+    width: 100%;
   }
 `;
 
@@ -154,7 +173,25 @@ const portableComponents = {
   }
 };
 
-const Intro = ({ introduction }) => {
+const simpleComponents = {
+  link: ({ children, href }) => {
+    return (
+      <Go
+        to={href}
+        css={css`
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        `}
+      >
+        {children}
+      </Go>
+    );
+  }
+};
+
+const Intro = ({ introduction, items }) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
   const { setIntroInView } = useApp();
 
@@ -164,7 +201,35 @@ const Intro = ({ introduction }) => {
 
   return (
     <Container ref={ref}>
-      <PortableText content={introduction} serializers={portableComponents} />
+      <Grid
+        css={css`
+          row-gap: 1.5rem !important;
+        `}
+      >
+        <PortableText
+          css={css`
+            grid-column: 1 / -1;
+          `}
+          content={introduction}
+          serializers={portableComponents}
+        />
+        <NavItems className="b1">
+          {items.map((item) => (
+            <NavItem key={item._key}>
+              <h3 className="b1">{item.title}</h3>
+              <PortableText
+                css={css`
+                  display: flex;
+                  flex-direction: column;
+                  row-gap: 0.125rem;
+                `}
+                content={item._rawContent}
+                serializers={simpleComponents}
+              />
+            </NavItem>
+          ))}
+        </NavItems>
+      </Grid>
     </Container>
   );
 };

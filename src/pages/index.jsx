@@ -12,7 +12,10 @@ const Index = ({
 
   return (
     <Layout data={{ sanitySettings }} location={location} site={site}>
-      <Intro introduction={sanitySettings._rawIntroduction} />
+      <Intro
+        introduction={sanitySettings?._rawIntroduction}
+        items={sanitySettings?.navItems}
+      />
       <Projects projects={projects} tags={tags} />
     </Layout>
   );
@@ -23,14 +26,22 @@ export default Index;
 export const query = graphql`
   query {
     sanitySettings {
+      title
+      role
+
+      navItems {
+        _key
+        title
+        _rawContent(resolveReferences: { maxDepth: 10 })
+      }
+
+      _rawIntroduction(resolveReferences: { maxDepth: 10 })
+
       contact {
         _key
         label
         url
       }
-      _rawIntroduction(resolveReferences: { maxDepth: 10 })
-      title
-      role
 
       seoTitle
       seoDescription
