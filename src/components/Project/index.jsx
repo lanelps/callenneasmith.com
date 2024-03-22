@@ -96,20 +96,20 @@ const Project = ({ project }) => {
 
           ${breakpoint(`tablet`)} {
             row-gap: 0;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
           }
         `}
         onClick={() => setIsActive(!isActive)}
         onPointerDown={() => setIsActive(!isActive)}
       >
         <ProjectName>
-          <h2>{project?.name}</h2>
+          <h2 className="h1">{project?.name}</h2>
         </ProjectName>
 
-        <ClientName>{project?.client?.name}</ClientName>
+        <ClientName className="h1">{project?.client?.name}</ClientName>
 
-        <Tag>{project?.tags?.map((tag) => tag?.name).join(`, `)}</Tag>
+        <Tag className="h1">{project?.tags?.map((tag) => tag?.name).join(`, `)}</Tag>
       </Grid>
 
       <Expand

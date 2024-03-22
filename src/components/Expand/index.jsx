@@ -116,7 +116,7 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
           `}
         >
           <ContentWrapper>
-            <Description className="b1">{project?.description}</Description>
+            <Description className="b2">{project?.description}</Description>
 
             {project?.links?.length > 0 && (
               <ExternalLinks className="caption">
