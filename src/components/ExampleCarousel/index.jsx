@@ -61,6 +61,7 @@ const EmblaCarousel = (props, ref) => {
                   width: 100%;
                 `}
                 image={image}
+                imgStyle={{ width: `100%`, height: `auto` }}
                 alt="Your alt text"
                 contain
               />

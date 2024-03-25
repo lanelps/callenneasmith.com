@@ -12,8 +12,9 @@ import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
+  width: calc(100% + 1rem);
   height: 100%;
+  transform: translateX(-0.5rem);
 
   pointer-events: auto;
   overflow: hidden;
@@ -23,6 +24,7 @@ const Container = styled.div`
   ${breakpoint(`tablet`)} {
     cursor: none;
     grid-column: 6 / -1;
+    width: calc(100% + 0.5rem);
   }
 `;
 
