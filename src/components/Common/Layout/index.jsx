@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { useApp } from "~hooks";
 
-import { Theme, NavBar, Footer, PopOutImage } from "~components";
+import { Theme, NavBar, Footer, PopOutImage, ImageCarousel } from "~components";
 import SEO from "../SEO";
 
 const Layout = ({ children, className, data, location, colors, site }) => {
@@ -53,6 +53,8 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           ]}
         >
           {children}
+
+          <ImageCarousel projects={data.projects} />
 
           {popOuts.map((popOut) => (
             <PopOutImage

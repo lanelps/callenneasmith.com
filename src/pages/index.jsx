@@ -11,7 +11,7 @@ const Index = ({
   const tags = allSanityTag.edges.map(({ node }) => node);
 
   return (
-    <Layout data={{ sanitySettings }} location={location} site={site}>
+    <Layout data={{ sanitySettings, projects }} location={location} site={site}>
       <Intro
         introduction={sanitySettings?._rawIntroduction}
         items={sanitySettings?.navItems}

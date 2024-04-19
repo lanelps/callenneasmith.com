@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
+import { useApp, useSize, usePrevNextButtons } from "~hooks";
 import { Grid, Cursor, ExampleCarousel } from "~components";
-import { useSize, usePrevNextButtons } from "~hooks";
 
 import { breakpoint } from "~utils/css";
 
@@ -28,14 +28,10 @@ const Container = styled.div`
   }
 `;
 
-const ImageCarousel = ({
-  className,
-  images,
-  loaded,
-  expandIsActive,
-  setExpandIsActive
-}) => {
+const ImageCarousel = ({ className, projects }) => {
   const carouselRef = useRef();
+
+  const { activeExpand, setActiveExpand } = useApp();
   const size = useSize(carouselRef);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: `start`,
@@ -52,6 +48,8 @@ const ImageCarousel = ({
   const [cursorDirection, setCursorDirection] = useState(`right`);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const cursorSize = 16;
+
+  const [images, setImages] = useState([]);
 
   const { isTablet } = useBreakpoint();
 
@@ -92,7 +90,7 @@ const ImageCarousel = ({
   };
 
   const handleEnter = () => {
-    if (!expandIsActive) {
+    if (!activeExpand) {
       setCursorActive(false);
     } else {
       setCursorActive(true);
@@ -112,13 +110,39 @@ const ImageCarousel = ({
   }, [size]);
 
   useEffect(() => {
-    if (!loaded) return;
-
-    emblaApi.reInit();
-  }, [loaded]);
+    if (activeExpand) {
+      const project = projects.find((p) => p._id === activeExpand);
+      setImages(project?.images);
+    }
+  }, [activeExpand]);
 
   return (
-    <>
+    <div
+      css={css`
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+
+        display: ${activeExpand ? `flex` : `none`};
+        flex-direction: column-reverse;
+        justify-content: space-between;
+
+        pointer-events: ${activeExpand ? `auto` : `none`};
+
+        pointer-events: none;
+
+        z-index: 50;
+
+        ${breakpoint(`tablet`)} {
+          flex-direction: column;
+        }
+      `}
+    >
       <Grid
         css={css`
           height: 100%;
@@ -144,40 +168,42 @@ const ImageCarousel = ({
             />
           )}
 
-          <ExampleCarousel ref={emblaRef} slides={(loaded && images) || []} />
+          <ExampleCarousel ref={emblaRef} slides={images || []} />
         </Container>
       </Grid>
 
-      <Grid>
-        <nav
-          css={css`
-            width: 100%;
-            padding: 0.5rem;
-            background-color: var(--color-white);
-            grid-column: 1 / -1;
-            pointer-events: auto;
-
-            ${breakpoint(`tablet`)} {
-              grid-column: 4 / -1;
-            }
-          `}
-        >
-          <button
-            onClick={() => setExpandIsActive(false)}
+      {images?.length > 0 && (
+        <Grid>
+          <nav
             css={css`
               width: 100%;
-              display: flex;
-              justify-content: space-between;
+              padding: 0.5rem;
+              background-color: var(--color-white);
+              grid-column: 1 / -1;
+              pointer-events: auto;
+
+              ${breakpoint(`tablet`)} {
+                grid-column: 4 / -1;
+              }
             `}
           >
-            <span>Close Overlay</span>
-            <span>
-              {activeSlideIndex + 1}/{images?.length}
-            </span>
-          </button>
-        </nav>
-      </Grid>
-    </>
+            <button
+              onClick={() => setActiveExpand(null)}
+              css={css`
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+              `}
+            >
+              <span>Close Overlay</span>
+              <span>
+                {activeSlideIndex + 1}/{images?.length}
+              </span>
+            </button>
+          </nav>
+        </Grid>
+      )}
+    </div>
   );
 };
 

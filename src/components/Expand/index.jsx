@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { Grid, PopOut, ImageCarousel } from "~components";
+import { Grid, PopOut } from "~components";
 
 import { breakpoint } from "~utils/css";
 import { ReactComponent as External } from "~assets/svg/external-link.svg";
@@ -65,48 +65,12 @@ const Links = styled.div`
   color: var(--color-off-black);
 `;
 
-const Expand = ({ project, isActive, setIsActive, loaded }) => {
+const Expand = ({ project, isActive, loaded }) => {
   const { isDesktop } = useBreakpoint();
 
   return (
     <Container isActive={isActive}>
       <Wrapper>
-        <div
-          css={css`
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            max-height: 100vh;
-
-            display: ${isActive ? `flex` : `none`};
-            flex-direction: column-reverse;
-            justify-content: space-between;
-
-            pointer-events: ${isActive ? `auto` : `none`};
-
-            pointer-events: none;
-
-            z-index: 50;
-
-            ${breakpoint(`tablet`)} {
-              flex-direction: column;
-            }
-          `}
-        >
-          {project?.images?.length > 0 && (
-            <ImageCarousel
-              expandIsActive={isActive}
-              setExpandIsActive={setIsActive}
-              images={project?.images}
-              loaded={loaded}
-            />
-          )}
-        </div>
-
         <Grid
           css={css`
             padding-bottom: 1.5rem;
@@ -158,7 +122,6 @@ const Expand = ({ project, isActive, setIsActive, loaded }) => {
                 id={project?._id}
                 image={project?.images?.[0]}
                 loaded={loaded}
-                setIsActive={setIsActive}
               />
             )}
           </ContentWrapper>

@@ -27,8 +27,8 @@ const Button = styled.button`
   transition: color 0.3s ease;
 `;
 
-const PopOut = ({ id, image, loaded, setIsActive }) => {
-  const { setPopOuts } = useApp();
+const PopOut = ({ id, image, loaded }) => {
+  const { setPopOuts, setActiveExpand } = useApp();
   const [popUpActive, setPopUpActive] = useState(false);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const PopOut = ({ id, image, loaded, setIsActive }) => {
         type="button"
         onClick={() => {
           setPopUpActive(true);
-          setIsActive(false);
+          setActiveExpand(null);
         }}
       >
         <PopOutIcon

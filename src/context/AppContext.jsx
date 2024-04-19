@@ -21,6 +21,8 @@ const AppProvider = ({ children }) => {
   const [popOuts, setPopOuts] = useState([]);
   const [activePopOut, setActivePopOut] = useState(null);
 
+  const [activeExpand, setActiveExpand] = useState(null);
+
   useEffect(() => {
     setPopOuts((prev) => {
       if (prev.length <= 1) return prev;
@@ -68,7 +70,9 @@ const AppProvider = ({ children }) => {
     activePopOut,
     setActivePopOut,
     popOuts,
-    setPopOuts
+    setPopOuts,
+    activeExpand,
+    setActiveExpand
   }));
 
   return (

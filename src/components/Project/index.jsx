@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { useKeyPress } from "~hooks";
+import { useApp, useKeyPress } from "~hooks";
 import { Expand, Grid } from "~components";
 
 import { breakpoint } from "~utils/css";
@@ -50,43 +50,22 @@ const Tag = styled.p`
 `;
 
 const Project = ({ project }) => {
-  const [isActive, setIsActive] = useState(false);
-  const loadedRef = useRef(false);
-
-  const handleLoaded = () => {
-    if (loadedRef?.current) return;
-
-    loadedRef.current = true;
-  };
-
+  const { activeExpand, setActiveExpand } = useApp();
   const escPressed = useKeyPress(`Escape`);
 
+  const handleClick = () => {
+    const isActive = activeExpand === project?._id;
+    setActiveExpand(isActive ? null : project?._id);
+  };
+
   useEffect(() => {
-    if (escPressed && isActive) {
-      setIsActive(false);
+    if (escPressed) {
+      setActiveExpand(null);
     }
   }, [escPressed]);
 
-  // const generateTime = () => {
-  //   if (!project?.started) return ``;
-
-  //   if (project?.started === project?.ended) return project?.started;
-
-  //   return `${project?.started} - ${
-  //     project?.isOngoing || !project?.ended ? `Ongoing` : project?.ended
-  //   }`;
-  // };
-
-  // const time = generateTime();
-
   return (
-    <Container
-      isActive={isActive}
-      onMouseEnter={handleLoaded}
-      onPointerDown={handleLoaded}
-      className="h1"
-    >
-      {/* Project Title */}
+    <Container isActive={activeExpand === project?._id} className="h1">
       <Grid
         node="button"
         css={css`
@@ -100,8 +79,8 @@ const Project = ({ project }) => {
             padding-bottom: 1rem;
           }
         `}
-        onClick={() => setIsActive(!isActive)}
-        onPointerDown={() => setIsActive(!isActive)}
+        onClick={handleClick}
+        onPointerDown={handleClick}
       >
         <ProjectName>
           <h2 className="h1">{project?.name}</h2>
@@ -109,15 +88,12 @@ const Project = ({ project }) => {
 
         <ClientName className="h1">{project?.client?.name}</ClientName>
 
-        <Tag className="h1">{project?.tags?.map((tag) => tag?.name).join(`, `)}</Tag>
+        <Tag className="h1">
+          {project?.tags?.map((tag) => tag?.name).join(`, `)}
+        </Tag>
       </Grid>
 
-      <Expand
-        project={project}
-        isActive={isActive}
-        setIsActive={setIsActive}
-        loaded={loadedRef?.current}
-      />
+      <Expand project={project} isActive={activeExpand === project?._id} />
     </Container>
   );
 };
