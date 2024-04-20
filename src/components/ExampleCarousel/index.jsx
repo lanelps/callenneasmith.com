@@ -56,12 +56,10 @@ const EmblaCarousel = (props, ref) => {
             <Slide key={image?._key}>
               <Image
                 css={css`
-                  display: block;
                   height: 100%;
                   width: 100%;
                 `}
                 image={image}
-                imgStyle={{ width: `100%`, height: `auto` }}
                 alt="Your alt text"
                 contain
               />

@@ -23,8 +23,9 @@ const Container = styled.div`
 
   ${breakpoint(`tablet`)} {
     cursor: none;
-    grid-column: 6 / -1;
+    grid-column: 5 / -1;
     width: calc(100% + 0.5rem);
+    transform: translateX(0rem);
   }
 `;
 
