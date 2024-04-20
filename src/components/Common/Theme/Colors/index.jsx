@@ -9,7 +9,7 @@ const Colors = () => (
           --color-black: #3a3a3a;
           --color-off-black: #292929;
           --color-dark-grey: #3a3a3a;
-          --color-light-grey: #e2e2e2;
+          --color-light-grey: #f6f6f6;
           --color-white: #fff;
           --color-laser: #bdff00;
           --color-blue: #0000ee;
