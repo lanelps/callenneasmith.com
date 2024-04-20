@@ -53,7 +53,7 @@ const Fonts = () => (
 
       .h1 {
         font-size: 1rem; // 16px
-        line-height: 1.16;
+        line-height: 1.08;
         letter-spacing: -0.02em;
       }
 
@@ -86,10 +86,6 @@ const Fonts = () => (
       ${breakpoint(`tablet`)} {
         //
         // headings //
-
-        .h1 {
-          line-height: 1.08;
-        }
 
         //
         // body //

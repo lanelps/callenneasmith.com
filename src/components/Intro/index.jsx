@@ -9,7 +9,6 @@ import { useInView } from "react-intersection-observer";
 import { useApp } from "~hooks";
 import { Grid, Go } from "~components";
 
-// import { sanityConfig } from "~utils/sanity";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
@@ -40,22 +39,33 @@ const NavItems = styled.ul`
   row-gap: 1.5rem;
 
   ${breakpoint(`tablet`)} {
-    grid-column: 1 / span 4;
+    grid-column: 1 / -1;
   }
 `;
 
-const NavItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
+const NavItem = styled(Grid)`
+  padding: 0 !important;
+
+  row-gap: 0.5rem;
 
   ${breakpoint(`tablet`)} {
-    flex-direction: row;
-    column-gap: 0.25rem;
+    row-gap: 0;
   }
 
-  & > * {
-    width: 100%;
+  & > h3 {
+    grid-column: 1 / -1;
+
+    ${breakpoint(`tablet`)} {
+      grid-column: 1 / span 2;
+    }
+  }
+
+  & > div {
+    grid-column: 1 / -1;
+
+    ${breakpoint(`tablet`)} {
+      grid-column: 3 / -1;
+    }
   }
 `;
 
@@ -161,6 +171,7 @@ const portableComponents = {
           css={css`
             color: var(--color-blue);
             transition: color 0.3s ease-in-out;
+            text-decoration: underline;
 
             :hover {
               color: var(--color-laser);
@@ -185,19 +196,7 @@ const portableComponents = {
 
 const simpleComponents = {
   link: ({ children, href }) => {
-    return (
-      <Go
-        to={href}
-        css={css`
-          text-decoration: underline;
-          &:hover {
-            text-decoration: none;
-          }
-        `}
-      >
-        {children}
-      </Go>
-    );
+    return <Go to={href}>{children}</Go>;
   }
 };
 
@@ -224,7 +223,7 @@ const Intro = ({ introduction, items }) => {
           content={introduction}
           serializers={portableComponents}
         />
-        <NavItems className="h1">
+        <NavItems node="li" className="h1">
           {items.map((item) => (
             <NavItem key={item._key}>
               <h3 className="h1">{item.title}</h3>
