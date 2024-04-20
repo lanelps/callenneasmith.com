@@ -22,7 +22,7 @@ const Container = styled.div`
   grid-column: 1 / -1;
 
   ${breakpoint(`tablet`)} {
-    cursor: none;
+    ${({ active }) => (active ? `cursor: none;` : `pointer-events: none;`)}
     grid-column: 5 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0rem);
@@ -91,9 +91,7 @@ const ImageCarousel = ({ className, projects }) => {
   };
 
   const handleEnter = () => {
-    if (!activeExpand) {
-      setCursorActive(false);
-    } else {
+    if (activeExpand && images?.length > 0) {
       setCursorActive(true);
     }
   };
@@ -129,13 +127,14 @@ const ImageCarousel = ({ className, projects }) => {
         height: 100vh;
         max-height: 100vh;
 
-        display: ${activeExpand ? `flex` : `none`};
+        display: flex;
         flex-direction: column-reverse;
         justify-content: space-between;
 
-        pointer-events: ${activeExpand ? `auto` : `none`};
-
+        opacity: ${activeExpand && images?.length > 0 ? 1 : 0};
         pointer-events: none;
+
+        transition: opacity 0.3s ease-in-out;
 
         z-index: 101;
 
@@ -151,6 +150,16 @@ const ImageCarousel = ({ className, projects }) => {
           overflow: hidden;
         `}
       >
+        {isTablet && (
+          <Cursor
+            width={cursorSize}
+            height={cursorSize}
+            position={cursorPosition}
+            direction={cursorDirection}
+            active={cursorActive}
+          />
+        )}
+
         <Container
           className={className}
           ref={carouselRef}
@@ -159,17 +168,8 @@ const ImageCarousel = ({ className, projects }) => {
           onMouseLeave={handleLeave}
           onMouseOut={handleOut}
           onClick={handleClick}
+          active={activeExpand && images?.length > 0}
         >
-          {isTablet && (
-            <Cursor
-              width={cursorSize}
-              height={cursorSize}
-              position={cursorPosition}
-              direction={cursorDirection}
-              active={cursorActive}
-            />
-          )}
-
           <ExampleCarousel ref={emblaRef} slides={images || []} />
         </Container>
       </Grid>
