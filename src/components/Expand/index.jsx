@@ -6,7 +6,6 @@ import { useBreakpoint } from "gatsby-plugin-breakpoints";
 import { Grid, PopOut } from "~components";
 
 import { breakpoint } from "~utils/css";
-import { ReactComponent as External } from "~assets/svg/external-link.svg";
 
 const Container = styled.div`
   display: grid;
@@ -41,7 +40,9 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Description = styled.p``;
+const Description = styled.p`
+  white-space: pre-line;
+`;
 
 const ExternalLinks = styled.div`
   position: relative;
@@ -106,11 +107,6 @@ const Expand = ({ project, isActive, loaded }) => {
                       `}
                     >
                       {link?.label}
-                      <External
-                        css={css`
-                          width: 0.375rem;
-                        `}
-                      />
                     </a>
                   ))}
                 </Links>

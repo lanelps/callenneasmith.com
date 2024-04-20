@@ -55,8 +55,6 @@ const Layout = ({ children, className, data, location, colors, site }) => {
         >
           {children}
 
-          <ImageCarousel projects={data.projects} />
-
           {popOuts.map((popOut) => (
             <PopOutImage
               key={popOut?.id}
@@ -66,6 +64,8 @@ const Layout = ({ children, className, data, location, colors, site }) => {
               setActive={popOut?.setActive}
             />
           ))}
+
+          <ImageCarousel projects={data.projects} />
         </main>
         <Footer {...data.sanitySettings} />
       </div>
