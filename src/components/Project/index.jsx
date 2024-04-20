@@ -32,6 +32,7 @@ const ProjectName = styled.div`
 const ClientName = styled.p`
   grid-column: 3 / span 2;
   color: var(--color-off-black);
+  opacity: 0.6;
 
   ${breakpoint(`tablet`)} {
     grid-column: 3 / span 1;

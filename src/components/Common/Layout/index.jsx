@@ -37,6 +37,7 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           justify-content: space-between;
 
           background-color: var(--color-light-grey);
+          color: var(--color-off-black);
 
           overflow: hidden;
         `}
