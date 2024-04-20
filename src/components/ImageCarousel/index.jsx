@@ -175,8 +175,12 @@ const ImageCarousel = ({ className, projects }) => {
         </Container>
       </Grid>
 
-      {activeExpand && images?.length > 0 && (
-        <Grid>
+      {images?.length > 0 && (
+        <Grid
+          css={css`
+            pointer-events: ${!activeExpand ? `none` : `auto`};
+          `}
+        >
           <nav
             css={css`
               grid-column: 1 / -1;
@@ -186,7 +190,6 @@ const ImageCarousel = ({ className, projects }) => {
               padding: 0.5rem;
 
               background-color: var(--color-white);
-              pointer-events: auto;
 
               ${breakpoint(`tablet`)} {
                 grid-column: 4 / -1;
