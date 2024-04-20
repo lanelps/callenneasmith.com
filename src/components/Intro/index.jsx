@@ -17,6 +17,7 @@ const Container = styled.div`
 
   margin: 0 auto;
   padding: 0.25rem 0.5rem;
+  color: var(--color-dark-grey);
 
   overflow: hidden;
 
@@ -67,6 +68,10 @@ const NavItem = styled(Grid)`
       grid-column: 3 / -1;
     }
   }
+`;
+
+const NavHeading = styled.h3`
+  opacity: 0.8;
 `;
 
 const HoverContainer = styled.div`
@@ -226,7 +231,7 @@ const Intro = ({ introduction, items }) => {
         <NavItems node="li" className="h1">
           {items.map((item) => (
             <NavItem key={item._key}>
-              <h3 className="h1">{item.title}</h3>
+              <NavHeading className="h1">{item.title}</NavHeading>
               <PortableText
                 css={css`
                   display: flex;
