@@ -16,13 +16,14 @@ const Container = styled.div`
   height: 100%;
   transform: translateX(-0.5rem);
 
-  pointer-events: auto;
+  ${({ active }) =>
+    active ? `pointer-events: auto;` : `pointer-events: none;`}
   overflow: hidden;
 
   grid-column: 1 / -1;
 
   ${breakpoint(`tablet`)} {
-    ${({ active }) => (active ? `cursor: none;` : `pointer-events: none;`)}
+    ${({ active }) => active && `cursor: none;`}
     grid-column: 5 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0rem);
