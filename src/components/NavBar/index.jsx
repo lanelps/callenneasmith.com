@@ -20,7 +20,7 @@ const Container = styled.div`
 
   display: flex;
 
-  padding: 0.75rem;
+  padding: 0.5rem;
   // background-color: var(--color-white);
   color: var(--color-rich-black);
   backdrop-filter: blur(0.5rem);
@@ -144,6 +144,11 @@ const NavBar = ({ title, role, contact }) => {
       <Grid
         css={css`
           align-items: center;
+          padding: 0;
+
+          ${breakpoint(`tablet`)} {
+            padding: 0 0.5rem;
+          }
         `}
       >
         <Title className="h1">{title}</Title>

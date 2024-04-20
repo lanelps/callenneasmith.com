@@ -137,10 +137,11 @@ const ImageCarousel = ({ className, projects }) => {
 
         pointer-events: none;
 
-        z-index: 50;
+        z-index: 101;
 
         ${breakpoint(`tablet`)} {
           flex-direction: column;
+          z-index: 50;
         }
       `}
     >
@@ -177,14 +178,21 @@ const ImageCarousel = ({ className, projects }) => {
         <Grid>
           <nav
             css={css`
-              width: 100%;
-              padding: 0.5rem;
-              background-color: var(--color-white);
               grid-column: 1 / -1;
+              width: calc(100% + 1rem);
+              transform: translateX(-0.5rem);
+
+              padding: 0.5rem;
+
+              background-color: var(--color-white);
               pointer-events: auto;
 
               ${breakpoint(`tablet`)} {
                 grid-column: 4 / -1;
+                width: calc(100% + 0.5rem);
+                transform: translateX(0);
+
+                padding-right: 1rem;
               }
             `}
           >
