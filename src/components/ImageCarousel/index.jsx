@@ -175,7 +175,7 @@ const ImageCarousel = ({ className, projects }) => {
         </Container>
       </Grid>
 
-      {images?.length > 0 && (
+      {activeExpand && images?.length > 0 && (
         <Grid>
           <nav
             css={css`

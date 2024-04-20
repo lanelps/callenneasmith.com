@@ -9,7 +9,7 @@ import { breakpoint } from "~utils/css";
 
 import { ReactComponent as Cross } from "~assets/svg/cross.svg";
 
-const Container = styled.div`
+const Container = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
@@ -166,7 +166,10 @@ const NavBar = ({ title, role, contact }) => {
         {/* mobile */}
         <MobileButton
           type="button"
-          onClick={() => setShowContacts(!showContacts)}
+          onClick={() => {
+            console.log(`mobile button`);
+            setShowContacts(!showContacts)
+          }}
         >
           <Cross
             css={css`
