@@ -166,10 +166,7 @@ const NavBar = ({ title, role, contact }) => {
         {/* mobile */}
         <MobileButton
           type="button"
-          onClick={() => {
-            console.log(`mobile button`);
-            setShowContacts(!showContacts)
-          }}
+          onClick={() => setShowContacts(!showContacts)}
         >
           <Cross
             css={css`
