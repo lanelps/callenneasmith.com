@@ -40,8 +40,12 @@ const ImageCarousel = ({ className, projects }) => {
     containScroll: `trimSnaps`
   });
 
-  const { onPrevButtonClick, onNextButtonClick, activeSlideIndex } =
-    usePrevNextButtons(emblaApi);
+  const {
+    onPrevButtonClick,
+    onNextButtonClick,
+    activeSlideIndex,
+    setActiveSlideIndex
+  } = usePrevNextButtons(emblaApi);
 
   const [offsetX, setOffsetX] = useState(
     carouselRef?.current?.getBoundingClientRect()?.left
@@ -114,6 +118,8 @@ const ImageCarousel = ({ className, projects }) => {
       const project = projects.find((p) => p._id === activeExpand);
       setImages(project?.images);
     }
+
+    setActiveSlideIndex(0);
   }, [activeExpand]);
 
   return (
