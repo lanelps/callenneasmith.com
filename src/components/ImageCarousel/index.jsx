@@ -11,6 +11,34 @@ import { Grid, Cursor, ExampleCarousel } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+
+  opacity: ${({ activeExpand, slidesLength }) =>
+    activeExpand && slidesLength > 0 ? 1 : 0};
+  pointer-events: none;
+
+  transition: opacity 0.3s ease-in-out;
+
+  z-index: 101;
+
+  ${breakpoint(`tablet`)} {
+    flex-direction: column;
+    z-index: 50;
+  }
+`;
+
+const CarouselWrapper = styled.div`
   position: relative;
   width: calc(100% + 1rem);
   height: 100%;
@@ -27,6 +55,24 @@ const Container = styled.div`
     grid-column: 5 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0rem);
+  }
+`;
+
+const SlidesNav = styled.nav`
+  grid-column: 1 / -1;
+  width: calc(100% + 1rem);
+  transform: translateX(-0.5rem);
+
+  padding: 0.5rem;
+
+  background-color: var(--color-white);
+
+  ${breakpoint(`tablet`)} {
+    grid-column: 5 / -1;
+    width: calc(100% + 0.5rem);
+    transform: translateX(0);
+
+    padding-right: 1rem;
   }
 `;
 
@@ -123,34 +169,7 @@ const ImageCarousel = ({ className, projects }) => {
   }, [activeExpand]);
 
   return (
-    <div
-      css={css`
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        max-height: 100vh;
-
-        display: flex;
-        flex-direction: column-reverse;
-        justify-content: space-between;
-
-        opacity: ${activeExpand && slides?.length > 0 ? 1 : 0};
-        pointer-events: none;
-
-        transition: opacity 0.3s ease-in-out;
-
-        z-index: 101;
-
-        ${breakpoint(`tablet`)} {
-          flex-direction: column;
-          z-index: 50;
-        }
-      `}
-    >
+    <Container activeExpand={activeExpand} slidesLength={slides?.length}>
       <Grid
         css={css`
           height: 100%;
@@ -167,7 +186,7 @@ const ImageCarousel = ({ className, projects }) => {
           />
         )}
 
-        <Container
+        <CarouselWrapper
           className={className}
           ref={carouselRef}
           onMouseMove={handleMove}
@@ -178,7 +197,7 @@ const ImageCarousel = ({ className, projects }) => {
           active={activeExpand && slides?.length > 0}
         >
           <ExampleCarousel ref={emblaRef} slides={slides || []} />
-        </Container>
+        </CarouselWrapper>
       </Grid>
 
       {slides?.length > 0 && (
@@ -187,25 +206,7 @@ const ImageCarousel = ({ className, projects }) => {
             pointer-events: ${!activeExpand ? `none` : `auto`};
           `}
         >
-          <nav
-            css={css`
-              grid-column: 1 / -1;
-              width: calc(100% + 1rem);
-              transform: translateX(-0.5rem);
-
-              padding: 0.5rem;
-
-              background-color: var(--color-white);
-
-              ${breakpoint(`tablet`)} {
-                grid-column: 4 / -1;
-                width: calc(100% + 0.5rem);
-                transform: translateX(0);
-
-                padding-right: 1rem;
-              }
-            `}
-          >
+          <SlidesNav>
             <button
               onClick={() => setActiveExpand(null)}
               css={css`
@@ -219,10 +220,10 @@ const ImageCarousel = ({ className, projects }) => {
                 {activeSlideIndex + 1}/{slides?.length}
               </span>
             </button>
-          </nav>
+          </SlidesNav>
         </Grid>
       )}
-    </div>
+    </Container>
   );
 };
 
