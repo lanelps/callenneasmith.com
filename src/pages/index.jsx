@@ -107,6 +107,7 @@ export const query = graphql`
           slides {
             ... on SanityAltImage {
               _key
+              _type
               altText
               asset {
                 gatsbyImageData(

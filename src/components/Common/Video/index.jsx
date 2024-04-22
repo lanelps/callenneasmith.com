@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 
+import { generateCloudinaryVideoURL } from "~utils/cloudinary";
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -15,31 +17,33 @@ const Container = styled.div`
 `;
 
 const VideoElement = styled.video`
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   height: 100%;
   transition: opacity 1s;
 `;
 
-const Video = ({ id, src, type = `video/mp4`, className, isMuted }) => {
+const Video = ({ publicId, className, muted = true }) => {
   const ref = useRef(null);
+
+  const src = generateCloudinaryVideoURL(publicId);
 
   useEffect(() => {
     if (!ref.current) {
       return;
     }
 
-    if (isMuted) {
+    if (muted) {
       // open bug since 2017 that you cannot set muted in video element https://github.com/facebook/react/issues/10389
       ref.current.defaultMuted = true;
       ref.current.muted = true;
     }
-  }, [src]);
+  }, [publicId]);
 
   return (
     <Container className={className}>
-      <VideoElement ref={ref} id={id} autoPlay playsInline loop>
-        <source src={src} type={type} />
+      <VideoElement ref={ref} autoPlay playsInline loop>
+        <source src={src} type="video/mp4" />
         Sorry, your browser doesn&#39;t support embedded videos.
       </VideoElement>
     </Container>

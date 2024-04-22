@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { Image } from "~components";
+import { Image, Video } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -49,22 +49,36 @@ const EmblaCarousel = (props, ref) => {
   return (
     <ViewPort ref={ref}>
       <Container>
-        {slides.map((image, index) => {
-          if (!image) return null;
+        {slides.map((slide) => {
+          if (!slide) return null;
 
-          return (
-            <Slide key={image?._key}>
-              <Image
-                css={css`
-                  height: 100%;
-                  width: 100%;
-                `}
-                image={image}
-                alt="Your alt text"
-                contain
-              />
-            </Slide>
-          );
+          if (slide?._type === `cloudinary.asset`) {
+            return (
+              <Slide key={slide?._key}>
+                <Video
+                  css={css`
+                    height: 100%;
+                    width: 100%;
+                  `}
+                  publicId={slide?.public_id}
+                />
+              </Slide>
+            );
+          } else {
+            return (
+              <Slide key={slide?._key}>
+                <Image
+                  css={css`
+                    height: 100%;
+                    width: 100%;
+                  `}
+                  image={slide}
+                  alt="Your alt text"
+                  contain
+                />
+              </Slide>
+            );
+          }
         })}
       </Container>
     </ViewPort>
