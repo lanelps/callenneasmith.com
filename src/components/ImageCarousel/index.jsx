@@ -55,7 +55,7 @@ const ImageCarousel = ({ className, projects }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const cursorSize = 16;
 
-  const [images, setImages] = useState([]);
+  const [slides, setSlides] = useState([]);
 
   const { isTablet } = useBreakpoint();
 
@@ -96,7 +96,7 @@ const ImageCarousel = ({ className, projects }) => {
   };
 
   const handleEnter = () => {
-    if (activeExpand && images?.length > 0) {
+    if (activeExpand && slides?.length > 0) {
       setCursorActive(true);
     }
   };
@@ -116,7 +116,7 @@ const ImageCarousel = ({ className, projects }) => {
   useEffect(() => {
     if (activeExpand) {
       const project = projects.find((p) => p._id === activeExpand);
-      setImages(project?.images);
+      setSlides(project?.slides || []);
     }
 
     setActiveSlideIndex(0);
@@ -138,7 +138,7 @@ const ImageCarousel = ({ className, projects }) => {
         flex-direction: column-reverse;
         justify-content: space-between;
 
-        opacity: ${activeExpand && images?.length > 0 ? 1 : 0};
+        opacity: ${activeExpand && slides?.length > 0 ? 1 : 0};
         pointer-events: none;
 
         transition: opacity 0.3s ease-in-out;
@@ -175,13 +175,13 @@ const ImageCarousel = ({ className, projects }) => {
           onMouseLeave={handleLeave}
           onMouseOut={handleOut}
           onClick={handleClick}
-          active={activeExpand && images?.length > 0}
+          active={activeExpand && slides?.length > 0}
         >
-          <ExampleCarousel ref={emblaRef} slides={images || []} />
+          <ExampleCarousel ref={emblaRef} slides={slides || []} />
         </Container>
       </Grid>
 
-      {images?.length > 0 && (
+      {slides?.length > 0 && (
         <Grid
           css={css`
             pointer-events: ${!activeExpand ? `none` : `auto`};
@@ -216,7 +216,7 @@ const ImageCarousel = ({ className, projects }) => {
             >
               <span>Close Overlay</span>
               <span>
-                {activeSlideIndex + 1}/{images?.length}
+                {activeSlideIndex + 1}/{slides?.length}
               </span>
             </button>
           </nav>

@@ -104,15 +104,25 @@ export const query = graphql`
             label
             url
           }
-          images {
-            _key
-            altText
-            asset {
-              gatsbyImageData(
-                width: 720
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
+          slides {
+            ... on SanityAltImage {
+              _key
+              altText
+              asset {
+                gatsbyImageData(
+                  width: 720
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+
+            ... on SanityCloudinaryAsset {
+              _key
+              _type
+              public_id
+              secure_url
+              url
             }
           }
         }
