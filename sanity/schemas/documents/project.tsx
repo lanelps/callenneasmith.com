@@ -61,10 +61,10 @@ export default {
       type: "text"
     },
     {
-      name: "images",
-      title: "Images",
+      name: "slides",
+      title: "Slides",
       type: "array",
-      of: [{ type: "altImage" }]
+      of: [{ type: "altImage" }, { title: "Video", type: "cloudinary.asset" }]
     },
     {
       name: "links",
