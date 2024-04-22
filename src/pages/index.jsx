@@ -116,6 +116,15 @@ export const query = graphql`
                   formats: [AUTO, WEBP, AVIF]
                 )
               }
+              mobileImage {
+                asset {
+                  gatsbyImageData(
+                    width: 360
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                  )
+                }
+              }
             }
 
             ... on SanityCloudinaryAsset {

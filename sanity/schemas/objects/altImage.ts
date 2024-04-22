@@ -6,10 +6,24 @@ export default {
     {
       name: "altText",
       title: "Alternative Text",
-      type: "string",
+      type: "string"
+    },
+    {
+      name: "mobileImage",
+      title: "Mobile Image",
+      type: "image",
+      description: "Image for mobile devices",
       options: {
-        hotspot: true
+        hotspot: false,
+        collapsible: true,
+        collapsed: true
       }
     }
-  ]
+  ],
+  preview: {
+    select: {
+      media: "asset",
+      title: "altText"
+    }
+  }
 };

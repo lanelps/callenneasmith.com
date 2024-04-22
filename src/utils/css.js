@@ -1,4 +1,4 @@
-const BREAKPOINTS = {
+export const BREAKPOINTS = {
   giant: `2200px`,
   "large-desktop": `1600px`,
   desktop: `1440px`,

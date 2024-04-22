@@ -9,6 +9,8 @@ import {
   withArtDirection
 } from "gatsby-plugin-image";
 
+import { BREAKPOINTS } from "~utils/css";
+
 const Image = ({
   className,
   image,
@@ -48,10 +50,10 @@ const Image = ({
   // useArtDirection is an attempt to merge everything, which might be borking it
 
   if (mobileImageObj) {
-    images = withArtDirection(getImage(mobileImageObj), [
+    images = withArtDirection(imageObj, [
       {
-        media: `(min-width: 1025px)`,
-        image: imageObj
+        media: `(max-width: ${BREAKPOINTS.tablet})`,
+        image: getImage(mobileImageObj)
       }
     ]);
   } else {
