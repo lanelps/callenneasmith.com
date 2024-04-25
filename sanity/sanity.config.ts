@@ -30,6 +30,14 @@ export default defineConfig({
               buildHookId: process.env.SANITY_STUDIO_NETLIFY_BUILD_HOOK_ID!,
               name: `callenneasmith`,
               url: `https://www.callenneasmith.com`
+            },
+            {
+              title: `Staging`,
+              apiId: process.env.SANITY_STUDIO_NETLIFY_SITE_ID!,
+              buildHookId:
+                process.env.SANITY_STUDIO_NETLIFY_BUILD_HOOK_STAGING_ID!,
+              name: `callenneasmith`,
+              url: `https://deploy-preview-1--callenneasmith.netlify.app/`
             }
           ]
         })
