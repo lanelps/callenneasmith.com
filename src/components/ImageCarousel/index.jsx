@@ -6,7 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { useApp, useSize, usePrevNextButtons } from "~hooks";
-import { Grid, Cursor, ExampleCarousel } from "~components";
+import { Grid, ExampleCarousel } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -51,7 +51,15 @@ const CarouselWrapper = styled.div`
   grid-column: 1 / -1;
 
   ${breakpoint(`tablet`)} {
-    ${({ active }) => active && `cursor: none;`}
+    ${({ active, direction }) => {
+      if (active) {
+        if (direction === `left`) {
+          return `cursor: w-resize;`;
+        } else {
+          return `cursor: e-resize;`;
+        }
+      }
+    }}
     grid-column: 5 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0rem);
@@ -66,6 +74,8 @@ const SlidesNav = styled.nav`
   padding: 0.5rem;
 
   background-color: var(--color-white);
+
+  user-select: none;
 
   ${breakpoint(`tablet`)} {
     grid-column: 5 / -1;
@@ -98,8 +108,6 @@ const ImageCarousel = ({ className, projects }) => {
   );
   const [cursorActive, setCursorActive] = useState(false);
   const [cursorDirection, setCursorDirection] = useState(`right`);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const cursorSize = 16;
 
   const [slides, setSlides] = useState([]);
 
@@ -122,11 +130,6 @@ const ImageCarousel = ({ className, projects }) => {
     if (!cursorActive) return;
 
     direction(e);
-
-    setCursorPosition({
-      x: e.clientX - cursorSize / 2,
-      y: e.clientY - cursorSize / 2
-    });
   };
 
   const handleClick = () => {
@@ -176,16 +179,6 @@ const ImageCarousel = ({ className, projects }) => {
           overflow: hidden;
         `}
       >
-        {isTablet && (
-          <Cursor
-            width={cursorSize}
-            height={cursorSize}
-            position={cursorPosition}
-            direction={cursorDirection}
-            active={cursorActive}
-          />
-        )}
-
         <CarouselWrapper
           className={className}
           ref={carouselRef}
@@ -195,6 +188,7 @@ const ImageCarousel = ({ className, projects }) => {
           onMouseOut={handleOut}
           onClick={handleClick}
           active={activeExpand && slides?.length > 0}
+          direction={cursorDirection}
         >
           <ExampleCarousel ref={emblaRef} slides={slides || []} />
         </CarouselWrapper>
