@@ -45,6 +45,10 @@ const Tag = styled.p`
   color: var(--color-off-black);
   opacity: 0.6;
 
+  > * + * {
+    margin-left: 0.5ch;
+  }
+
   ${breakpoint(`tablet`)} {
     grid-column: 5 / -1;
   }
@@ -84,13 +88,18 @@ const Project = ({ project }) => {
         onPointerDown={handleClick}
       >
         <ProjectName>
-          <h2 className="h1">{project?.name}</h2>
+          <h2 className="b1">{project?.name}</h2>
         </ProjectName>
 
-        <ClientName className="h1">{project?.client?.name}</ClientName>
+        <ClientName className="b1">{project?.client?.name}</ClientName>
 
-        <Tag className="h1">
-          {project?.tags?.map((tag) => tag?.name).join(`, `)}
+        <Tag className="b1">
+          {project?.tags?.map((tag, tagIndex) => (
+            <>
+              <span>{tag?.name}</span>
+              {tagIndex !== project.tags.length - 1 && ","}
+            </>
+          ))}
         </Tag>
       </Grid>
 

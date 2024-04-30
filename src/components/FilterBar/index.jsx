@@ -18,7 +18,7 @@ const Buttons = styled.div`
   display: flex;
   padding: 0;
   > * + * {
-    margin-left: 0.75rem;
+    margin-left: 0.5ch;
   }
 
   overflow-x: scroll;
@@ -72,13 +72,16 @@ const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
             }
           `}
         >
-          {tags.map((tag) => (
-            <Button
-              key={tag.id}
-              tag={tag}
-              activeFilters={activeFilters}
-              onPointerDown={() => handleClick(tag.name)}
-            />
+          {tags.map((tag, tagIndex) => (
+            <>
+              <Button
+                key={tag.id}
+                tag={tag}
+                activeFilters={activeFilters}
+                onPointerDown={() => handleClick(tag.name)}
+              />
+              {tagIndex !== tags.length - 1 && ","}
+            </>
           ))}
         </Buttons>
       </Grid>
