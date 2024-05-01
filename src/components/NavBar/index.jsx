@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-import { Grid } from "~components";
+import { Grid, Go } from "~components";
 import { useApp } from "~hooks";
 
 import { breakpoint } from "~utils/css";
@@ -135,12 +135,15 @@ const Contacts = styled.ul`
   }
 `;
 
-const NavBar = ({ title, role, contact }) => {
+const NavBar = ({ title, role, contact, location }) => {
   const { introInView } = useApp();
   const [showContacts, setShowContacts] = useState(false);
 
   return (
-    <Container show={!introInView} onMouseLeave={() => setShowContacts(false)}>
+    <Container
+      show={!introInView || location.pathname !== "/"}
+      onMouseLeave={() => setShowContacts(false)}
+    >
       <Grid
         css={css`
           align-items: center;
@@ -151,7 +154,9 @@ const NavBar = ({ title, role, contact }) => {
           }
         `}
       >
-        <Title className="h1">{title}</Title>
+        <Go to="/">
+          <Title className="h1">{title}</Title>
+        </Go>
         <Role className="h1">{role}</Role>
 
         <ContactButton

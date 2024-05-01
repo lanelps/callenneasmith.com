@@ -42,7 +42,7 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           overflow: hidden;
         `}
       >
-        <NavBar {...data.sanitySettings} />
+        <NavBar {...data.sanitySettings} location={location} />
         <main
           id="app-root"
           css={[
