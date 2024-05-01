@@ -208,6 +208,7 @@ const ImageCarousel = ({ className, projects }) => {
                 display: flex;
                 justify-content: space-between;
               `}
+              className="b1"
             >
               <span>Close Overlay</span>
               <span>
