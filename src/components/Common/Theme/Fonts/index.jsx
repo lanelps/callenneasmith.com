@@ -62,7 +62,7 @@ const Fonts = () => (
 
       .b1 {
         font-size: 0.875rem; // 14px
-        line-height: 1.06;
+        line-height: 1.1; // 15.4px
         letter-spacing: -0.01em;
       }
 
@@ -77,7 +77,8 @@ const Fonts = () => (
 
       .caption {
         font-size: 0.5625rem; // 9px
-        line-height: 1.06;
+        line-height: 1.1;
+        letter-spacing: 0.04em;
       }
 
       //
@@ -92,15 +93,10 @@ const Fonts = () => (
 
         .b1 {
           font-size: 1rem; // 16px
-          line-height: 1.1;
         }
 
         //
         // other //
-
-        .caption {
-          line-height: 1.1;
-        }
       }
     `}
   />

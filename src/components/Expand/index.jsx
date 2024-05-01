@@ -77,16 +77,15 @@ const Expand = ({ project, isActive, loaded }) => {
             padding-bottom: 1.5rem;
 
             ${breakpoint(`tablet`)} {
-              padding-bottom: 1.625rem;
+              padding-bottom: 0.75rem;
             }
           `}
         >
           <ContentWrapper>
-            <Description className="b2">{project?.description}</Description>
+            <Description className="b1">{project?.description}</Description>
 
             {project?.links?.length > 0 && (
               <ExternalLinks className="caption">
-                <h5>EXTERNAL LINKS</h5>
                 <Links>
                   {project?.links.map((link) => (
                     <a
