@@ -42,6 +42,11 @@ export default {
       of: [{ type: "link" }]
     },
     {
+      name: "errorPage",
+      title: "404 Page",
+      type: "image"
+    },
+    {
       name: "seoTitle",
       title: "Title",
       type: "string",

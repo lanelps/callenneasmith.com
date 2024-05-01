@@ -2,36 +2,36 @@ import React from "react";
 import { graphql } from "gatsby";
 import { css } from "@emotion/react";
 
-import { Layout, Grid, Go } from "~components";
+import { Layout, Grid, Image } from "~components";
 
-const NotFound = ({ data: { sanitySettings } }) => (
-  <Layout data={{ sanitySettings }}>
-    <Grid>
-      <h1
-        className="h1"
+import { breakpoint } from "~utils/css";
+
+const NotFound = ({ data, location }) => (
+  <Layout data={data} location={location}>
+    <Grid
+      css={css`
+        height: 100vh;
+      `}
+    >
+      <figure
         css={css`
-          grid-column: 1 / span 6;
+          grid-column: 1 / -1;
         `}
       >
-        404 Error
-      </h1>
-      <p
-        className="h1"
-        css={css`
-          grid-column: 1 / span 6;
-          grid-row: 2;
-        `}
-      >
-        Nothing here sorry - let’s go{` `}
-        <Go
-          to="/"
+        <Image
           css={css`
-            color: var(--color-off-black);
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+
+            ${breakpoint(`tablet`)} {
+              transform: rotate(0deg);
+            }
           `}
-        >
-          back home.
-        </Go>
-      </p>
+          image={data.sanitySettings.errorPage}
+          contain
+        />
+      </figure>
     </Grid>
   </Layout>
 );
@@ -41,13 +41,43 @@ export default NotFound;
 export const query = graphql`
   query {
     sanitySettings {
+      title
+      role
+
+      navItems {
+        _key
+        title
+        _rawContent(resolveReferences: { maxDepth: 10 })
+      }
+
       contact {
+        _key
         label
         url
       }
-      _rawIntroduction(resolveReferences: { maxDepth: 10 })
-      title
-      role
+
+      errorPage {
+        asset {
+          gatsbyImageData(
+            width: 1440
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        }
+      }
+
+      seoTitle
+      seoDescription
+      seoKeywords
+      seoImage {
+        asset {
+          gatsbyImageData(
+            width: 720
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        }
+      }
     }
   }
 `;
