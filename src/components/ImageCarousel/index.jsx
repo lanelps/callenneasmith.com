@@ -60,7 +60,7 @@ const CarouselWrapper = styled.div`
         }
       }
     }}
-    grid-column: 5 / -1;
+    grid-column: 4 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0rem);
   }
@@ -78,7 +78,7 @@ const SlidesNav = styled.nav`
   user-select: none;
 
   ${breakpoint(`tablet`)} {
-    grid-column: 5 / -1;
+    grid-column: 4 / -1;
     width: calc(100% + 0.5rem);
     transform: translateX(0);
 

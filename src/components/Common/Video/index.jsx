@@ -17,13 +17,14 @@ const Container = styled.div`
 `;
 
 const VideoElement = styled.video`
+  display: block;
   object-fit: contain;
   width: 100%;
   height: 100%;
   transition: opacity 1s;
 `;
 
-const Video = ({ publicId, className, muted = true }) => {
+const Video = ({ publicId, className, muted = true, videoStyle }) => {
   const ref = useRef(null);
 
   const src = generateCloudinaryVideoURL(publicId);
@@ -42,7 +43,7 @@ const Video = ({ publicId, className, muted = true }) => {
 
   return (
     <Container className={className}>
-      <VideoElement ref={ref} autoPlay playsInline loop>
+      <VideoElement ref={ref} autoPlay playsInline loop style={videoStyle}>
         <source src={src} type="video/mp4" />
         Sorry, your browser doesn&#39;t support embedded videos.
       </VideoElement>

@@ -111,7 +111,7 @@ export const query = graphql`
               altText
               asset {
                 gatsbyImageData(
-                  width: 720
+                  width: 1440
                   placeholder: BLURRED
                   formats: [AUTO, WEBP, AVIF]
                 )

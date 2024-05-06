@@ -32,15 +32,6 @@ const Slide = styled.div`
   padding-left: var(--slide-spacing);
   position: relative;
   height: 100%;
-
-  figure {
-    width: 100%;
-    height: auto;
-
-    > * + * {
-      margin-top: 0.375rem;
-    }
-  }
 `;
 
 const EmblaCarousel = (props, ref) => {
@@ -57,9 +48,10 @@ const EmblaCarousel = (props, ref) => {
               <Slide key={slide?._key}>
                 <Video
                   css={css`
-                    height: 100%;
                     width: 100%;
+                    height: 100%;
                   `}
+                  videoStyle={{ objectPosition: `top right` }}
                   publicId={slide?.public_id}
                 />
               </Slide>
@@ -69,11 +61,12 @@ const EmblaCarousel = (props, ref) => {
               <Slide key={slide?._key}>
                 <Image
                   css={css`
-                    height: 100%;
                     width: 100%;
+                    height: 100%;
                   `}
                   image={slide}
-                  alt="Your alt text"
+                  imgStyle={{ objectPosition: `top right` }}
+                  alt={slide?.altText}
                   contain
                 />
               </Slide>
