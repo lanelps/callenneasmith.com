@@ -112,7 +112,6 @@ const HoverFigure = styled.figure`
   justify-content: center;
 
   opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
-  transition: opacity 0.3s ease;
 
   ${breakpoint(`tablet`)} {
     width: auto;
@@ -175,7 +174,6 @@ const portableComponents = {
           className="h1"
           css={css`
             color: var(--color-blue);
-            transition: color 0.3s ease-in-out;
             text-decoration: underline;
 
             :hover {
