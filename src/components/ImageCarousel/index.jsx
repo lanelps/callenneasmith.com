@@ -28,8 +28,6 @@ const Container = styled.div`
     activeExpand && slidesLength > 0 ? 1 : 0};
   pointer-events: none;
 
-  transition: opacity 0.3s ease-in-out;
-
   z-index: 101;
 
   ${breakpoint(`tablet`)} {
@@ -166,6 +164,8 @@ const ImageCarousel = ({ className, projects }) => {
     if (activeExpand) {
       const project = projects.find((p) => p._id === activeExpand);
       setSlides(project?.slides || []);
+    } else {
+      setSlides([]);
     }
 
     setActiveSlideIndex(0);
