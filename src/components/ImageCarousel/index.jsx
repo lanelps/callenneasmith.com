@@ -20,7 +20,7 @@ const Container = styled.div`
   height: 100dvh;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
 
   opacity: ${({ activeExpand, slidesLength }) =>
@@ -31,6 +31,7 @@ const Container = styled.div`
 
   ${breakpoint(`tablet`)} {
     z-index: 50;
+    flex-direction: column;
   }
 `;
 
@@ -207,7 +208,7 @@ const ImageCarousel = ({ className, projects }) => {
                 display: flex;
                 justify-content: space-between;
               `}
-              className="b1"
+              className="h1"
             >
               <span>Close Overlay</span>
               <span>
