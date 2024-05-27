@@ -16,9 +16,8 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  max-height: 100vh;
+  width: 100vw;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -91,7 +90,7 @@ const ImageCarousel = ({ className, projects }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: `start`,
     containScroll: `trimSnaps`,
-    duration: 0,
+    duration: 0
   });
 
   const {
