@@ -2,14 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import { useApp } from "~hooks";
-
-import { Theme, NavBar, Footer, PopOutImage, ImageCarousel } from "~components";
+import { Theme, NavBar, Footer, ImageCarousel } from "~components";
 import SEO from "../SEO";
 
 const Layout = ({ children, className, data, location, colors, site }) => {
-  const { popOuts } = useApp();
-
   const seo = {
     seoTitle: data?.sanitySettings?.seoTitle,
     seoDescription: data?.sanitySettings?.seoDescription,
@@ -54,16 +50,6 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           ]}
         >
           {children}
-
-          {popOuts.map((popOut) => (
-            <PopOutImage
-              key={popOut?.id}
-              id={popOut?.id}
-              image={popOut?.image}
-              active={popOut?.active}
-              setActive={popOut?.setActive}
-            />
-          ))}
 
           <ImageCarousel projects={data.projects} />
         </main>

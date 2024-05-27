@@ -18,27 +18,7 @@ const AppProvider = ({ children }) => {
 
   const [introInView, setIntroInView] = useState(true);
 
-  const [popOuts, setPopOuts] = useState([]);
-  const [activePopOut, setActivePopOut] = useState(null);
-
   const [activeExpand, setActiveExpand] = useState(null);
-
-  useEffect(() => {
-    setPopOuts((prev) => {
-      if (prev.length <= 1) return prev;
-
-      const itemIndex = prev.findIndex((item) => item.id === activePopOut);
-
-      if (itemIndex > -1) {
-        const newPops = [...prev];
-        const [poppedOut] = newPops.splice(itemIndex, 1);
-        newPops.push(poppedOut);
-        return newPops;
-      }
-
-      return prev;
-    });
-  }, [activePopOut]);
 
   // ---------------------------------------------------------------------------
   // methods
@@ -67,10 +47,6 @@ const AppProvider = ({ children }) => {
     setMenuActive,
     introInView,
     setIntroInView,
-    activePopOut,
-    setActivePopOut,
-    popOuts,
-    setPopOuts,
     activeExpand,
     setActiveExpand
   }));

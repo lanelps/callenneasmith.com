@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { Grid, PopOut } from "~components";
+import { Grid } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -110,14 +110,6 @@ const Expand = ({ project, isActive, loaded }) => {
                   ))}
                 </Links>
               </ExternalLinks>
-            )}
-
-            {isDesktop && project?.images?.length > 0 && (
-              <PopOut
-                id={project?._id}
-                image={project?.images?.[0]}
-                loaded={loaded}
-              />
             )}
           </ContentWrapper>
         </Grid>
