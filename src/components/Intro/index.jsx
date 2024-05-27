@@ -142,7 +142,7 @@ const HoverImage = ({ image, isActive, setIsActive }) => {
         <HoverFigure isActive={isActive}>
           <SanityImage
             asset={image?.asset}
-            alt={image?.altText}
+            alt={image?.altText || ``}
             width={720}
             sizes="(max-width: 720px) 75vw, 50vw, 720px"
             css={css`

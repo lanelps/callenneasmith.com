@@ -73,15 +73,14 @@ const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
           `}
         >
           {tags.map((tag, tagIndex) => (
-            <>
+            <React.Fragment key={tag.id}>
               <Button
-                key={tag.id}
                 tag={tag}
                 activeFilters={activeFilters}
                 onPointerDown={() => handleClick(tag.name)}
               />
               {tagIndex !== tags.length - 1 && ","}
-            </>
+            </React.Fragment>
           ))}
         </Buttons>
       </Grid>

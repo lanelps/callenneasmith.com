@@ -95,10 +95,10 @@ const Project = ({ project }) => {
 
         <Tag className="b1">
           {project?.tags?.map((tag, tagIndex) => (
-            <>
+            <React.Fragment key={tag._id}>
               <span>{tag?.name}</span>
               {tagIndex !== project.tags.length - 1 && ","}
-            </>
+            </React.Fragment>
           ))}
         </Tag>
       </Grid>
