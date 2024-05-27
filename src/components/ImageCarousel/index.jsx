@@ -90,7 +90,8 @@ const ImageCarousel = ({ className, projects }) => {
   const size = useSize(carouselRef);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: `start`,
-    containScroll: `trimSnaps`
+    containScroll: `trimSnaps`,
+    duration: 0,
   });
 
   const {
