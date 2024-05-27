@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css } from "@emotion/react";
 
-import { Theme, NavBar, Footer, ImageCarousel } from "~components";
+import { Theme, NavBar, Footer } from "~components";
 import SEO from "../SEO";
 
 const Layout = ({ children, className, data, location, colors, site }) => {
@@ -50,8 +50,6 @@ const Layout = ({ children, className, data, location, colors, site }) => {
           ]}
         >
           {children}
-
-          <ImageCarousel projects={data.projects} />
         </main>
         <Footer {...data.sanitySettings} />
       </div>

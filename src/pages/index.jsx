@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { Layout, Intro, Projects } from "~components";
+import { Layout, Intro, Projects, ImageCarousel } from "~components";
 
 const Index = ({
   data: { sanitySettings, allSanityProject, site, allSanityTag },
@@ -11,12 +11,13 @@ const Index = ({
   const tags = allSanityTag.edges.map(({ node }) => node);
 
   return (
-    <Layout data={{ sanitySettings, projects }} location={location} site={site}>
+    <Layout data={{ sanitySettings }} location={location} site={site}>
       <Intro
         introduction={sanitySettings?._rawIntroduction}
         items={sanitySettings?.navItems}
       />
       <Projects projects={projects} tags={tags} />
+      <ImageCarousel projects={projects} />
     </Layout>
   );
 };
