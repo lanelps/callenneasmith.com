@@ -154,9 +154,10 @@ const NavBar = ({ title, role, contact, location }) => {
           }
         `}
       >
-        <Go to="/">
-          <Title className="h1">{title}</Title>
-        </Go>
+        <Title className="h1">
+          <Go to="/">{title}</Go>
+        </Title>
+
         <Role className="h1">{role}</Role>
 
         <ContactButton
