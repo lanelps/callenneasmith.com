@@ -21,7 +21,7 @@ const Container = styled.div`
   max-height: 100vh;
 
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: space-between;
 
   opacity: ${({ activeExpand, slidesLength }) =>
@@ -31,7 +31,6 @@ const Container = styled.div`
   z-index: 101;
 
   ${breakpoint(`tablet`)} {
-    flex-direction: column;
     z-index: 50;
   }
 `;
