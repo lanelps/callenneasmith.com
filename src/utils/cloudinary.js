@@ -19,7 +19,7 @@ const cld = new Cloudinary({
 const defaultOptions = {
   width: 960,
   quality: "auto",
-  format: "auto"
+  format: "mp4"
 };
 
 export const generateCloudinaryVideoURL = (publicId, options) => {
