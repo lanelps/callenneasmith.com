@@ -83,7 +83,7 @@ export const query = graphql`
       }
     }
 
-    allSanityProject(sort: { started: DESC }) {
+    allSanityProject(sort: { client: { name: ASC } }) {
       edges {
         node {
           _id
