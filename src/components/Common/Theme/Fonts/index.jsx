@@ -52,9 +52,9 @@ const Fonts = () => (
       // headings //
 
       .h1 {
-        font-size: 1rem; // 16px
-        line-height: 1.08;
-        letter-spacing: -0.02em;
+        font-size: 0.875rem; // 14px
+        line-height: 1.1; // 15.4px
+        letter-spacing: -0.01em;
       }
 
       //
@@ -85,18 +85,15 @@ const Fonts = () => (
       // breakpoints (ASC) //
 
       ${breakpoint(`tablet`)} {
-        //
-        // headings //
-
-        //
-        // body //
+        .h1 {
+          font-size: 1rem; // 16px
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+        }
 
         .b1 {
           font-size: 1rem; // 16px
         }
-
-        //
-        // other //
       }
     `}
   />
