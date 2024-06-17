@@ -32,11 +32,6 @@ export default {
       of: [{ type: "reference", to: [{ type: "tag" }] }]
     },
     {
-      name: "isFeatured",
-      title: "Featured",
-      type: "boolean"
-    },
-    {
       name: "isOngoing",
       title: "Ongoing",
       type: "boolean",

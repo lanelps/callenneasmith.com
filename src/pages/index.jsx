@@ -91,7 +91,6 @@ export const query = graphql`
           client {
             name
           }
-          isFeatured
           isOngoing
           ended(formatString: "y")
           started(formatString: "y")
