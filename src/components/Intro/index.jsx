@@ -204,7 +204,7 @@ const simpleComponents = {
 };
 
 const Intro = ({ introduction, items }) => {
-  const { ref, inView } = useInView({ threshold: 0.5 });
+  const { ref, inView } = useInView({ threshold: 1 });
   const { setIntroInView } = useApp();
 
   useEffect(() => {
