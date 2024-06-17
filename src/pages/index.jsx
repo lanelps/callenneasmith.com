@@ -83,7 +83,7 @@ export const query = graphql`
       }
     }
 
-    allSanityProject(sort: { client: { name: ASC } }) {
+    allSanityProject(sort: { order: ASC, fields: order }) {
       edges {
         node {
           _id
@@ -91,6 +91,7 @@ export const query = graphql`
           client {
             name
           }
+          order
           isOngoing
           ended(formatString: "y")
           started(formatString: "y")

@@ -32,6 +32,12 @@ export default {
       of: [{ type: "reference", to: [{ type: "tag" }] }]
     },
     {
+      name: "order",
+      title: "Order",
+      type: "number",
+      description: "Used for sorting projects, in ascending order"
+    },
+    {
       name: "isOngoing",
       title: "Ongoing",
       type: "boolean",
