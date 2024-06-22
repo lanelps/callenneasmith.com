@@ -47,6 +47,7 @@
     "gatsby-source-sanity": "^7.9.1",
     "gatsby-transformer-json": "^5.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
+    "js-beautify": "^1.15.1",
     "mitt": "^3.0.1",
     "modern-normalize": "^2.0.0",
     "node-html-parser": "^6.1.13",
