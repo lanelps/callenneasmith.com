@@ -66,6 +66,8 @@ const Layout = ({ children, className, data, location, colors, site }) => {
       <p
         css={css`
           white-space: pre;
+          font-family: monospace;
+          font-size: 1rem;
         `}
       >
         {beautifyHtml(pageSource, {
