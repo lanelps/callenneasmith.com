@@ -31,7 +31,7 @@ const Container = styled.nav`
   letter-spacing: -0.01em;
 
   transform: translateY(${({ show }) => (show ? `0%` : `-100%`)});
-  transition: all 0.3s ease;
+  // transition: all 0.3s ease;
 
   z-index: 100;
 
@@ -71,7 +71,7 @@ const ContactButton = styled.p`
       color: var(--color-rich-black);
     }
 
-    transition: color 0.3s ease;
+    // transition: color 0.3s ease;
   }
 `;
 
@@ -99,9 +99,9 @@ const Dropdown = styled.div`
 
   z-index: 2;
   overflow: hidden;
-  transition:
-    grid-template-rows 0.3s ease,
-    border-color 0.3s ease;
+  // transition:
+  //   grid-template-rows 0.3s ease,
+  //   border-color 0.3s ease;
 
   ${breakpoint(`tablet`)} {
     grid-column: 6 / span 1;
@@ -186,7 +186,7 @@ const NavBar = ({ title, role, contact, location }) => {
 
               transform: rotate(${showContacts ? `-45deg` : `0deg`});
 
-              transition: transform 0.15s ease;
+              // transition: transform 0.15s ease;
             `}
           />
         </MobileButton>
@@ -205,7 +205,7 @@ const NavBar = ({ title, role, contact, location }) => {
                       color: var(--color-rich-black);
                     }
 
-                    transition: color 0.3s ease;
+                    // transition: color 0.3s ease;
                   `}
                 >
                   <li>{item?.label}</li>
