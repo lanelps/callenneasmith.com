@@ -7,7 +7,7 @@ const Index = ({
   data: { sanitySettings, allSanityProject, site, allSanityTag },
   location
 }) => {
-  const projects = allSanityProject.edges.map(({ node }) => node);
+  const projects = sanitySettings.projects;
   const tags = allSanityTag.edges.map(({ node }) => node);
 
   return (
@@ -30,13 +30,66 @@ export const query = graphql`
       title
       role
 
+      _rawIntroduction(resolveReferences: { maxDepth: 10 })
+
       navItems {
         _key
         title
         _rawContent(resolveReferences: { maxDepth: 10 })
       }
 
-      _rawIntroduction(resolveReferences: { maxDepth: 10 })
+      projects {
+        _id
+        name
+        client {
+          name
+        }
+        order
+        isOngoing
+        ended(formatString: "y")
+        started(formatString: "y")
+        tags {
+          _id
+          name
+        }
+        description
+        links {
+          _key
+          label
+          url
+        }
+        slides {
+          ... on SanityAltImage {
+            _key
+            _type
+            altText
+            asset {
+              gatsbyImageData(
+                width: 1440
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
+            }
+            mobileImage {
+              asset {
+                gatsbyImageData(
+                  width: 360
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+
+          ... on SanityCloudinaryAsset {
+            _key
+            _type
+            public_id
+            secure_url
+            url
+          }
+        }
+      }
 
       contact {
         _key
@@ -79,63 +132,6 @@ export const query = graphql`
         node {
           id
           name
-        }
-      }
-    }
-
-    allSanityProject(sort: { order: ASC, fields: order }) {
-      edges {
-        node {
-          _id
-          name
-          client {
-            name
-          }
-          order
-          isOngoing
-          ended(formatString: "y")
-          started(formatString: "y")
-          tags {
-            _id
-            name
-          }
-          description
-          links {
-            _key
-            label
-            url
-          }
-          slides {
-            ... on SanityAltImage {
-              _key
-              _type
-              altText
-              asset {
-                gatsbyImageData(
-                  width: 1440
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-              mobileImage {
-                asset {
-                  gatsbyImageData(
-                    width: 360
-                    placeholder: BLURRED
-                    formats: [AUTO, WEBP, AVIF]
-                  )
-                }
-              }
-            }
-
-            ... on SanityCloudinaryAsset {
-              _key
-              _type
-              public_id
-              secure_url
-              url
-            }
-          }
         }
       }
     }
