@@ -22,36 +22,41 @@ export const GRID_PADDING_PX = remToPx(GRID_GAP_REM);
  * @param  {string} node      Wrapper JSX node type (defaults to <div>)
  * @return {node}             The resulting CSS grid node
  */
-const Grid = forwardRef(({ children, className, node, onClick }, ref) => {
-  const G = `${node}`;
+const Grid = forwardRef(
+  ({ children, className = "", node = "div", onClick = () => {} }, ref) => {
+    const G = `${node}`;
 
-  return (
-    <G
-      ref={ref}
-      className={className}
-      onClick={onClick}
-      css={[
-        css`
-          width: 100%;
-          position: relative;
-          display: grid;
-          margin: 0 auto;
-          // max-width: ${GRID_MAX_WIDTH_PX}px;
-          grid-template-columns: repeat(${GRID_COLUMNS_MOBILE}, minmax(0, 1fr));
-          grid-gap: 0 ${GRID_MOBILE_GAP_REM}rem;
-          padding: 0 ${GRID_MOBILE_PADDING_REM}rem;
+    return (
+      <G
+        ref={ref}
+        className={className}
+        onClick={onClick}
+        css={[
+          css`
+            width: 100%;
+            position: relative;
+            display: grid;
+            margin: 0 auto;
+            // max-width: ${GRID_MAX_WIDTH_PX}px;
+            grid-template-columns: repeat(
+              ${GRID_COLUMNS_MOBILE},
+              minmax(0, 1fr)
+            );
+            grid-gap: 0 ${GRID_MOBILE_GAP_REM}rem;
+            padding: 0 ${GRID_MOBILE_PADDING_REM}rem;
 
-          ${breakpoint(`tablet`)} {
-            grid-template-columns: repeat(${GRID_COLUMNS}, minmax(0, 1fr));
-            grid-gap: 0 ${GRID_GAP_REM}rem;
-            padding: 0 ${GRID_PADDING_REM}rem;
-          }
-        `
-      ]}
-    >
-      {children}
-    </G>
-  );
-});
+            ${breakpoint(`tablet`)} {
+              grid-template-columns: repeat(${GRID_COLUMNS}, minmax(0, 1fr));
+              grid-gap: 0 ${GRID_GAP_REM}rem;
+              padding: 0 ${GRID_PADDING_REM}rem;
+            }
+          `
+        ]}
+      >
+        {children}
+      </G>
+    );
+  }
+);
 
 export default Grid;

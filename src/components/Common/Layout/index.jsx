@@ -5,7 +5,7 @@ import { html as beautifyHtml } from "js-beautify";
 import { Theme, NavBar, Footer } from "~components";
 import SEO from "../SEO";
 
-const Layout = ({ children, className, data, location, colors, site }) => {
+const Layout = ({ children, className = "", data, location, colors, site }) => {
   const [viewPageSource, setViewPageSource] = useState(false);
   const [pageSource, setPageSource] = useState("");
 

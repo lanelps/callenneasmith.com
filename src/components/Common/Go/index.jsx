@@ -9,7 +9,14 @@ import { Link } from "gatsby";
  * @param  {props} props The component props
  * @return {node}        The resulting link node with mutated URLs
  */
-const Go = ({ children, className, debug, onClick, parameters, to }) => {
+const Go = ({
+  children,
+  className = "",
+  debug = false,
+  onClick = () => {},
+  parameters = null,
+  to
+}) => {
   const [parameterString, setParameterString] = useState(``);
 
   /**
