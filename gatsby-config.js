@@ -11,7 +11,7 @@ const previewEnabled =
 
 module.exports = {
   flags: {
-    // DEV_SSR: false
+    DEV_SSR: true
   },
   siteMetadata: {
     author: `Callen Neasmith`,
