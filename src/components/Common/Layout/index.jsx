@@ -66,14 +66,13 @@ const Layout = ({ children, className, data, location, colors, site }) => {
       <p
         css={css`
           white-space: pre;
-          font-family: monospace;
+          font-family: "Helvetica Neue";
           font-size: 1rem;
+          margin: 0;
         `}
       >
         {beautifyHtml(pageSource, {
-          indent_size: 2,
-          indent_char: " ",
-          indent_with_tabs: false,
+          indent_with_tabs: true,
           preserve_newlines: true,
           max_preserve_newlines: 10,
           brace_style: "collapse",
