@@ -10,6 +10,8 @@ const useScroll = () => {
   };
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     window.addEventListener(`scroll`, scrollHandler);
 
     return () => {

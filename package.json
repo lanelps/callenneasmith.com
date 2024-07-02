@@ -20,7 +20,6 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@gatsbyjs/reach-router": "^2.0.1",
-    "@react-hook/resize-observer": "^2.0.1",
     "@sanity/client": "^6.20.1",
     "@svgr/webpack": "^8.1.0",
     "deepmerge": "^4.3.1",

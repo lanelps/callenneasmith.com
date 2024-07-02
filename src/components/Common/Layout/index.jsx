@@ -54,10 +54,12 @@ const Layout = ({ children, className, data, location, colors, site }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
+    if (typeof window === "undefined") return;
+
+    window?.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window?.removeEventListener("keydown", handleKeyDown);
     };
   }, []); // The dependency array is still empty as we don't need to re-run this effect due to state changes
 

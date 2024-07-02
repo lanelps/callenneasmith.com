@@ -16,6 +16,8 @@ export const useKeyPress = (targetKey) => {
   };
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     window.addEventListener(`keydown`, downHandler);
     window.addEventListener(`keyup`, upHandler);
     return () => {

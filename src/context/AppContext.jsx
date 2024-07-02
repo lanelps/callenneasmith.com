@@ -30,7 +30,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== `undefined` && window?.location?.pathname) {
-      setPathname(window.location.pathname);
+      setPathname(window?.location.pathname);
     }
 
     return globalHistory.listen(({ location }) => {
