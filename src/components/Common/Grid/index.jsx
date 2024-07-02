@@ -1,6 +1,5 @@
 import React, { forwardRef } from "react";
 import { css } from "@emotion/react";
-import PropTypes from "prop-types";
 import { remToPx } from "~utils/helpers";
 import { breakpoint } from "~utils/css";
 
@@ -54,13 +53,5 @@ const Grid = forwardRef(({ children, className, node, onClick }, ref) => {
     </G>
   );
 });
-
-Grid.defaultProps = {
-  node: `div`
-};
-Grid.propTypes = {
-  children: PropTypes.node.isRequired,
-  node: PropTypes.string
-};
 
 export default Grid;

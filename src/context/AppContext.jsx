@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { createContext, useEffect, useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import { globalHistory } from "@reach/router";
 
 export const AppContext = createContext({});
@@ -54,10 +53,6 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={providerProps}>{children}</AppContext.Provider>
   );
-};
-
-AppProvider.propTypes = {
-  children: PropTypes.node.isRequired
 };
 
 export default AppProvider;
