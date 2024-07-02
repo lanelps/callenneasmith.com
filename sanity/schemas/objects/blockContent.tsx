@@ -74,12 +74,36 @@ export default {
                 type: "altImage"
               }
             ]
+          },
+          {
+            title: "Hover Video",
+            name: "hoverVideo",
+            type: "object",
+            icon: () => `🎥`,
+            component: {
+              render: ({ children }) => (
+                <span
+                  style={{
+                    backgroundColor: "#0f0",
+                    color: "#fff",
+                    padding: "5px",
+                    borderRadius: "5px",
+                    cursor: "pointer"
+                  }}
+                >
+                  {children}
+                </span>
+              )
+            },
+
+            fields: [
+              {
+                title: "Video",
+                name: "video",
+                type: "cloudinary.asset"
+              }
+            ]
           }
-          // {
-          //   name: "testHoverImage",
-          //   title: "Test Hover Image",
-          //   type: "hoverImage"
-          // }
         ]
       }
     }

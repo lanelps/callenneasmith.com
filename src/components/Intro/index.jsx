@@ -7,7 +7,7 @@ import SanityImage from "gatsby-plugin-sanity-image";
 import { useInView } from "react-intersection-observer";
 
 import { useApp } from "~hooks";
-import { Grid, Go } from "~components";
+import { Grid, Go, Video } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -119,7 +119,7 @@ const HoverFigure = styled.figure`
   }
 `;
 
-const HoverImage = ({ image, isActive, setIsActive }) => {
+const HoverMedia = ({ src, isActive, setIsActive, type }) => {
   const [doucmentExists, setDocumentExists] = useState(false);
 
   useEffect(() => {
@@ -140,19 +140,33 @@ const HoverImage = ({ image, isActive, setIsActive }) => {
         onPointerDown={() => setIsActive(false)}
       >
         <HoverFigure isActive={isActive}>
-          <SanityImage
-            asset={image?.asset}
-            alt={image?.altText || ``}
-            width={720}
-            sizes="(max-width: 720px) 75vw, 50vw, 720px"
-            css={css`
-              display: block;
-              height: auto;
-              max-height: 100%;
-              width: auto;
-              max-width: 100%;
-            `}
-          />
+          {type === `video` ? (
+            <Video
+              css={css`
+                display: block;
+                height: auto;
+                max-height: 100%;
+                width: auto;
+                max-width: 100%;
+              `}
+              videoStyle={{ objectPosition: `top right` }}
+              publicId={src?.public_id}
+            />
+          ) : (
+            <SanityImage
+              asset={src?.asset}
+              alt={src?.altText || ``}
+              width={720}
+              sizes="(max-width: 720px) 75vw, 50vw, 720px"
+              css={css`
+                display: block;
+                height: auto;
+                max-height: 100%;
+                width: auto;
+                max-width: 100%;
+              `}
+            />
+          )}
         </HoverFigure>
       </HoverContainer>,
       document.getElementById(`app-root`)
@@ -187,8 +201,36 @@ const portableComponents = {
           {children}
         </span>
 
-        <HoverImage
-          image={image}
+        <HoverMedia src={image} isActive={isActive} setIsActive={setIsActive} />
+      </>
+    );
+  },
+  hoverVideo: (props) => {
+    const { children, video } = props;
+    const [isActive, setIsActive] = useState(false);
+
+    return (
+      <>
+        <span
+          className="h1"
+          css={css`
+            color: var(--color-blue);
+            text-decoration: underline;
+
+            :hover {
+              color: var(--color-laser);
+            }
+          `}
+          onMouseEnter={() => setIsActive(true)}
+          onMouseLeave={() => setIsActive(false)}
+          onPointerDown={() => setIsActive(true)}
+        >
+          {children}
+        </span>
+
+        <HoverMedia
+          src={video}
+          type="video"
           isActive={isActive}
           setIsActive={setIsActive}
         />
