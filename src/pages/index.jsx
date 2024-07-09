@@ -44,7 +44,6 @@ export const query = graphql`
         client {
           name
         }
-        order
         isOngoing
         ended(formatString: "y")
         started(formatString: "y")
