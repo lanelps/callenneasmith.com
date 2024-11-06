@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FilterBar, Project } from "~components";
+import { useApp } from "~hooks";
 import styled from "@emotion/styled";
 
 const AllProjects = styled.section`
@@ -8,8 +9,7 @@ const AllProjects = styled.section`
 `;
 
 const Projects = ({ projects, tags }) => {
-  const [activeFilters, setActiveFilters] = useState([]);
-  const [allProjects, setAllProjects] = useState(projects);
+  const { allProjects, setAllProjects, activeFilters } = useApp();
 
   useEffect(() => {
     if (activeFilters.length > 0) {
@@ -25,11 +25,7 @@ const Projects = ({ projects, tags }) => {
 
   return (
     <section>
-      <FilterBar
-        activeFilters={activeFilters}
-        setActiveFilters={setActiveFilters}
-        tags={tags}
-      />
+      <FilterBar tags={tags} />
 
       <AllProjects className="b1">
         <ul>

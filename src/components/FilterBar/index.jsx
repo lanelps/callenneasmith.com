@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
+import { useApp } from "~hooks";
 import { Grid } from "~components";
 
 import { breakpoint } from "~utils/css";
@@ -28,7 +29,9 @@ const Buttons = styled.div`
   }
 `;
 
-const FilterBar = ({ activeFilters, setActiveFilters, tags }) => {
+const FilterBar = ({ tags }) => {
+  const { activeFilters, setActiveFilters } = useApp();
+
   const handleClick = (name) => {
     if (activeFilters?.includes(name)) {
       const index = activeFilters?.indexOf(name);

@@ -17,6 +17,8 @@ const AppProvider = ({ children }) => {
 
   const [introInView, setIntroInView] = useState(true);
 
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
   const [activeExpand, setActiveExpand] = useState(null);
 
   // ---------------------------------------------------------------------------
@@ -46,6 +48,10 @@ const AppProvider = ({ children }) => {
     setMenuActive,
     introInView,
     setIntroInView,
+    activeFilters,
+    setActiveFilters,
+    allProjects,
+    setAllProjects,
     activeExpand,
     setActiveExpand
   }));

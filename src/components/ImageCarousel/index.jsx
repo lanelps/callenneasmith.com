@@ -61,25 +61,25 @@ const SlidesNav = styled.nav`
   }
 `;
 
-const ImageCarousel = ({ className, projects }) => {
+const ImageCarousel = ({ className }) => {
   const carouselRef = useRef();
-  const { activeExpand, setActiveExpand } = useApp();
+  const { activeExpand, setActiveExpand, allProjects } = useApp();
   const size = useSize(carouselRef);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const { isTablet } = useBreakpoint();
   const [cursorDirection, setCursorDirection] = useState(`right`);
 
-  // Combine all slides from all projects
+  // Combine all slides from allProjects
   const allSlides = useMemo(() => {
-    return projects.flatMap((project) =>
+    return allProjects.flatMap((project) =>
       project.slides.map((slide) => ({ ...slide, projectId: project._id }))
     );
-  }, [projects]);
+  }, [allProjects]);
 
   useEffect(() => {
     setActiveSlideIndex(0);
     setActiveExpand(null);
-  }, [projects]);
+  }, [allProjects]);
 
   useEffect(() => {
     if (activeExpand) {
@@ -220,8 +220,6 @@ const ImageCarousel = ({ className, projects }) => {
                 {activeSlideIndex + 1}/{allSlides.length}
               </span>
             </button>
-            <button onClick={handlePrev}>Previous</button>
-            <button onClick={handleNext}>Next</button>
           </SlidesNav>
         </Grid>
       )}

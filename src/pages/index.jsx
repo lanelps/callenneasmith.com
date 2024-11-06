@@ -17,7 +17,7 @@ const Index = ({
         items={sanitySettings?.navItems}
       />
       <Projects projects={projects} tags={tags} />
-      <ImageCarousel projects={projects} />
+      <ImageCarousel />
     </Layout>
   );
 };
