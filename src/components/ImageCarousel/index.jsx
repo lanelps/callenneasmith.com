@@ -1,12 +1,10 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import useEmblaCarousel from "embla-carousel-react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-import { useApp, useSize, usePrevNextButtons } from "~hooks";
-import { Grid, ExampleCarousel } from "~components";
+import { useApp, useSize } from "~hooks";
+import { Grid, Image, Video } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -18,16 +16,14 @@ const Container = styled.div`
   left: 0;
   width: 100vw;
   height: 100dvh;
-
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
-
   opacity: ${({ activeExpand, slidesLength }) =>
     activeExpand && slidesLength > 0 ? 1 : 0};
   pointer-events: none;
-
   z-index: 101;
+  overflow: hidden;
 
   ${breakpoint(`tablet`)} {
     z-index: 50;
@@ -37,167 +33,138 @@ const Container = styled.div`
 
 const CarouselWrapper = styled.div`
   position: relative;
-  width: calc(100% + 1rem);
+  width: 100%;
   height: 100%;
-  transform: translateX(-0.5rem);
-
-  ${({ active }) =>
-    active ? `pointer-events: auto;` : `pointer-events: none;`}
   overflow: hidden;
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  cursor: ${({ direction }) =>
+    direction === `left` ? `w-resize` : `e-resize`};
+  pointer-events: ${({ active }) => (active ? `auto` : `none`)};
+`;
 
-  grid-column: 1 / -1;
-
-  ${breakpoint(`tablet`)} {
-    ${({ active, direction }) => {
-      if (active) {
-        if (direction === `left`) {
-          return `cursor: w-resize;`;
-        } else {
-          return `cursor: e-resize;`;
-        }
-      }
-    }}
-    grid-column: 4 / -1;
-    width: calc(100% + 0.5rem);
-    transform: translateX(0rem);
-  }
+const Slide = styled.div`
+  flex: 0 0 100%;
+  height: 100%;
 `;
 
 const SlidesNav = styled.nav`
   grid-column: 1 / -1;
   width: calc(100% + 1rem);
   transform: translateX(-0.5rem);
-
   padding: 0.5rem;
-
   background-color: var(--color-white);
-
   user-select: none;
 
   ${breakpoint(`tablet`)} {
-    grid-column: 4 / -1;
-    width: calc(100% + 0.5rem);
-    transform: translateX(0);
-
     padding-right: 1rem;
   }
 `;
 
 const ImageCarousel = ({ className, projects }) => {
   const carouselRef = useRef();
-
   const { activeExpand, setActiveExpand } = useApp();
   const size = useSize(carouselRef);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: `start`,
-    containScroll: `trimSnaps`,
-    duration: 0
-  });
-
-  const {
-    onPrevButtonClick,
-    onNextButtonClick,
-    activeSlideIndex,
-    setActiveSlideIndex
-  } = usePrevNextButtons(emblaApi);
-
-  const [offsetX, setOffsetX] = useState(
-    carouselRef?.current?.getBoundingClientRect()?.left
-  );
-  const [cursorActive, setCursorActive] = useState(false);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const { isTablet } = useBreakpoint();
   const [cursorDirection, setCursorDirection] = useState(`right`);
 
-  const [slides, setSlides] = useState([]);
+  // Combine all slides from all projects
+  const allSlides = projects.flatMap((project) =>
+    project.slides.map((slide) => ({ ...slide, projectId: project._id }))
+  );
 
-  const { isTablet } = useBreakpoint();
+  useEffect(() => {
+    setActiveSlideIndex(0);
+    setActiveExpand(null);
+  }, [projects]);
 
-  const direction = (e) => {
-    if (e.clientX > 0 + offsetX && e.clientX <= size.width / 2 + offsetX) {
-      setCursorDirection(`left`);
-    }
-
-    if (
-      e.clientX > size.width / 2 + offsetX &&
-      e.clientX <= size.width + offsetX
-    ) {
-      setCursorDirection(`right`);
-    }
+  const handlePrev = () => {
+    setActiveSlideIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : allSlides.length - 1
+    );
   };
 
-  const handleMove = (e) => {
-    if (!cursorActive) return;
+  const handleNext = () => {
+    setActiveSlideIndex((prevIndex) =>
+      prevIndex < allSlides.length - 1 ? prevIndex + 1 : 0
+    );
+  };
 
-    direction(e);
+  useEffect(() => {
+    if (carouselRef.current) {
+      const offset = activeSlideIndex * size.width;
+      carouselRef.current.scrollTo({
+        left: offset
+      });
+    }
+  }, [activeSlideIndex, size.width]);
+
+  const handleMove = (e) => {
+    if (!carouselRef.current) return;
+    const clientX = e.clientX;
+    const { left: offsetX } = carouselRef.current.getBoundingClientRect();
+    const halfWidth = size.width / 2;
+    setCursorDirection(
+      clientX > offsetX && clientX <= halfWidth + offsetX ? "left" : "right"
+    );
   };
 
   const handleClick = () => {
     if (!isTablet) return;
-
-    if (cursorDirection === `left`) {
-      onPrevButtonClick();
-    }
-
-    if (cursorDirection === `right`) {
-      onNextButtonClick();
-    }
+    cursorDirection === "left" ? handlePrev() : handleNext();
   };
 
-  const handleEnter = () => {
-    if (activeExpand && slides?.length > 0) {
-      setCursorActive(true);
-    }
-  };
-
-  const handleLeave = () => {
-    setCursorActive(false);
-  };
-
-  const handleOut = () => {
-    setCursorActive(false);
-  };
-
-  useEffect(() => {
-    setOffsetX(carouselRef?.current?.getBoundingClientRect()?.left);
-  }, [size]);
-
-  useEffect(() => {
-    if (activeExpand) {
-      const project = projects.find((p) => p._id === activeExpand);
-      setSlides(project?.slides || []);
+  const renderSlideContent = (slide) => {
+    if (slide?._type === `cloudinary.asset`) {
+      return (
+        <Video
+          css={css`
+            width: 100%;
+            height: 100%;
+          `}
+          videoStyle={{
+            objectPosition: `top right`,
+            objectFit: `cover`
+          }}
+          publicId={slide?.public_id}
+        />
+      );
     } else {
-      setSlides([]);
+      return (
+        <Image
+          css={css`
+            width: 100%;
+            height: 100%;
+          `}
+          image={slide}
+          imgStyle={{ objectPosition: `top right`, objectFit: `cover` }}
+          alt={slide?.altText}
+          contain
+        />
+      );
     }
-
-    setActiveSlideIndex(0);
-  }, [activeExpand]);
+  };
 
   return (
-    <Container activeExpand={activeExpand} slidesLength={slides?.length}>
-      <Grid
-        css={css`
-          height: 100%;
-          overflow: hidden;
-        `}
+    <Container activeExpand={activeExpand} slidesLength={allSlides.length}>
+      <CarouselWrapper
+        className={className}
+        ref={carouselRef}
+        onMouseMove={handleMove}
+        onClick={handleClick}
+        direction={cursorDirection}
+        active={!!activeExpand}
       >
-        <CarouselWrapper
-          className={className}
-          ref={carouselRef}
-          onMouseMove={handleMove}
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-          onMouseOut={handleOut}
-          onClick={handleClick}
-          active={activeExpand && slides?.length > 0}
-          direction={cursorDirection}
-        >
-          <ExampleCarousel ref={emblaRef} slides={slides || []} />
-        </CarouselWrapper>
-      </Grid>
+        {allSlides.map((slide, index) => (
+          <Slide key={index}>{renderSlideContent(slide)}</Slide>
+        ))}
+      </CarouselWrapper>
 
-      {slides?.length > 0 && (
+      {allSlides.length > 0 && (
         <Grid
           css={css`
-            pointer-events: ${!activeExpand ? `none` : `auto`};
+            pointer-events: ${!activeExpand ? "none" : "auto"};
           `}
         >
           <SlidesNav>
@@ -212,9 +179,11 @@ const ImageCarousel = ({ className, projects }) => {
             >
               <span>Close Overlay</span>
               <span>
-                {activeSlideIndex + 1}/{slides?.length}
+                {activeSlideIndex + 1}/{allSlides.length}
               </span>
             </button>
+            <button onClick={handlePrev}>Previous</button>
+            <button onClick={handleNext}>Next</button>
           </SlidesNav>
         </Grid>
       )}
