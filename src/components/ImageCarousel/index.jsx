@@ -160,7 +160,7 @@ const ImageCarousel = ({ className, projects }) => {
           `}
           videoStyle={{
             objectPosition: `top right`,
-            objectFit: `cover`
+            objectFit: `contain`
           }}
           publicId={slide?.public_id}
         />
@@ -173,7 +173,7 @@ const ImageCarousel = ({ className, projects }) => {
             height: 100%;
           `}
           image={slide}
-          imgStyle={{ objectPosition: `top right`, objectFit: `cover` }}
+          imgStyle={{ objectPosition: `top right`, objectFit: `contain` }}
           alt={slide?.altText}
           contain
         />
