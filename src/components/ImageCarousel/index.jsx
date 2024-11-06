@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
@@ -70,14 +70,27 @@ const ImageCarousel = ({ className, projects }) => {
   const [cursorDirection, setCursorDirection] = useState(`right`);
 
   // Combine all slides from all projects
-  const allSlides = projects.flatMap((project) =>
-    project.slides.map((slide) => ({ ...slide, projectId: project._id }))
-  );
+  const allSlides = useMemo(() => {
+    return projects.flatMap((project) =>
+      project.slides.map((slide) => ({ ...slide, projectId: project._id }))
+    );
+  }, [projects]);
 
   useEffect(() => {
     setActiveSlideIndex(0);
     setActiveExpand(null);
   }, [projects]);
+
+  useEffect(() => {
+    if (activeExpand) {
+      const projectIndex = allSlides.findIndex(
+        (slide) => slide.projectId === activeExpand
+      );
+      if (projectIndex !== -1) {
+        setActiveSlideIndex(projectIndex);
+      }
+    }
+  }, [activeExpand, allSlides]);
 
   const handlePrev = () => {
     setActiveSlideIndex((prevIndex) =>
@@ -113,6 +126,28 @@ const ImageCarousel = ({ className, projects }) => {
   const handleClick = () => {
     if (!isTablet) return;
     cursorDirection === "left" ? handlePrev() : handleNext();
+  };
+
+  // Handle touch events for swipe functionality
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      handleNext();
+    }
+
+    if (touchStartX.current - touchEndX.current < -50) {
+      handlePrev();
+    }
   };
 
   const renderSlideContent = (slide) => {
@@ -153,6 +188,9 @@ const ImageCarousel = ({ className, projects }) => {
         ref={carouselRef}
         onMouseMove={handleMove}
         onClick={handleClick}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         direction={cursorDirection}
         active={!!activeExpand}
       >
