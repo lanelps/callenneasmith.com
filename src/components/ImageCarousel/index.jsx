@@ -69,6 +69,9 @@ const ImageCarousel = ({ className }) => {
   const { isTablet } = useBreakpoint();
   const [cursorDirection, setCursorDirection] = useState(`right`);
 
+  // Ref to track if navigation is in progress
+  const isNavigatingRef = useRef(false);
+
   // Combine all slides from allProjects
   const allSlides = useMemo(() => {
     return allProjects.flatMap((project) =>
@@ -81,27 +84,42 @@ const ImageCarousel = ({ className }) => {
     setActiveExpand(null);
   }, [allProjects]);
 
+  // Update activeSlideIndex when activeExpand changes
   useEffect(() => {
+    // If navigation is in progress, skip this effect
+    if (isNavigatingRef.current) {
+      isNavigatingRef.current = false;
+      return;
+    }
+
     if (activeExpand) {
-      const projectIndex = allSlides.findIndex(
+      const slideIndex = allSlides.findIndex(
         (slide) => slide.projectId === activeExpand
       );
-      if (projectIndex !== -1) {
-        setActiveSlideIndex(projectIndex);
+      if (slideIndex !== -1) {
+        setActiveSlideIndex(slideIndex);
       }
     }
   }, [activeExpand, allSlides]);
 
+  // Handle Previous Slide
   const handlePrev = () => {
-    setActiveSlideIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : allSlides.length - 1
-    );
+    setActiveSlideIndex((prevIndex) => {
+      const newIndex = prevIndex > 0 ? prevIndex - 1 : allSlides.length - 1;
+      isNavigatingRef.current = true;
+      setActiveExpand(allSlides[newIndex].projectId);
+      return newIndex;
+    });
   };
 
+  // Handle Next Slide
   const handleNext = () => {
-    setActiveSlideIndex((prevIndex) =>
-      prevIndex < allSlides.length - 1 ? prevIndex + 1 : 0
-    );
+    setActiveSlideIndex((prevIndex) => {
+      const newIndex = prevIndex < allSlides.length - 1 ? prevIndex + 1 : 0;
+      isNavigatingRef.current = true;
+      setActiveExpand(allSlides[newIndex].projectId);
+      return newIndex;
+    });
   };
 
   useEffect(() => {
@@ -141,11 +159,10 @@ const ImageCarousel = ({ className }) => {
   };
 
   const handleTouchEnd = () => {
-    if (touchStartX.current - touchEndX.current > 50) {
+    const delta = touchStartX.current - touchEndX.current;
+    if (delta > 50) {
       handleNext();
-    }
-
-    if (touchStartX.current - touchEndX.current < -50) {
+    } else if (delta < -50) {
       handlePrev();
     }
   };
