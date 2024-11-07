@@ -70,7 +70,11 @@ const Project = ({ project }) => {
   }, [escPressed]);
 
   return (
-    <Container isActive={activeExpand === project?._id} className="h1">
+    <Container
+      id={project?._id}
+      isActive={activeExpand === project?._id}
+      className="h1"
+    >
       <Grid
         node="button"
         css={css`

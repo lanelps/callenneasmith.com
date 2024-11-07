@@ -39,6 +39,19 @@ const AppProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    const scrollingElement = document.scrollingElement;
+    const projectElement = document.getElementById(activeExpand);
+
+    if (scrollingElement && projectElement) {
+      const scrollToPosition = projectElement.offsetTop;
+      scrollingElement.scrollTo({
+        top: scrollToPosition,
+        behavior: "smooth"
+      });
+    }
+  }, [activeExpand]);
+
   // ---------------------------------------------------------------------------
   // render
 
