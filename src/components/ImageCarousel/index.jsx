@@ -79,6 +79,24 @@ const ImageCarousel = ({ className }) => {
     );
   }, [allProjects]);
 
+  // Determine the current project and the active slide's index within that project
+  const { currentIndexWithinProject, slidesInCurrentProject } = useMemo(() => {
+    let count = 0;
+    for (const project of allProjects) {
+      if (activeSlideIndex < count + project.slides.length) {
+        return {
+          currentIndexWithinProject: activeSlideIndex - count,
+          slidesInCurrentProject: project.slides
+        };
+      }
+      count += project.slides.length;
+    }
+    return {
+      currentIndexWithinProject: 0,
+      slidesInCurrentProject: []
+    };
+  }, [activeSlideIndex, allProjects]);
+
   useEffect(() => {
     setActiveSlideIndex(0);
     setActiveExpand(null);
@@ -234,7 +252,7 @@ const ImageCarousel = ({ className }) => {
             >
               <span>Close Overlay</span>
               <span>
-                {activeSlideIndex + 1}/{allSlides.length}
+                {currentIndexWithinProject + 1}/{slidesInCurrentProject.length}
               </span>
             </button>
           </SlidesNav>
