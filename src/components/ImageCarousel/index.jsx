@@ -27,8 +27,7 @@ const Container = styled.div`
   justify-content: space-between;
   opacity: ${({ activeExpand, slidesLength }) =>
     activeExpand && slidesLength > 0 ? 1 : 0};
-  pointer-events: ${({ activeExpand, slidesLength }) =>
-    activeExpand && slidesLength > 0 ? `auto` : `none`};
+  pointer-events: none;
   z-index: 101;
   overflow: hidden;
 
@@ -79,6 +78,7 @@ const SlidesNav = styled.nav`
   padding: 0.5rem;
   background-color: var(--color-white);
   user-select: none;
+  pointer-events: ${({ active }) => (active ? `auto` : `none`)};
 
   ${breakpoint(`tablet`)} {
     grid-column: 4 / -1;
@@ -294,7 +294,7 @@ const ImageCarousel = ({ className }) => {
         </CarouselWrapper>
 
         {allSlides.length > 0 && (
-          <SlidesNav>
+          <SlidesNav active={!!activeExpand}>
             <button
               onClick={() => setActiveExpand(null)}
               css={css`
