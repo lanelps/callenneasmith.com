@@ -72,6 +72,7 @@ const ImageCarousel = ({ className }) => {
   const slideRefs = useRef([]); // References to each slide
   const isProgrammaticScrollRef = useRef(false); // Flag to differentiate scroll types
   const isInternalChangeRef = useRef(false); // Flag to track internal vs external changes
+  const scrollTimer = useRef(null);
 
   // -----------------------------
   // Hooks
@@ -147,6 +148,13 @@ const ImageCarousel = ({ className }) => {
     const newIndex = Math.round(scrollLeft / size.width);
 
     isInternalChangeRef.current = true;
+
+    if (scrollTimer.current) {
+      clearTimeout(scrollTimer.current);
+    }
+    scrollTimer.current = setTimeout(() => {
+      isInternalChangeRef.current = false;
+    }, 50);
 
     if (
       newIndex !== activeSlideIndex &&
