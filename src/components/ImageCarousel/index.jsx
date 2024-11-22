@@ -7,13 +7,17 @@ import React, {
   useCallback
 } from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { useApp, useSize } from "~hooks";
 import { Grid, Carousel, SlidesNavigation } from "~components";
 import { breakpoint } from "~utils/css";
 
+// -----------------------------
 // Styled Components
+// -----------------------------
+
 const Container = styled.div`
   position: fixed;
   top: 0;
@@ -48,27 +52,53 @@ const GridStyled = styled(Grid)`
   }
 `;
 
+// -----------------------------
+// Constants
+// -----------------------------
+
+const DIRECTION_LEFT = "left";
+const DIRECTION_RIGHT = "right";
+
+// -----------------------------
+// ImageCarousel Component
+// -----------------------------
+
 const ImageCarousel = ({ className }) => {
-  const carouselRef = useRef();
-  const { activeExpand, setActiveExpand, allProjects } = useApp();
-  const size = useSize(carouselRef);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const { isTablet } = useBreakpoint();
-  const [cursorDirection, setCursorDirection] = useState("right");
+  // -----------------------------
+  // Refs
+  // -----------------------------
 
-  // Create refs for each slide
-  const slideRefs = useRef([]);
+  const carouselRef = useRef(null); // Reference to the carousel container
+  const slideRefs = useRef([]); // References to each slide
+  const isProgrammaticScrollRef = useRef(false); // Flag to differentiate scroll types
+  const isInternalChangeRef = useRef(false); // Flag to track internal vs external changes
 
-  // Ref to track if navigation is in progress
-  const isNavigatingRef = useRef(false);
+  // -----------------------------
+  // Hooks
+  // -----------------------------
 
-  // Ref to track if scroll is programmatic
-  const isProgrammaticScrollRef = useRef(false);
+  const { activeExpand, setActiveExpand, allProjects } = useApp(); // Custom hook for app state
+  const size = useSize(carouselRef); // Custom hook to get carousel size
+  const { isTablet } = useBreakpoint(); // Determines if the viewport is tablet size
 
-  // Combine all slides from allProjects
+  // -----------------------------
+  // State Variables
+  // -----------------------------
+
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0); // Current active slide index
+  const [cursorDirection, setCursorDirection] = useState(DIRECTION_RIGHT); // Direction based on cursor position
+
+  // -----------------------------
+  // Derived Data
+  // -----------------------------
+
+  // Flatten all slides from all projects
   const allSlides = useMemo(() => {
     return allProjects.flatMap((project) =>
-      project.slides.map((slide) => ({ ...slide, projectId: project._id }))
+      project.slides.map((slide) => ({
+        ...slide,
+        projectId: project._id
+      }))
     );
   }, [allProjects]);
 
@@ -97,117 +127,153 @@ const ImageCarousel = ({ className }) => {
     };
   }, [activeSlideIndex, allProjects]);
 
-  // Update activeSlideIndex based on scroll position
+  // -----------------------------
+  // Event Handlers
+  // -----------------------------
+
+  /**
+   * Handles scroll events on the carousel.
+   * Updates the active slide index based on scroll position.
+   */
   const handleScroll = useCallback(() => {
     if (!carouselRef.current) return;
 
     if (isProgrammaticScrollRef.current) {
-      // Reset the flag and skip navigation handling
       isProgrammaticScrollRef.current = false;
       return;
     }
 
-    isNavigatingRef.current = true;
-
     const scrollLeft = carouselRef.current.scrollLeft;
     const newIndex = Math.round(scrollLeft / size.width);
 
-    if (newIndex !== activeSlideIndex) {
+    isInternalChangeRef.current = true;
+
+    if (
+      newIndex !== activeSlideIndex &&
+      newIndex >= 0 &&
+      newIndex < allSlides.length
+    ) {
       setActiveSlideIndex(newIndex);
-      setActiveExpand(allSlides[newIndex]?.projectId || null);
+
+      // Update activeExpand only if crossing into a new project
+      const currentProjectId = allSlides[activeSlideIndex]?.projectId;
+      const newProjectId = allSlides[newIndex]?.projectId;
+
+      if (newProjectId !== currentProjectId) {
+        setActiveExpand(newProjectId || null);
+      }
     }
   }, [activeSlideIndex, allSlides, size.width, setActiveExpand]);
 
-  // Navigation Handlers
+  /**
+   * Navigates to the previous slide.
+   */
   const handlePrev = useCallback(() => {
-    setActiveSlideIndex((prevIndex) => {
-      const newIndex = prevIndex > 0 ? prevIndex - 1 : allSlides.length - 1;
-      isNavigatingRef.current = true;
-      setActiveExpand(allSlides[newIndex].projectId);
+    const newIndex =
+      activeSlideIndex > 0 ? activeSlideIndex - 1 : allSlides.length - 1;
+    isInternalChangeRef.current = true; // Mark the change as internal
+    setActiveSlideIndex(newIndex);
+    setActiveExpand(allSlides[newIndex]?.projectId || null);
 
-      // Indicate that the upcoming scroll is programmatic
+    if (slideRefs.current[newIndex]?.current) {
       isProgrammaticScrollRef.current = true;
-      if (slideRefs.current[newIndex]?.current) {
-        slideRefs.current[newIndex].current.scrollIntoView();
-      }
-
-      return newIndex;
-    });
-  }, [allSlides, setActiveExpand]);
+      slideRefs.current[newIndex].current.scrollIntoView();
+    }
+  }, [activeSlideIndex, allSlides, setActiveExpand]);
 
   const handleNext = useCallback(() => {
-    setActiveSlideIndex((prevIndex) => {
-      const newIndex = prevIndex < allSlides.length - 1 ? prevIndex + 1 : 0;
-      isNavigatingRef.current = true;
-      setActiveExpand(allSlides[newIndex].projectId);
+    const newIndex =
+      activeSlideIndex < allSlides.length - 1 ? activeSlideIndex + 1 : 0;
+    isInternalChangeRef.current = true; // Mark the change as internal
+    setActiveSlideIndex(newIndex);
+    setActiveExpand(allSlides[newIndex]?.projectId || null);
 
-      // Indicate that the upcoming scroll is programmatic
+    if (slideRefs.current[newIndex]?.current) {
       isProgrammaticScrollRef.current = true;
-      if (slideRefs.current[newIndex]?.current) {
-        slideRefs.current[newIndex].current.scrollIntoView();
-      }
+      slideRefs.current[newIndex].current.scrollIntoView();
+    }
+  }, [activeSlideIndex, allSlides, setActiveExpand]);
 
-      return newIndex;
-    });
-  }, [allSlides, setActiveExpand]);
+  /**
+   * Handles mouse movement over the carousel to determine cursor direction.
+   * @param {MouseEvent} e - The mouse event.
+   */
+  const handleMouseMove = useCallback((e) => {
+    if (!carouselRef.current) return;
 
-  // Handle Mouse Move
-  const handleMove = useCallback(
-    (e) => {
-      if (!carouselRef.current) return;
-      const clientX = e.clientX;
-      const { left: offsetX } = carouselRef.current.getBoundingClientRect();
-      const halfWidth = size.width / 2;
-      setCursorDirection(
-        clientX > offsetX && clientX <= halfWidth + offsetX ? "left" : "right"
-      );
-    },
-    [size.width]
-  );
+    const clientX = e.clientX;
+    const { left: offsetX, width } =
+      carouselRef.current.getBoundingClientRect();
+    const halfWidth = width / 2;
 
-  // Handle Click
+    const direction =
+      clientX > offsetX && clientX <= offsetX + halfWidth
+        ? DIRECTION_LEFT
+        : DIRECTION_RIGHT;
+
+    setCursorDirection(direction);
+  }, []);
+
+  /**
+   * Handles click events on the carousel to navigate slides based on cursor direction.
+   */
   const handleClick = useCallback(() => {
     if (!isTablet) return;
-    cursorDirection === "left" ? handlePrev() : handleNext();
+
+    if (cursorDirection === DIRECTION_LEFT) {
+      handlePrev();
+    } else {
+      handleNext();
+    }
   }, [cursorDirection, handlePrev, handleNext, isTablet]);
 
-  // Reset activeSlideIndex and activeExpand when allProjects changes
+  // -----------------------------
+  // Effects
+  // -----------------------------
+
+  /**
+   * Resets the active slide index and expansion when allProjects change.
+   */
   useEffect(() => {
+    if (!allProjects.length) return; // Avoid unnecessary resets
+    isInternalChangeRef.current = true;
     setActiveSlideIndex(0);
     setActiveExpand(null);
+
     if (carouselRef.current) {
-      carouselRef.current.scrollTo(0, 0);
+      isProgrammaticScrollRef.current = true;
+      carouselRef.current.scrollTo({ left: 0 });
     }
   }, [allProjects, setActiveExpand]);
 
-  // Update activeSlideIndex when activeExpand changes
+  /**
+   * Updates the active slide index when activeExpand changes externally.
+   */
   useEffect(() => {
-    // If navigation is in progress, skip this effect
-    if (isNavigatingRef.current) {
-      isNavigatingRef.current = false;
+    if (isInternalChangeRef.current) {
+      isInternalChangeRef.current = false; // Ignore internal changes
       return;
     }
 
     if (activeExpand) {
-      const slideIndex = allSlides.findIndex(
+      const firstSlideIndex = allSlides.findIndex(
         (slide) => slide.projectId === activeExpand
       );
-      if (slideIndex !== -1) {
-        setActiveSlideIndex((prevIndex) => {
-          if (prevIndex !== slideIndex) {
-            // Indicate that the upcoming scroll is programmatic
-            isProgrammaticScrollRef.current = true;
-            if (slideRefs.current[slideIndex]?.current) {
-              slideRefs.current[slideIndex].current.scrollIntoView();
-            }
-          }
-          return slideIndex;
-        });
+
+      if (firstSlideIndex !== -1 && firstSlideIndex !== activeSlideIndex) {
+        isProgrammaticScrollRef.current = true;
+        setActiveSlideIndex(firstSlideIndex);
+
+        if (slideRefs.current[firstSlideIndex]?.current) {
+          slideRefs.current[firstSlideIndex].current.scrollIntoView();
+        }
       }
     }
-  }, [activeExpand, allSlides]);
+  }, [activeExpand, allSlides, activeSlideIndex]);
 
-  // Keyboard Navigation
+  /**
+   * Adds keyboard navigation event listeners.
+   */
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!activeExpand) return; // Only navigate when overlay is active
@@ -221,18 +287,24 @@ const ImageCarousel = ({ className }) => {
 
     window.addEventListener("keydown", handleKeyDown);
 
+    // Cleanup on unmount
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handlePrev, handleNext]);
+  }, [activeExpand, handlePrev, handleNext]);
+
+  // -----------------------------
+  // Render
+  // -----------------------------
 
   return (
     <Container activeExpand={activeExpand} slidesLength={allSlides.length}>
       <GridStyled>
+        {/* Carousel Component */}
         <Carousel
           className={className}
           carouselRef={carouselRef}
-          onMouseMove={handleMove}
+          onMouseMove={handleMouseMove}
           onClick={handleClick}
           onScroll={handleScroll}
           direction={cursorDirection}
@@ -241,6 +313,7 @@ const ImageCarousel = ({ className }) => {
           slideRefs={slideRefs}
         />
 
+        {/* Slides Navigation Component */}
         {allSlides.length > 0 && (
           <SlidesNavigation
             active={!!activeExpand}
@@ -252,6 +325,14 @@ const ImageCarousel = ({ className }) => {
       </GridStyled>
     </Container>
   );
+};
+
+// -----------------------------
+// PropTypes
+// -----------------------------
+
+ImageCarousel.propTypes = {
+  className: PropTypes.string
 };
 
 export default ImageCarousel;
