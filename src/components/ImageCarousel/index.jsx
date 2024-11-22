@@ -1,3 +1,4 @@
+// ImageCarousel.jsx
 import React, {
   useRef,
   useState,
@@ -6,14 +7,13 @@ import React, {
   useCallback
 } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { useApp, useSize } from "~hooks";
-import { Grid, Image, Video } from "~components";
-
+import { Grid, Carousel, SlidesNavigation } from "~components";
 import { breakpoint } from "~utils/css";
 
+// Styled Components
 const Container = styled.div`
   position: fixed;
   top: 0;
@@ -31,58 +31,20 @@ const Container = styled.div`
   z-index: 101;
   overflow: hidden;
 
-  ${breakpoint(`tablet`)} {
+  ${breakpoint("tablet")} {
     z-index: 50;
     flex-direction: column;
   }
 `;
 
-const CarouselWrapper = styled.div`
-  grid-column: 1 / -1;
-  position: relative;
-  width: 100%;
+const GridStyled = styled(Grid)`
+  width: calc(100% + 1rem);
+  transform: translateX(-0.5rem);
   height: 100%;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
 
-  display: flex;
-  transition: transform 0.3s ease-in-out;
-  cursor: ${({ direction }) =>
-    direction === `left` ? `w-resize` : `e-resize`};
-  pointer-events: ${({ active }) => (active ? `auto` : `none`)};
-  touch-action: none;
-
-  /* Hide scrollbar for a cleaner look */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-  &::-webkit-scrollbar {
-    /* WebKit */
-    width: 0;
-    height: 0;
-  }
-
-  ${breakpoint(`tablet`)} {
-    grid-column: 4 / -1;
-  }
-`;
-
-const Slide = styled.div`
-  flex: 0 0 100%;
-  height: 100%;
-  scroll-snap-align: start;
-`;
-
-const SlidesNav = styled.nav`
-  grid-column: 1 / -1;
-  padding: 0.5rem;
-  background-color: var(--color-white);
-  user-select: none;
-  pointer-events: ${({ active }) => (active ? `auto` : `none`)};
-
-  ${breakpoint(`tablet`)} {
-    grid-column: 4 / -1;
-    padding-right: 1rem;
+  ${breakpoint("tablet")} {
+    width: calc(100% + 0.5rem);
+    transform: unset;
   }
 `;
 
@@ -92,13 +54,16 @@ const ImageCarousel = ({ className }) => {
   const size = useSize(carouselRef);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const { isTablet } = useBreakpoint();
-  const [cursorDirection, setCursorDirection] = useState(`right`);
+  const [cursorDirection, setCursorDirection] = useState("right");
 
   // Create refs for each slide
   const slideRefs = useRef([]);
 
   // Ref to track if navigation is in progress
   const isNavigatingRef = useRef(false);
+
+  // Ref to track if scroll is programmatic
+  const isProgrammaticScrollRef = useRef(false);
 
   // Combine all slides from allProjects
   const allSlides = useMemo(() => {
@@ -136,6 +101,14 @@ const ImageCarousel = ({ className }) => {
   const handleScroll = useCallback(() => {
     if (!carouselRef.current) return;
 
+    if (isProgrammaticScrollRef.current) {
+      // Reset the flag and skip navigation handling
+      isProgrammaticScrollRef.current = false;
+      return;
+    }
+
+    isNavigatingRef.current = true;
+
     const scrollLeft = carouselRef.current.scrollLeft;
     const newIndex = Math.round(scrollLeft / size.width);
 
@@ -143,58 +116,69 @@ const ImageCarousel = ({ className }) => {
       setActiveSlideIndex(newIndex);
       setActiveExpand(allSlides[newIndex]?.projectId || null);
     }
-  }, [activeSlideIndex, allSlides, size.width]);
+  }, [activeSlideIndex, allSlides, size.width, setActiveExpand]);
 
-  const handlePrev = () => {
+  // Navigation Handlers
+  const handlePrev = useCallback(() => {
     setActiveSlideIndex((prevIndex) => {
       const newIndex = prevIndex > 0 ? prevIndex - 1 : allSlides.length - 1;
       isNavigatingRef.current = true;
       setActiveExpand(allSlides[newIndex].projectId);
 
-      // Scroll to the new slide
+      // Indicate that the upcoming scroll is programmatic
+      isProgrammaticScrollRef.current = true;
       if (slideRefs.current[newIndex]?.current) {
         slideRefs.current[newIndex].current.scrollIntoView();
       }
 
       return newIndex;
     });
-  };
+  }, [allSlides, setActiveExpand]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveSlideIndex((prevIndex) => {
       const newIndex = prevIndex < allSlides.length - 1 ? prevIndex + 1 : 0;
       isNavigatingRef.current = true;
       setActiveExpand(allSlides[newIndex].projectId);
 
-      // Scroll to the new slide
+      // Indicate that the upcoming scroll is programmatic
+      isProgrammaticScrollRef.current = true;
       if (slideRefs.current[newIndex]?.current) {
         slideRefs.current[newIndex].current.scrollIntoView();
       }
 
       return newIndex;
     });
-  };
+  }, [allSlides, setActiveExpand]);
 
-  const handleMove = (e) => {
-    if (!carouselRef.current) return;
-    const clientX = e.clientX;
-    const { left: offsetX } = carouselRef.current.getBoundingClientRect();
-    const halfWidth = size.width / 2;
-    setCursorDirection(
-      clientX > offsetX && clientX <= halfWidth + offsetX ? "left" : "right"
-    );
-  };
+  // Handle Mouse Move
+  const handleMove = useCallback(
+    (e) => {
+      if (!carouselRef.current) return;
+      const clientX = e.clientX;
+      const { left: offsetX } = carouselRef.current.getBoundingClientRect();
+      const halfWidth = size.width / 2;
+      setCursorDirection(
+        clientX > offsetX && clientX <= halfWidth + offsetX ? "left" : "right"
+      );
+    },
+    [size.width]
+  );
 
-  const handleClick = () => {
+  // Handle Click
+  const handleClick = useCallback(() => {
     if (!isTablet) return;
     cursorDirection === "left" ? handlePrev() : handleNext();
-  };
+  }, [cursorDirection, handlePrev, handleNext, isTablet]);
 
   // Reset activeSlideIndex and activeExpand when allProjects changes
   useEffect(() => {
     setActiveSlideIndex(0);
     setActiveExpand(null);
-  }, [allProjects]);
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo(0, 0);
+    }
+  }, [allProjects, setActiveExpand]);
 
   // Update activeSlideIndex when activeExpand changes
   useEffect(() => {
@@ -209,11 +193,21 @@ const ImageCarousel = ({ className }) => {
         (slide) => slide.projectId === activeExpand
       );
       if (slideIndex !== -1) {
-        setActiveSlideIndex(slideIndex);
+        setActiveSlideIndex((prevIndex) => {
+          if (prevIndex !== slideIndex) {
+            // Indicate that the upcoming scroll is programmatic
+            isProgrammaticScrollRef.current = true;
+            if (slideRefs.current[slideIndex]?.current) {
+              slideRefs.current[slideIndex].current.scrollIntoView();
+            }
+          }
+          return slideIndex;
+        });
       }
     }
   }, [activeExpand, allSlides]);
 
+  // Keyboard Navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!activeExpand) return; // Only navigate when overlay is active
@@ -230,88 +224,32 @@ const ImageCarousel = ({ className }) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeExpand, handlePrev, handleNext]);
-
-  const renderSlideContent = (slide) => {
-    if (slide?._type === `cloudinary.asset`) {
-      return (
-        <Video
-          css={css`
-            width: 100%;
-            height: 100%;
-          `}
-          videoStyle={{
-            objectPosition: `top right`,
-            objectFit: `contain`
-          }}
-          publicId={slide?.public_id}
-        />
-      );
-    } else {
-      return (
-        <Image
-          css={css`
-            width: 100%;
-            height: 100%;
-          `}
-          image={slide}
-          imgStyle={{ objectPosition: `top right`, objectFit: `contain` }}
-          alt={slide?.altText}
-          contain
-        />
-      );
-    }
-  };
+  }, [handlePrev, handleNext]);
 
   return (
     <Container activeExpand={activeExpand} slidesLength={allSlides.length}>
-      <Grid
-        css={css`
-          width: calc(100% + 1rem);
-          transform: translateX(-0.5rem);
-          height: 100%;
-
-          ${breakpoint(`tablet`)} {
-            width: calc(100% + 0.5rem);
-            transform: unset;
-          }
-        `}
-      >
-        <CarouselWrapper
+      <GridStyled>
+        <Carousel
           className={className}
-          ref={carouselRef}
+          carouselRef={carouselRef}
           onMouseMove={handleMove}
           onClick={handleClick}
           onScroll={handleScroll}
           direction={cursorDirection}
           active={!!activeExpand}
-        >
-          {allSlides.map((slide, index) => (
-            <Slide key={index} ref={slideRefs.current[index]}>
-              {renderSlideContent(slide)}
-            </Slide>
-          ))}
-        </CarouselWrapper>
+          allSlides={allSlides}
+          slideRefs={slideRefs}
+        />
 
         {allSlides.length > 0 && (
-          <SlidesNav active={!!activeExpand}>
-            <button
-              onClick={() => setActiveExpand(null)}
-              css={css`
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-              `}
-              className="h1"
-            >
-              <span>Close Overlay</span>
-              <span>
-                {currentIndexWithinProject + 1}/{slidesInCurrentProject.length}
-              </span>
-            </button>
-          </SlidesNav>
+          <SlidesNavigation
+            active={!!activeExpand}
+            onClose={() => setActiveExpand(null)}
+            currentIndex={currentIndexWithinProject}
+            totalSlides={slidesInCurrentProject.length}
+          />
         )}
-      </Grid>
+      </GridStyled>
     </Container>
   );
 };

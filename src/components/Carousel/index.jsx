@@ -1,100 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { css } from "@emotion/react";
+// Carousel.jsx
+import React from "react";
 import styled from "@emotion/styled";
-import useEmblaCarousel from "embla-carousel-react";
-import { v4 as uuidv4 } from "uuid";
+import { SlideContent } from "~components";
+import { breakpoint } from "~utils/css";
 
-/** ============================================================================
- * @css
- */
-const Embla = styled.div`
+const CarouselWrapper = styled.div`
+  grid-column: 1 / -1;
   position: relative;
-  overflow: hidden;
+  width: 100%;
   height: 100%;
-`;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
 
-const EmblaContainer = styled.ul`
-  height: 100%;
-  position: relative;
   display: flex;
+  transition: transform 0.3s ease-in-out;
+  cursor: ${({ direction }) =>
+    direction === "left" ? "w-resize" : "e-resize"};
+  pointer-events: ${({ active }) => (active ? "auto" : "none")};
+  touch-action: none;
 
-  > * + * {
-    margin-left: 6px;
+  /* Hide scrollbar for a cleaner look */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  &::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
+
+  ${breakpoint("tablet")} {
+    grid-column: 4 / -1;
   }
 `;
 
-const EmblaSlide = styled.li`
-  position: relative;
-  max-width: 100%;
-  flex: 0 0 auto;
+const Slide = styled.div`
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
 `;
 
-/** ============================================================================
- * @component Core Embla carousel component
- * Accepts optional useEmblaCarousel object as embla = [ref, api], otherwise
- * initializes one of its own. Returns the current int to slide children.
- */
 const Carousel = ({
-  embla,
-  className = ``,
-  // slidesPerView = 1,
-  slides = []
-}) => {
-  // --------------------------------------------------------------------------
-  // context / ref / state
-
-  const [current, setCurrent] = useState(0);
-  const [defaultEmblaRef, defaultEmblaApi] = useEmblaCarousel({
-    align: `start`,
-    loop: false
-  });
-
-  // --------------------------------------------------------------------------
-  // lifecycle
-
-  useEffect(() => {
-    if (!embla?.api && !defaultEmblaApi) {
-      return;
-    }
-
-    if (embla?.api) {
-      embla.api.on(`select`, () => setCurrent(embla.api.selectedScrollSnap()));
-    } else {
-      defaultEmblaApi.on(`select`, () =>
-        setCurrent(defaultEmblaApi.selectedScrollSnap())
-      );
-    }
-  }, [embla?.api, defaultEmblaApi]);
-
-  // --------------------------------------------------------------------------
-  // render
-
-  if (!embla?.ref && !defaultEmblaRef) {
-    return <></>;
-  }
-
-  return (
-    <>
-      <Embla
-        ref={embla?.ref || defaultEmblaRef}
-        className={`${className} embla`}
-      >
-        <EmblaContainer className="embla__container">
-          {slides({ current }).map((slide) => (
-            <EmblaSlide
-              key={uuidv4()}
-              css={css`
-                flex: 0 0 auto;
-              `}
-              className="embla__slide"
-            >
-              {slide}
-            </EmblaSlide>
-          ))}
-        </EmblaContainer>
-      </Embla>
-    </>
-  );
-};
+  className,
+  carouselRef,
+  onMouseMove,
+  onClick,
+  onScroll,
+  direction,
+  active,
+  allSlides,
+  slideRefs
+}) => (
+  <CarouselWrapper
+    className={className}
+    ref={carouselRef}
+    onMouseMove={onMouseMove}
+    onClick={onClick}
+    onScroll={onScroll}
+    direction={direction}
+    active={active}
+  >
+    {allSlides.map((slide, index) => (
+      <Slide key={slide.projectId + index} ref={slideRefs.current[index]}>
+        <SlideContent slide={slide} />
+      </Slide>
+    ))}
+  </CarouselWrapper>
+);
 
 export default Carousel;
