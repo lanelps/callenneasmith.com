@@ -18,7 +18,6 @@ const CarouselWrapper = styled.div`
   cursor: ${({ direction }) =>
     direction === "left" ? "w-resize" : "e-resize"};
   pointer-events: ${({ active }) => (active ? "auto" : "none")};
-  touch-action: none;
 
   /* Hide scrollbar for a cleaner look */
   scrollbar-width: none; /* Firefox */
