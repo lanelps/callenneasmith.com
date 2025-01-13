@@ -62,7 +62,7 @@ const Image = ({
   return images ? (
     <GatsbyImage
       className={className}
-      loading={loading || `eager`}
+      loading={loading || `lazy`}
       image={images}
       alt={alt || ``}
       title={title || alt || ``}
