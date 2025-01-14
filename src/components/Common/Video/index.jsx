@@ -61,7 +61,7 @@ const Video = ({ publicId, className, muted = true, videoStyle }) => {
 
   return (
     <Container className={className} ref={ref}>
-      <VideoElement ref={videoRef} loop style={videoStyle}>
+      <VideoElement ref={videoRef} playsInline loop style={videoStyle}>
         <source src={src} type="video/mp4" />
         Sorry, your browser doesn&#39;t support embedded videos.
       </VideoElement>
