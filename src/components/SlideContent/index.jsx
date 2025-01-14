@@ -1,9 +1,9 @@
 // SlideContent.jsx
-import React from "react";
+import React, { memo } from "react";
 import { css } from "@emotion/react";
 import { Image, Video } from "~components";
 
-const SlideContent = ({ slide }) => {
+const SlideContent = memo(({ slide }) => {
   const commonStyles = css`
     width: 100%;
     height: 100%;
@@ -33,6 +33,6 @@ const SlideContent = ({ slide }) => {
       contain
     />
   );
-};
+});
 
 export default SlideContent;
