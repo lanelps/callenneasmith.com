@@ -85,13 +85,12 @@ const HoverContainer = styled.div`
 
   padding: 4rem 0;
 
-  display: flex;
+  display: ${({ isActive }) => (isActive ? `flex` : `none`)};
   align-items: center;
   justify-content: center;
 
   transition: background-color 0.3s ease;
 
-  pointer-events: ${({ isActive }) => (isActive ? `auto` : `none`)};
   cursor: pointer;
   z-index: 100;
 
@@ -110,8 +109,6 @@ const HoverFigure = styled.figure`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  opacity: ${({ isActive }) => (isActive ? `1` : `0`)};
 
   ${breakpoint(`tablet`)} {
     width: auto;
@@ -139,7 +136,7 @@ const HoverMedia = memo(({ src, isActive, setIsActive, type }) => {
         isActive={isActive}
         onPointerDown={() => setIsActive(false)}
       >
-        <HoverFigure isActive={isActive}>
+        <HoverFigure>
           {type === `video` ? (
             <Video
               css={css`
