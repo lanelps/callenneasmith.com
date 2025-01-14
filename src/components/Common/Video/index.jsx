@@ -32,22 +32,30 @@ const Video = ({ publicId, className, muted = true, videoStyle }) => {
   const src = generateCloudinaryVideoURL(publicId);
 
   useEffect(() => {
-    if (inView && videoRef.current) {
-      videoRef.current.play();
-    } else if (videoRef.current) {
-      videoRef.current.pause();
+    const videoElement = videoRef.current;
+    if (inView && videoElement) {
+      videoElement.play();
+    } else if (videoElement) {
+      videoElement.pause();
     }
+
+    return () => {
+      if (videoElement) {
+        videoElement.pause();
+      }
+    };
   }, [inView]);
 
   useEffect(() => {
-    if (!videoRef.current) {
+    const videoElement = videoRef.current;
+    if (!videoElement) {
       return;
     }
 
     if (muted) {
       // open bug since 2017 that you cannot set muted in video element https://github.com/facebook/react/issues/10389
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
+      videoElement.defaultMuted = true;
+      videoElement.muted = true;
     }
   }, [publicId, muted]);
 
