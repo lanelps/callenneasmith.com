@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
+import { useInView } from "react-intersection-observer";
 
 import { generateCloudinaryVideoURL } from "~utils/cloudinary";
 
@@ -25,25 +26,34 @@ const VideoElement = styled.video`
 `;
 
 const Video = ({ publicId, className, muted = true, videoStyle }) => {
-  const ref = useRef(null);
+  const videoRef = useRef(null);
+  const { ref, inView } = useInView({ threshold: 1 });
 
   const src = generateCloudinaryVideoURL(publicId);
 
   useEffect(() => {
-    if (!ref.current) {
+    if (inView && videoRef.current) {
+      videoRef.current.play();
+    } else if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (!videoRef.current) {
       return;
     }
 
     if (muted) {
       // open bug since 2017 that you cannot set muted in video element https://github.com/facebook/react/issues/10389
-      ref.current.defaultMuted = true;
-      ref.current.muted = true;
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
     }
-  }, [publicId]);
+  }, [publicId, muted]);
 
   return (
-    <Container className={className}>
-      <VideoElement ref={ref} autoPlay playsInline loop style={videoStyle}>
+    <Container className={className} ref={ref}>
+      <VideoElement ref={videoRef} loop style={videoStyle}>
         <source src={src} type="video/mp4" />
         Sorry, your browser doesn&#39;t support embedded videos.
       </VideoElement>
