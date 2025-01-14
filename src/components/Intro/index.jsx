@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { createPortal } from "react-dom";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
@@ -119,8 +119,8 @@ const HoverFigure = styled.figure`
   }
 `;
 
-const HoverMedia = ({ src, isActive, setIsActive, type }) => {
-  const [doucmentExists, setDocumentExists] = useState(false);
+const HoverMedia = memo(({ src, isActive, setIsActive, type }) => {
+  const [documentExists, setDocumentExists] = useState(false);
 
   useEffect(() => {
     const DOCUMENT_MAIN =
@@ -133,7 +133,7 @@ const HoverMedia = ({ src, isActive, setIsActive, type }) => {
     setDocumentExists(true);
   }, []);
 
-  if (doucmentExists) {
+  if (documentExists) {
     return createPortal(
       <HoverContainer
         isActive={isActive}
@@ -174,7 +174,7 @@ const HoverMedia = ({ src, isActive, setIsActive, type }) => {
   }
 
   return null;
-};
+});
 
 const portableComponents = {
   normal: ({ children }) => <p className="h1">{children}</p>,
