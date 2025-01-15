@@ -6,6 +6,8 @@ import {
   format
 } from "@cloudinary/transformation-builder-sdk/actions/delivery";
 import { limitFit } from "@cloudinary/transformation-builder-sdk/actions/resize";
+import { auto } from "@cloudinary/url-gen/qualifiers/videoCodec";
+import { bitRate, videoCodec } from "@cloudinary/url-gen/actions/transcode";
 
 const cld = new Cloudinary({
   cloud: {
@@ -19,7 +21,8 @@ const cld = new Cloudinary({
 const defaultOptions = {
   width: 960,
   quality: "auto",
-  format: "mp4"
+  format: "mp4",
+  bitRate: "1500k"
 };
 
 export const generateCloudinaryVideoURL = (publicId, options) => {
@@ -35,6 +38,10 @@ export const generateCloudinaryVideoURL = (publicId, options) => {
   }
   if (options?.format) {
     myVideo = myVideo.delivery(format(options.format));
+  }
+  if (options?.bitRate) {
+    myVideo = myVideo.transcode(videoCodec(auto()));
+    myVideo = myVideo.transcode(bitRate(options.bitRate).constant());
   }
 
   return myVideo?.toURL();
