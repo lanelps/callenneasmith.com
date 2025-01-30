@@ -19,20 +19,25 @@ const mux = new Mux({
   tokenSecret: process.env.MUX_SECRET_KEY
 });
 
+const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
+
 const getAllCloudinaryVideos = async () => {
-  const query = `*[_type == 'project' && 'cloudinary.asset' in slides[]._type][]{
-    slides
-  }`;
+  const query = `{
+      "projectVideos": *[_type == 'project' && 'cloudinary.asset' in slides[]._type][].slides[_type == "cloudinary.asset"]{
+        public_id,
+        secure_url,
+      },
+      "settingsVideos": *[_type == 'settings'][0].introduction[].markDefs[_type == "hoverVideo"]{
+        "public_id": video.public_id,
+        "secure_url": video.secure_url,
+      },
+    }`;
 
-  const projectWithVideos = await client.fetch(query);
+  const { projectVideos, settingsVideos } = await client.fetch(query);
 
-  const videos = projectWithVideos
-    .flatMap((project) =>
-      project.slides.filter((slide) => slide._type === "cloudinary.asset")
-    )
-    .map((slide) => ({ name: slide.public_id, url: slide.secure_url }));
+  const allVideos = [...new Set([...projectVideos, ...settingsVideos])];
 
-  return videos;
+  return allVideos;
 };
 
 const downloadCloudinaryVideo = async (name, url) => {
@@ -45,13 +50,28 @@ const downloadCloudinaryVideo = async (name, url) => {
     throw new Error("Invalid Cloudinary URL");
   }
 
+  let i = 0;
+  let loadingInterval;
+
   try {
+    console.log(`📥 Starting download from Cloudinary: ${name}`);
+
+    // Start loading animation
+    loadingInterval = setInterval(() => {
+      process.stdout.write(`\r${frames[i]} Downloading from Cloudinary...`);
+      i = (i + 1) % frames.length;
+    }, 80);
+
     const response = await fetch(url, {
       headers: {
         Accept: "video/*",
         "User-Agent": "Mozilla/5.0 (Node.js Video Downloader)"
       }
     });
+
+    // Clear download animation
+    clearInterval(loadingInterval);
+    process.stdout.write("\n");
 
     if (!response.ok) {
       throw new Error(
@@ -68,7 +88,6 @@ const downloadCloudinaryVideo = async (name, url) => {
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // file extension should be the last part of the url separated by a dot
     const fileExtension = url.split(".").pop();
     const fileName = `${name}.${fileExtension}`;
     const filePath = path.join(videoFileDirectory, fileName);
@@ -77,9 +96,11 @@ const downloadCloudinaryVideo = async (name, url) => {
     fs.mkdirSync(videoFileDirectory, { recursive: true });
     fs.writeFileSync(filePath, buffer);
 
+    console.log("✅ Download complete!");
     return fileName;
   } catch (error) {
-    console.error("Download failed:", error);
+    if (loadingInterval) clearInterval(loadingInterval);
+    console.error("❌ Download failed:", error);
     console.error("URL attempted:", url);
     throw error;
   }
@@ -103,8 +124,6 @@ const getMuxUploadUrl = async () => {
     id: upload.id
   };
 };
-
-const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
 const uploadVideoToMux = async (fileName, uploadUrl, uploadId) => {
   if (!mux) {
@@ -177,12 +196,15 @@ const uploadVideoToMux = async (fileName, uploadUrl, uploadId) => {
 };
 
 const main = async () => {
-  // const videos = await getAllCloudinaryVideos();
-  const videos = fs.readdirSync(videoFileDirectory);
+  const videos = await getAllCloudinaryVideos();
+  // const videos = fs.readdirSync(videoFileDirectory);
 
-  for (const fileName of videos) {
+  for (const video of videos) {
     try {
-      // const fileName = await downloadCloudinaryVideo(video.name, video.url);
+      const fileName = await downloadCloudinaryVideo(
+        video.public_id,
+        video.secure_url
+      );
       const uploadUrl = await getMuxUploadUrl();
       const { assetId, playbackId } = await uploadVideoToMux(
         fileName,
