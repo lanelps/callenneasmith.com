@@ -100,7 +100,7 @@ export default {
               {
                 title: "Video",
                 name: "video",
-                type: "cloudinary.asset"
+                type: "mux.video"
               }
             ]
           }

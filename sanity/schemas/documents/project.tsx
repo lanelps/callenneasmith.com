@@ -59,7 +59,7 @@ export default {
       name: "slides",
       title: "Slides",
       type: "array",
-      of: [{ type: "altImage" }, { title: "Video", type: "cloudinary.asset" }]
+      of: [{ type: "altImage" }, { title: "Video", type: "mux.video" }]
     },
     {
       name: "links",

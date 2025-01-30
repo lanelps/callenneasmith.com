@@ -4,7 +4,7 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { dashboardTool } from "@sanity/dashboard";
 import { netlifyWidget } from "sanity-plugin-dashboard-widget-netlify";
-import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
+import { muxInput } from "sanity-plugin-mux-input";
 
 import { schemaTypes } from "./schemas";
 import deskStructure from "./deskStructure";
@@ -43,7 +43,7 @@ export default defineConfig({
         })
       ]
     }),
-    cloudinarySchemaPlugin()
+    muxInput()
   ],
 
   schema: {
