@@ -28,7 +28,7 @@
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.72.1",
+    "sanity": "^3.67.1",
     "sanity-plugin-dashboard-widget-netlify": "^2.0.1",
     "sanity-plugin-mux-input": "^2.4.0",
     "styled-components": "^6.1.14"
