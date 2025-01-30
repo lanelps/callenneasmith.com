@@ -11,15 +11,12 @@ const SlideContent = memo(({ slide }) => {
     object-fit: contain;
   `;
 
-  if (slide?._type === "cloudinary.asset") {
+  if (slide?._type === "mux.video") {
     return (
       <Video
         css={commonStyles}
-        videoStyle={{
-          objectPosition: "top right",
-          objectFit: "contain"
-        }}
-        publicId={slide?.public_id}
+        aspectRatio={slide?._rawAsset?.data?.aspect_ratio.replace(":", "/")}
+        playbackId={slide?._rawAsset?.playbackId}
       />
     );
   }

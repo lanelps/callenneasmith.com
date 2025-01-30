@@ -3,10 +3,7 @@ import { graphql } from "gatsby";
 
 import { Layout, Intro, Projects, ImageCarousel } from "~components";
 
-const Index = ({
-  data: { sanitySettings, allSanityProject, site, allSanityTag },
-  location
-}) => {
+const Index = ({ data: { sanitySettings, site, allSanityTag }, location }) => {
   const projects = sanitySettings.projects;
   const tags = allSanityTag.edges.map(({ node }) => node);
 
@@ -80,12 +77,10 @@ export const query = graphql`
             }
           }
 
-          ... on SanityCloudinaryAsset {
+          ... on SanityMuxVideo {
             _key
             _type
-            public_id
-            secure_url
-            url
+            _rawAsset(resolveReferences: { maxDepth: 10 })
           }
         }
       }

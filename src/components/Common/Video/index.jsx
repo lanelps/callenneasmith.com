@@ -1,35 +1,38 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { useInView } from "react-intersection-observer";
-
-import { generateCloudinaryVideoURL } from "~utils/cloudinary";
+import MuxPlayer from "@mux/mux-player-react/lazy";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  > div,
-  iframe {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: opacity 1s;
+`;
+
+const Wrapper = styled.figure`
+  display: flex;
+  align-items: start;
+  justify-content: end;
+
+  transition: opacity 1s;
+  width: 100%;
+  height: 100%;
+
+  mux-player {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    --controls: none;
+    --media-object-fit: cover;
+    --media-object-position: top right;
+    aspect-ratio: ${({ aspectRatio }) => aspectRatio};
   }
 `;
 
-const VideoElement = styled.video`
-  display: block;
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  transition: opacity 1s;
-`;
-
-const Video = ({ publicId, className, muted = true, videoStyle }) => {
+const Video = ({ playbackId, className, muted = true, aspectRatio }) => {
   const videoRef = useRef(null);
   const { ref, inView } = useInView({ threshold: 1 });
-
-  const src = generateCloudinaryVideoURL(publicId);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -46,25 +49,17 @@ const Video = ({ publicId, className, muted = true, videoStyle }) => {
     };
   }, [inView]);
 
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement) {
-      return;
-    }
-
-    if (muted) {
-      // open bug since 2017 that you cannot set muted in video element https://github.com/facebook/react/issues/10389
-      videoElement.defaultMuted = true;
-      videoElement.muted = true;
-    }
-  }, [publicId, muted]);
-
   return (
     <Container className={className} ref={ref}>
-      <VideoElement ref={videoRef} playsInline loop style={videoStyle}>
-        <source src={src} type="video/mp4" />
-        Sorry, your browser doesn&#39;t support embedded videos.
-      </VideoElement>
+      <Wrapper aspectRatio={aspectRatio}>
+        <MuxPlayer
+          ref={videoRef}
+          loading="viewport"
+          playbackId={playbackId}
+          muted={muted}
+          loop
+        />
+      </Wrapper>
     </Container>
   );
 };

@@ -8,21 +8,18 @@ importers:
 
   .:
     dependencies:
-      '@cloudinary/transformation-builder-sdk':
-        specifier: ^1.15.2
-        version: 1.15.2
-      '@cloudinary/url-gen':
-        specifier: ^1.21.0
-        version: 1.21.0
       '@emotion/react':
         specifier: ^11.13.5
-        version: 11.13.5(react@18.3.1)
+        version: 11.13.5(@types/react@18.3.12)(react@18.3.1)
       '@emotion/styled':
         specifier: ^11.13.5
-        version: 11.13.5(@emotion/react@11.13.5(react@18.3.1))(react@18.3.1)
+        version: 11.13.5(@emotion/react@11.13.5(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)
       '@gatsbyjs/reach-router':
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@mux/mux-player-react':
+        specifier: ^3.2.4
+        version: 3.2.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sanity/client':
         specifier: ^6.22.5
         version: 6.22.5
@@ -52,7 +49,7 @@ importers:
         version: 1.3.11(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(prop-types@15.8.1)(react@18.3.1)
       gatsby-plugin-emotion:
         specifier: ^8.14.0
-        version: 8.14.0(@babel/core@7.26.0)(@emotion/react@11.13.5(react@18.3.1))(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))
+        version: 8.14.0(@babel/core@7.26.0)(@emotion/react@11.13.5(@types/react@18.3.12)(react@18.3.1))(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))
       gatsby-plugin-google-gtag:
         specifier: ^5.14.0
         version: 5.14.0(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -73,7 +70,7 @@ importers:
         version: 2.0.9(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))
       gatsby-plugin-sanity-image:
         specifier: ^0.13.5
-        version: 0.13.5(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(react@18.3.1)
+        version: 0.13.5(@types/react@18.3.12)(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(react@18.3.1)
       gatsby-plugin-sharp:
         specifier: ^5.14.0
         version: 5.14.0(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(graphql@16.9.0)
@@ -857,12 +854,6 @@ packages:
     resolution: {integrity: sha512-snXIGNiZpqjno3XYQN2lbBB+05hsQR/LSttbtIW1c0gmZ7Kh/DIo0YrxlDxCDulAMFPFM8J+4voLwvYepSj3sw==}
     hasBin: true
 
-  '@cloudinary/transformation-builder-sdk@1.15.2':
-    resolution: {integrity: sha512-oXYaW/whGaQVlR1O/ocp7vYcxaMAy3uGcQ8+8xjbfDCy/+c+zFIuP6JKI8L05kzqw7Wjh0cqzG+4u0X1UpPh+A==}
-
-  '@cloudinary/url-gen@1.21.0':
-    resolution: {integrity: sha512-ctYcCzX3G3vcgnESTU2ET3K1XsBiXcEnBddCGV0QbR3fJhLLrIShjSMEwZoepgh4LAFOHJu9DzvLFr+E8R7c7g==}
-
   '@emotion/babel-plugin-jsx-pragmatic@0.3.0':
     resolution: {integrity: sha512-XkRI5RdNl+f7HqpJADfTWlzZkd4tNaz2Gjzt97ZqN72jFSOqpL0grGGLdzKJ9dMQHXJBT/KZV+kphTycOblIsQ==}
     peerDependencies:
@@ -1227,6 +1218,28 @@ packages:
     resolution: {integrity: sha512-x0fWaQtYp4E6sktbsdAqnehxDgEc/VwM7uLsRCYWaiGu0ykYdZPiS8zCWdnjHwyiumousxfBm4SO31eXqwEZhQ==}
     cpu: [x64]
     os: [win32]
+
+  '@mux/mux-player-react@3.2.4':
+    resolution: {integrity: sha512-1ShxKJIYO/CPR+vPG8zv680Ix3hXzbmVd/5zciIqBK4QMJNfYMHpeArnYyRRb/25e1MsVQJPXqhtA2Qq2VB2TA==}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^17.0.0-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
+      '@types/react-dom': '*'
+      react: ^17.0.2 || ^17.0.0-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
+      react-dom: ^17.0.2 || ^17.0.2-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@mux/mux-player@3.2.4':
+    resolution: {integrity: sha512-SffYfO0Bc0P9idlh3vgPFnlF27PVX/keGyDD9DnNQgSv/srfKBNpTBBuhmEij9pxKNcmre7Wc8Wvd2SWYLs1gw==}
+
+  '@mux/mux-video@0.24.2':
+    resolution: {integrity: sha512-GuTVdERPQ7ayROwPJ6TtCEQIjMzF3Gj4RzhTJh0hdA293XQo0Np1AFpVimi9GKdLaGVrvzEvRnQ8naGQgF6wLQ==}
+
+  '@mux/playback-core@0.28.2':
+    resolution: {integrity: sha512-aQ4gXtLwXrb7PURq8fhFgCZqvfnuKWA5plDEuULG8KMXZj3icfs5j+4UQBlD1tYzblNWnqMnCOFfP2K/2VKo/w==}
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
@@ -2350,6 +2363,9 @@ packages:
     resolution: {integrity: sha512-X/WM2UQs6VMHUtjUDnZTRI+i1crWteJySFzr9UpGoQa4WQffXVTTXuekjl7TjZRlcF2XfjgITT0HxZ9RnxeT0w==}
     engines: {node: '>=0.10.0'}
 
+  castable-video@1.1.4:
+    resolution: {integrity: sha512-EBQJ04ShZFi1CGKXhBui6UYFJf+6C6wNIa12J2/NSu+ca/XeF5gkXUwHQ8uSKVCpvFYS2RRRB2zf29R0OYz8Iw==}
+
   chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
     engines: {node: '>=4'}
@@ -2671,6 +2687,9 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  custom-media-element@1.4.2:
+    resolution: {integrity: sha512-AM6FRWqJyW7pWTvXb4uJj6yvHE7C6UutdhJ5o3XO5NEl5aWFcfnpz8/TuW8qr1+/wfbj50wRvdArnSNjTmjmVw==}
 
   d@1.0.2:
     resolution: {integrity: sha512-MOqHvMWF9/9MX6nza0KgvFH4HpMU0EF5uUDXqX/BtxtU8NfB0QzRtJ8Oe/6SuS4kbhyzVJwjd97EA4PKrzJ8bw==}
@@ -3890,6 +3909,9 @@ packages:
   header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
 
+  hls.js@1.5.20:
+    resolution: {integrity: sha512-uu0VXUK52JhihhnN/MVVo1lvqNNuhoxkonqgO3IpjvQiGpJBdIXMGkofjQb/j9zvV7a1SW8U9g1FslWx/1HOiQ==}
+
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
 
@@ -4512,6 +4534,15 @@ packages:
   meant@1.0.3:
     resolution: {integrity: sha512-88ZRGcNxAq4EH38cQ4D85PM57pikCwS8Z99EWHODxN7KBY+UuPiqzRTtZzS8KTXO/ywSWbdjjJST2Hly/EQxLw==}
 
+  media-chrome@4.3.1:
+    resolution: {integrity: sha512-pj81Nm5P9hI1Q7PfpV6AqklgCPh8trcI1U/MdSyBzOMm1OG5qK1rKCkY+GXpy3dGCXpIpsIc5O3w6yOilQNO0w==}
+
+  media-chrome@4.4.0:
+    resolution: {integrity: sha512-sH0gDfckIWBEn71P2ThPj4tg3maT0NAUf6gK6IZnAbtwyw6+wz19n6vLqXfKQ2yvW9UwHmB65qZou+M5ZXPcaA==}
+
+  media-tracks@0.3.3:
+    resolution: {integrity: sha512-9P2FuUHnZZ3iji+2RQk7Zkh5AmZTnOG5fODACnjhCVveX1McY3jmCRHofIEI+yTBqplz7LXy48c7fQ3Uigp88w==}
+
   media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
@@ -4651,6 +4682,9 @@ packages:
 
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
+
+  mux-embed@5.6.0:
+    resolution: {integrity: sha512-LZdUIikPPY8A/MArjP+VJFEl8fixJXjC9cQElNEGx8PSU1fSL/4jEvaP2SFaIW8h815eXV47h+A/LEIcyoEZKA==}
 
   nano-pubsub@1.0.2:
     resolution: {integrity: sha512-HtPs1RbULM/z8wt3BbeeZlxVNiJbl+zQAwwrbc0KAq5NHaCG3MmffOVCpRhNTs+TK67MdN6aZ+5wzPtRZvME+w==}
@@ -5039,6 +5073,9 @@ packages:
 
   platform@1.3.6:
     resolution: {integrity: sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==}
+
+  player.style@0.1.3:
+    resolution: {integrity: sha512-lPQbNXScusEiQAt67HEOdS1x/NYDSJVU4cUiojIiITpdJKlaNotRZGgXG5Y/IakXndnQhxbc7zj/c/UB/RGn0w==}
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -7387,14 +7424,6 @@ snapshots:
 
   '@builder.io/partytown@0.7.6': {}
 
-  '@cloudinary/transformation-builder-sdk@1.15.2':
-    dependencies:
-      '@cloudinary/url-gen': 1.21.0
-
-  '@cloudinary/url-gen@1.21.0':
-    dependencies:
-      '@cloudinary/transformation-builder-sdk': 1.15.2
-
   '@emotion/babel-plugin-jsx-pragmatic@0.3.0(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -7442,7 +7471,7 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.13.5(react@18.3.1)':
+  '@emotion/react@11.13.5(@types/react@18.3.12)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@emotion/babel-plugin': 11.13.5
@@ -7453,6 +7482,8 @@ snapshots:
       '@emotion/weak-memoize': 0.4.0
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.12
     transitivePeerDependencies:
       - supports-color
 
@@ -7466,16 +7497,18 @@ snapshots:
 
   '@emotion/sheet@1.4.0': {}
 
-  '@emotion/styled@11.13.5(@emotion/react@11.13.5(react@18.3.1))(react@18.3.1)':
+  '@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.3.12)(react@18.3.1))(@types/react@18.3.12)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@emotion/babel-plugin': 11.13.5
       '@emotion/is-prop-valid': 1.3.1
-      '@emotion/react': 11.13.5(react@18.3.1)
+      '@emotion/react': 11.13.5(@types/react@18.3.12)(react@18.3.1)
       '@emotion/serialize': 1.3.3
       '@emotion/use-insertion-effect-with-fallbacks': 1.1.0(react@18.3.1)
       '@emotion/utils': 1.4.2
       react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.12
     transitivePeerDependencies:
       - supports-color
 
@@ -7848,6 +7881,35 @@ snapshots:
 
   '@msgpackr-extract/msgpackr-extract-win32-x64@3.0.3':
     optional: true
+
+  '@mux/mux-player-react@3.2.4(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@mux/mux-player': 3.2.4
+      '@mux/playback-core': 0.28.2
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.12
+
+  '@mux/mux-player@3.2.4':
+    dependencies:
+      '@mux/mux-video': 0.24.2
+      '@mux/playback-core': 0.28.2
+      media-chrome: 4.3.1
+      player.style: 0.1.3
+
+  '@mux/mux-video@0.24.2':
+    dependencies:
+      '@mux/playback-core': 0.28.2
+      castable-video: 1.1.4
+      custom-media-element: 1.4.2
+      media-tracks: 0.3.3
+
+  '@mux/playback-core@0.28.2':
+    dependencies:
+      hls.js: 1.5.20
+      mux-embed: 5.6.0
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     dependencies:
@@ -9237,6 +9299,10 @@ snapshots:
 
   capture-stack-trace@1.0.2: {}
 
+  castable-video@1.1.4:
+    dependencies:
+      custom-media-element: 1.4.2
+
   chalk@2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -9647,6 +9713,8 @@ snapshots:
       css-tree: 2.2.1
 
   csstype@3.1.3: {}
+
+  custom-media-element@1.4.2: {}
 
   d@1.0.2:
     dependencies:
@@ -10906,12 +10974,12 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
 
-  gatsby-plugin-emotion@8.14.0(@babel/core@7.26.0)(@emotion/react@11.13.5(react@18.3.1))(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2)):
+  gatsby-plugin-emotion@8.14.0(@babel/core@7.26.0)(@emotion/react@11.13.5(@types/react@18.3.12)(react@18.3.1))(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/runtime': 7.26.0
       '@emotion/babel-preset-css-prop': 11.12.0(@babel/core@7.26.0)
-      '@emotion/react': 11.13.5(react@18.3.1)
+      '@emotion/react': 11.13.5(@types/react@18.3.12)(react@18.3.1)
       gatsby: 5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2)
     transitivePeerDependencies:
       - supports-color
@@ -10998,9 +11066,9 @@ snapshots:
     dependencies:
       gatsby: 5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2)
 
-  gatsby-plugin-sanity-image@0.13.5(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(react@18.3.1):
+  gatsby-plugin-sanity-image@0.13.5(@types/react@18.3.12)(gatsby@5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2))(react@18.3.1):
     dependencies:
-      '@emotion/react': 11.13.5(react@18.3.1)
+      '@emotion/react': 11.13.5(@types/react@18.3.12)(react@18.3.1)
       '@sanity/image-url': 1.1.0
       gatsby: 5.14.0(babel-eslint@10.1.0(eslint@9.15.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@4.20.1)(typescript@5.5.2)
       react: 18.3.1
@@ -11575,6 +11643,8 @@ snapshots:
     dependencies:
       capital-case: 1.0.4
       tslib: 2.4.1
+
+  hls.js@1.5.20: {}
 
   hoist-non-react-statics@3.3.2:
     dependencies:
@@ -12167,6 +12237,12 @@ snapshots:
 
   meant@1.0.3: {}
 
+  media-chrome@4.3.1: {}
+
+  media-chrome@4.4.0: {}
+
+  media-tracks@0.3.3: {}
+
   media-typer@0.3.0: {}
 
   memfs@3.5.3:
@@ -12289,6 +12365,8 @@ snapshots:
       xtend: 4.0.2
 
   mute-stream@0.0.8: {}
+
+  mux-embed@5.6.0: {}
 
   nano-pubsub@1.0.2: {}
 
@@ -12640,6 +12718,10 @@ snapshots:
       find-up: 3.0.0
 
   platform@1.3.6: {}
+
+  player.style@0.1.3:
+    dependencies:
+      media-chrome: 4.4.0
 
   possible-typed-array-names@1.0.0: {}
 
