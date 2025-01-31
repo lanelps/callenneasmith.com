@@ -68,6 +68,7 @@ const Video = ({ playbackId, className, muted = true, aspectRatio }) => {
           autoPlay={false} // Disable autoPlay
           muted={muted}
           preload="metadata" // Only preload metadata
+          playsInline // Play inline on mobile
           loop
         />
       </Wrapper>
