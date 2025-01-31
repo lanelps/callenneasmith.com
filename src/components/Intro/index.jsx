@@ -147,7 +147,8 @@ const HoverMedia = memo(({ src, isActive, setIsActive, type }) => {
                 max-width: 100%;
               `}
               videoStyle={{ objectPosition: `top right` }}
-              publicId={src?.public_id}
+              playbackId={src?.asset?.playbackId}
+              lazy={false}
             />
           ) : (
             <SanityImage

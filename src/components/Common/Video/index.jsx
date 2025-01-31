@@ -30,12 +30,20 @@ const Wrapper = styled.figure`
   }
 `;
 
-const Video = ({ playbackId, className, muted = true, aspectRatio }) => {
+const Video = ({
+  playbackId,
+  className,
+  muted = true,
+  aspectRatio,
+  lazy = true
+}) => {
   const videoRef = useRef(null);
   const { ref, inView } = useInView({ threshold: 1 });
 
   useEffect(() => {
     const videoElement = videoRef.current;
+    if (!videoElement) return;
+
     if (inView && videoElement) {
       videoElement.play();
     } else if (videoElement) {
@@ -57,6 +65,7 @@ const Video = ({ playbackId, className, muted = true, aspectRatio }) => {
           loading="viewport"
           playbackId={playbackId}
           muted={muted}
+          autoPlay={!lazy}
           loop
         />
       </Wrapper>
