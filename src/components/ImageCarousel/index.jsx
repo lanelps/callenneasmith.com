@@ -36,7 +36,6 @@ const Container = styled.div`
   overflow: hidden;
 
   ${breakpoint("tablet")} {
-    z-index: 50;
     flex-direction: column;
   }
 `;
