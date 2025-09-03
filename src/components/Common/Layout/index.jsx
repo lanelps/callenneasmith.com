@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import { html as beautifyHtml } from "js-beautify";
 
@@ -67,7 +67,7 @@ const Layout = ({ children, className = "", data, location, colors, site }) => {
       <p
         css={css`
           white-space: pre;
-          font-family: "Helvetica Neue";
+          font-family: "Neue Haas Grotesk Display Pro";
           font-size: 1rem;
           margin: 0;
         `}

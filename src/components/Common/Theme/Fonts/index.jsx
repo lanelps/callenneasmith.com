@@ -1,14 +1,10 @@
-import React from "react";
 import { css, Global } from "@emotion/react";
 
 import { breakpoint } from "~utils/css.js";
 
-import HELVETICA_NEUE_NORMAL_WOFF2 from "~assets/fonts/helveticaneue.woff2";
-import HELVETICA_NEUE_MEDIUM_WOFF2 from "~assets/fonts/helveticaneue-medium.woff2";
-
 const SANS_FALLBACKS = `"Helvetica", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
 
-const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Helvetica Neue", ${SANS_FALLBACKS}`;
+const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Neue Haas Grotesk Display Pro", ${SANS_FALLBACKS}`;
 
 /** ============================================================================
  * @component
@@ -17,21 +13,7 @@ const NEUE_HAAS_DISPLAY_TEXT_GROUP = `"Helvetica Neue", ${SANS_FALLBACKS}`;
 const Fonts = () => (
   <Global
     styles={css`
-      @font-face {
-        font-family: "Helvetica Neue";
-        src: url(${HELVETICA_NEUE_NORMAL_WOFF2}) format("woff2");
-        font-display: block;
-        font-weight: 400;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: "Helvetica Neue";
-        src: url(${HELVETICA_NEUE_MEDIUM_WOFF2}) format("woff2");
-        font-display: block;
-        font-weight: 500;
-        font-style: normal;
-      }
+      @import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
 
       //
       // common //
