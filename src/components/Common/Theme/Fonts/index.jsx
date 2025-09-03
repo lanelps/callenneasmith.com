@@ -15,69 +15,42 @@ const Fonts = () => (
     styles={css`
       @import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
 
-      //
-      // common //
-
       body,
       main,
       p,
       .h1,
       .b1,
-      .b2,
       .caption {
         font-family: ${NEUE_HAAS_DISPLAY_TEXT_GROUP};
         font-weight: 500;
         text-align: left;
       }
 
-      //
-      // headings //
-
-      .h1 {
-        font-size: 0.875rem; // 14px
-        line-height: 1.1; // 15.4px
-        letter-spacing: -0.01em;
-      }
-
-      //
-      // body //
-
-      .b1 {
-        font-size: 0.875rem; // 14px
-        line-height: 1.1; // 15.4px
-        letter-spacing: -0.01em;
-      }
-
-      .b2 {
-        font-size: 0.75rem; // 12px
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-      }
-
-      //
-      // other //
-
+      .h1,
+      .b1,
       .caption {
-        font-size: 0.5625rem; // 9px
+        font-size: 0.875rem;
         line-height: 1.1;
+      }
+
+      .h1,
+      .b1 {
         letter-spacing: 0.04em;
       }
 
-      //
-      // breakpoints (ASC) //
+      .caption {
+        letter-spacing: 0.05em;
+      }
 
       ${breakpoint(`tablet`)} {
-        .h1 {
-          font-size: 1rem; // 16px
-          line-height: 1.08;
-          letter-spacing: -0.02em;
-        }
-
-        .b1 {
-          font-size: 1rem; // 16px
+        .h1,
+        .b1,
+        .caption {
+          font-size: 1rem;
         }
       }
     `}
   />
 );
+
 export default Fonts;
