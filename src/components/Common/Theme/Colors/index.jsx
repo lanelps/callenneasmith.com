@@ -13,6 +13,7 @@ const Colors = () => (
           --color-white: #fff;
           --color-laser: #bdff00;
           --color-blue: #0000ee;
+          --color-red: #de1600;
         }
       `
     ]}
