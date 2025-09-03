@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import { html as beautifyHtml } from "js-beautify";
 
