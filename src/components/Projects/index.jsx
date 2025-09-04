@@ -9,7 +9,7 @@ const AllProjects = styled.section`
 `;
 
 const Projects = ({ projects, tags }) => {
-  const { allProjects, setAllProjects, activeFilters } = useApp();
+  const { setAllProjects, activeFilters } = useApp();
 
   useEffect(() => {
     if (activeFilters.length > 0) {
@@ -29,7 +29,7 @@ const Projects = ({ projects, tags }) => {
 
       <AllProjects className="b1">
         <ul>
-          {allProjects.map((project) => (
+          {projects.map((project) => (
             <li key={project._id}>
               <Project project={project} />
             </li>
