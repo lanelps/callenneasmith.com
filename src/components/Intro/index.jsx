@@ -12,21 +12,11 @@ import { Grid, Go, Video } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  min-height: 107.2vw;
-
-  margin: 0 auto;
-  padding: 0.25rem 0.5rem;
+  margin: 0 auto 8rem;
+  padding: 0.25rem 0.5rem 0rem;
   color: var(--color-light-grey);
 
   overflow: hidden;
-
-  ${breakpoint(`large-mobile`)} {
-    min-height: 50vw;
-  }
-
-  ${breakpoint(`large-tablet`)} {
-    min-height: 25vw;
-  }
 `;
 
 const NavItem = styled(Grid)`
