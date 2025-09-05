@@ -12,12 +12,11 @@ import { Grid, Go, Video } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  // max-width: 1440px;
   min-height: 107.2vw;
 
   margin: 0 auto;
   padding: 0.25rem 0.5rem;
-  color: var(--color-dark-grey);
+  color: var(--color-light-grey);
 
   overflow: hidden;
 
@@ -30,39 +29,19 @@ const Container = styled.div`
   }
 `;
 
-const NavItems = styled.ul`
-  width: 100%;
-
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-
-  row-gap: 1.5rem;
-
-  ${breakpoint(`tablet`)} {
-    grid-column: 1 / -1;
-  }
-`;
-
 const NavItem = styled(Grid)`
   padding: 0 !important;
 
-  row-gap: 0.5rem;
-
-  ${breakpoint(`tablet`)} {
-    row-gap: 0;
-  }
-
-  & > h3 {
-    grid-column: 1 / -1;
+  & > h4 {
+    grid-column: 2 / -1;
 
     ${breakpoint(`tablet`)} {
-      grid-column: 1 / span 2;
+      grid-column: 2 / span 1;
     }
   }
 
   & > div {
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
 
     ${breakpoint(`tablet`)} {
       grid-column: 3 / -1;
@@ -70,7 +49,7 @@ const NavItem = styled(Grid)`
   }
 `;
 
-const NavHeading = styled.h3`
+const NavHeading = styled.h4`
   opacity: 0.8;
 `;
 
@@ -174,7 +153,7 @@ const HoverMedia = memo(({ src, isActive, setIsActive, type }) => {
 });
 
 const portableComponents = {
-  normal: ({ children }) => <p className="h1">{children}</p>,
+  normal: ({ children }) => <p>{children}</p>,
   hoverImage: (props) => {
     const { children, image } = props;
     const [isActive, setIsActive] = useState(false);
@@ -182,7 +161,6 @@ const portableComponents = {
     return (
       <>
         <span
-          className="h1"
           css={css`
             color: var(--color-blue);
             text-decoration: underline;
@@ -209,7 +187,6 @@ const portableComponents = {
     return (
       <>
         <span
-          className="h1"
           css={css`
             color: var(--color-blue);
             text-decoration: underline;
@@ -251,37 +228,52 @@ const Intro = ({ introduction, items }) => {
   }, [inView]);
 
   return (
-    <Container ref={ref}>
-      <Grid
+    <Container ref={ref} className="h1">
+      <ul
         css={css`
-          row-gap: 1.5rem !important;
-          padding: 0 !important;
+          display: flex;
+          flex-direction: column;
+          row-gap: 1.5rem;
         `}
       >
-        <PortableText
+        <Grid
+          node="li"
           css={css`
-            grid-column: 1 / -1;
+            padding: 0 !important;
           `}
-          content={introduction}
-          serializers={portableComponents}
-        />
-        <NavItems node="li" className="h1">
-          {items.map((item) => (
-            <NavItem key={item._key}>
-              <NavHeading className="h1">{item.title}</NavHeading>
-              <PortableText
-                css={css`
-                  display: flex;
-                  flex-direction: column;
-                  row-gap: 0.125rem;
-                `}
-                content={item._rawContent}
-                serializers={simpleComponents}
-              />
-            </NavItem>
-          ))}
-        </NavItems>
-      </Grid>
+        >
+          <h3>1</h3>
+          <PortableText
+            css={css`
+              grid-column: 2 / -1;
+              color: var(--color-off-black);
+
+              ${breakpoint(`tablet`)} {
+                grid-column: 3 / -1;
+              }
+            `}
+            content={introduction}
+            serializers={portableComponents}
+          />
+        </Grid>
+
+        {items.map((item, index) => (
+          <NavItem node="li" key={item._key}>
+            <h3>{index + 2}</h3>
+            <NavHeading>{item.title}</NavHeading>
+            <PortableText
+              css={css`
+                display: flex;
+                flex-direction: column;
+                row-gap: 0.125rem;
+                color: var(--color-off-black);
+              `}
+              content={item._rawContent}
+              serializers={simpleComponents}
+            />
+          </NavItem>
+        ))}
+      </ul>
     </Container>
   );
 };
