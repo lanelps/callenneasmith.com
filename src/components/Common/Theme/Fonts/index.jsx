@@ -15,6 +15,10 @@ const Fonts = () => (
     styles={css`
       @import url("https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro");
 
+      * {
+        font-weight: 500;
+      }
+
       body,
       main,
       p,
