@@ -7,9 +7,10 @@ const Colors = () => (
       css`
         :root {
           --color-black: #3a3a3a;
-          --color-off-black: #292929;
+          --color-off-black: #5a5a5a;
           --color-dark-grey: #3a3a3a;
-          --color-light-grey: #f6f6f6;
+          --color-light-grey: #aaaaaa;
+          --color-stone: #f6f6f6;
           --color-white: #fff;
           --color-laser: #bdff00;
           --color-blue: #0000ee;
