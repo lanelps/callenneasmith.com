@@ -16,9 +16,12 @@ const Container = styled.article`
 
   :hover {
     background-color: var(--color-stone);
-  }
 
-  transition: background-color 0.3s ease;
+    ${({ isActive }) =>
+      !isActive &&
+      `& > button {
+      opacity: 0.5;
+    }`}
 `;
 
 const ProjectName = styled.div`
@@ -31,8 +34,7 @@ const ProjectName = styled.div`
 
 const ClientName = styled.p`
   grid-column: 3 / span 2;
-  color: var(--color-off-black);
-  opacity: 0.6;
+  color: var(--color-light-grey);
 
   ${breakpoint(`tablet`)} {
     grid-column: 3 / span 1;
@@ -42,8 +44,7 @@ const ClientName = styled.p`
 const Tag = styled.p`
   grid-column: 1 / -1;
 
-  color: var(--color-off-black);
-  opacity: 0.6;
+  color: var(--color-light-grey);
 
   > * + * {
     margin-left: 0.5ch;
@@ -79,11 +80,11 @@ const Project = ({ project }) => {
         node="button"
         css={css`
           row-gap: 0.125rem;
-          padding-bottom: 0.75rem;
+          padding: 0 0 0.75rem;
 
           ${breakpoint(`tablet`)} {
             row-gap: 0;
-            padding-bottom: 1rem;
+            padding: 0 0 1rem;
           }
         `}
         onClick={handleClick}
