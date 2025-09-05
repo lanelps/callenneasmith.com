@@ -12,10 +12,10 @@ const Container = styled.article`
   width: 100%;
 
   background-color: ${({ isActive }) =>
-    isActive ? `var(--color-light-grey)` : `var(--color-white)`};
+    isActive ? `var(--color-stone)` : `var(--color-white)`};
 
   :hover {
-    background-color: var(--color-light-grey);
+    background-color: var(--color-stone);
   }
 
   transition: background-color 0.3s ease;
@@ -79,12 +79,10 @@ const Project = ({ project }) => {
         node="button"
         css={css`
           row-gap: 0.125rem;
-          padding-top: 0.75rem;
           padding-bottom: 0.75rem;
 
           ${breakpoint(`tablet`)} {
             row-gap: 0;
-            padding-top: 1rem;
             padding-bottom: 1rem;
           }
         `}
