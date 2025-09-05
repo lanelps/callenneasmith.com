@@ -8,7 +8,8 @@ import { Grid } from "~components";
 import { breakpoint } from "~utils/css";
 
 const Container = styled.div`
-  padding: 0.75rem 0;
+  padding: 0.5rem 0 0.75rem;
+  margin-bottom: 0.5rem;
 
   ${breakpoint(`tablet`)} {
     padding: 0;
@@ -47,18 +48,22 @@ const FilterBar = ({ tags }) => {
     <Container>
       <Grid
         css={css`
+          display: flex !important;
           align-items: center;
+          justify-content: space-between;
+
+          ${breakpoint(`tablet`)} {
+            display: grid !important;
+          }
         `}
       >
         <h2
           css={css`
             grid-column: 1 / -1;
-            margin-bottom: 0.75rem;
             color: var(--color-light-grey);
 
             ${breakpoint(`tablet`)} {
               grid-column: 1 / span 3;
-              margin-bottom: 0;
             }
           `}
           className="caption"
@@ -68,11 +73,9 @@ const FilterBar = ({ tags }) => {
         <Buttons
           css={css`
             grid-column: 1 / -1;
-            display: none;
 
             ${breakpoint(`tablet`)} {
               grid-column: 5 / -1;
-              display: block;
             }
           `}
         >
