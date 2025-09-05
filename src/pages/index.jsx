@@ -121,7 +121,7 @@ export const query = graphql`
       }
     }
 
-    allSanityTag {
+    allSanityTag(sort: { name: ASC }) {
       edges {
         node {
           id
