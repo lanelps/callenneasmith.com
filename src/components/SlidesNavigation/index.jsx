@@ -14,6 +14,7 @@ const SlidesNavContainer = styled.nav`
   ${breakpoint("tablet")} {
     grid-column: 4 / -1;
     padding-right: 1rem;
+    order: 2;
   }
 `;
 

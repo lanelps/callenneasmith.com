@@ -307,6 +307,16 @@ const ImageCarousel = ({ className }) => {
   return (
     <Container activeExpand={activeExpand} slidesLength={allSlides.length}>
       <GridStyled>
+        {/* Slides Navigation Component */}
+        {allSlides.length > 0 && (
+          <SlidesNavigation
+            active={!!activeExpand}
+            onClose={() => setActiveExpand(null)}
+            currentIndex={currentIndexWithinProject}
+            totalSlides={slidesInCurrentProject.length}
+          />
+        )}
+
         {/* Carousel Component */}
         <Carousel
           className={className}
@@ -319,16 +329,6 @@ const ImageCarousel = ({ className }) => {
           allSlides={allSlides}
           slideRefs={slideRefs}
         />
-
-        {/* Slides Navigation Component */}
-        {allSlides.length > 0 && (
-          <SlidesNavigation
-            active={!!activeExpand}
-            onClose={() => setActiveExpand(null)}
-            currentIndex={currentIndexWithinProject}
-            totalSlides={slidesInCurrentProject.length}
-          />
-        )}
       </GridStyled>
     </Container>
   );
