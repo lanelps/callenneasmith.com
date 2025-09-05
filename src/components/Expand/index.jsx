@@ -44,6 +44,16 @@ const Description = styled.div`
   white-space: pre-line;
   min-height: 2.5rem;
 
+  display: flex;
+  gap: 0.25rem;
+
+  & > h3 {
+    width: 23.2vw;
+    flex-shrink: 0;
+    font-weight: 500;
+    color: var(--color-light-grey);
+  }
+
   ${breakpoint(`tablet`)} {
     min-height: 2.9375rem;
 
@@ -52,8 +62,7 @@ const Description = styled.div`
     grid-column-gap: ${GRID_GAP_REM}rem;
 
     & > h3 {
-      font-weight: 500;
-      color: var(--color-light-grey);
+      width: auto;
     }
 
     & > p {
@@ -85,13 +94,17 @@ const ExternalLinks = styled.div`
 
 const Links = styled.div`
   display: flex;
+  padding-left: calc(23.2vw + 0.25rem);
+
   > * + * {
     margin-left: 1.5rem;
   }
+
   color: var(--color-off-black);
 
   ${breakpoint(`tablet`)} {
     grid-column: 2 / -1;
+    padding-left: 0;
   }
 `;
 
