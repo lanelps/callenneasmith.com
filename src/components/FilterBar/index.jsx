@@ -54,6 +54,7 @@ const FilterBar = ({ tags }) => {
           css={css`
             grid-column: 1 / -1;
             margin-bottom: 0.75rem;
+            color: var(--color-light-grey);
 
             ${breakpoint(`tablet`)} {
               grid-column: 1 / span 3;
@@ -62,7 +63,7 @@ const FilterBar = ({ tags }) => {
           `}
           className="caption"
         >
-          SELECTED PROJECTS
+          Selected Projects
         </h2>
         <Buttons
           css={css`
