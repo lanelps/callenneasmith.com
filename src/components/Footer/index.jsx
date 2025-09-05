@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { breakpoint } from "~utils/css";
 
@@ -15,7 +16,6 @@ const Footer = styled.div`
 
   background: var(--color-blue);
   color: var(--color-white);
-  text-transform: uppercase;
 
   a:first-of-type {
     grid-column: span 2;
@@ -33,13 +33,33 @@ const Footer = styled.div`
 
 const footer = ({ className, contact }) => (
   <Footer className={`${(className && `${className} `) || ``}caption`}>
-    <h5 className="caption">Callen Neasmith 2022 ©</h5>
+    <h5
+      className="caption"
+      css={css`
+        margin-right: 0.875rem;
+        width: 100%;
+
+        ${breakpoint(`tablet`)} {
+          width: auto;
+        }
+      `}
+    >
+      Callen Neasmith 2025 ©
+    </h5>
+
     {contact.map((item) => (
       <a
         key={`${item?._key}-footer`}
         href={`${item?.url}`}
         target="_blank"
         rel="noopener noreferrer"
+        css={css`
+          text-decoration: underline;
+
+          :hover {
+            text-decoration: none;
+          }
+        `}
       >
         {item?.label}
       </a>
