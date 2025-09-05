@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { Grid } from "~components";
+import { GRID_GAP_REM } from "~components/Common/Grid";
 
 import { breakpoint } from "~utils/css";
 
@@ -40,8 +40,27 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   white-space: pre-line;
+  min-height: 2.5rem;
+
+  ${breakpoint(`tablet`)} {
+    min-height: 2.9375rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: ${GRID_GAP_REM}rem;
+
+    & > h3 {
+      font-weight: 500;
+      color: var(--color-light-grey);
+    }
+
+    & > p {
+      grid-column: 2 / -1;
+      color: var(--color-off-black);
+    }
+  }
 `;
 
 const ExternalLinks = styled.div`
@@ -56,6 +75,12 @@ const ExternalLinks = styled.div`
 
   text-transform: uppercase;
   grid-column: 1 / -1;
+
+  ${breakpoint(`tablet`)} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: ${GRID_GAP_REM}rem;
+  }
 `;
 
 const Links = styled.div`
@@ -64,25 +89,34 @@ const Links = styled.div`
     margin-left: 1.5rem;
   }
   color: var(--color-off-black);
+
+  ${breakpoint(`tablet`)} {
+    grid-column: 2 / -1;
+  }
 `;
 
-const Expand = ({ project, isActive, loaded }) => {
-  const { isDesktop } = useBreakpoint();
+const Expand = ({ project, isActive }) => {
+  const descriptions = project?.description?.split(`\n\n`).filter(Boolean);
 
   return (
     <Container isActive={isActive}>
       <Wrapper>
         <Grid
           css={css`
-            padding-bottom: 1.5rem;
+            padding: 0 0 1.5rem;
 
             ${breakpoint(`tablet`)} {
-              padding-bottom: 0.75rem;
+              padding: 0 0 0.75rem;
             }
           `}
         >
           <ContentWrapper>
-            <Description className="b1">{project?.description}</Description>
+            {descriptions.map((desc, i) => (
+              <Description key={i} className="b1">
+                <h3>{String.fromCharCode(65 + i)}</h3>
+                <p>{desc}</p>
+              </Description>
+            ))}
 
             {project?.links?.length > 0 && (
               <ExternalLinks className="caption">
@@ -97,9 +131,11 @@ const Expand = ({ project, isActive, loaded }) => {
                         display: flex;
                         align-items: center;
                         gap: 0.125rem;
+                        color: var(--color-blue);
+                        text-decoration: underline;
 
                         :hover {
-                          color: var(--color-rich-black);
+                          text-decoration: none;
                         }
 
                         transition: color 0.3s ease;
