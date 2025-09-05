@@ -25,33 +25,50 @@ const Container = styled.article`
 `;
 
 const ProjectName = styled.div`
-  grid-column: 1 / span 2;
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
 
   text-align: left;
+
+  ${breakpoint(`tablet`)} {
+    grid-column: 1 / span 2;
+  }
 `;
 
-const ClientName = styled.p`
-  grid-column: 3 / span 2;
+const ClientName = styled.div`
+  grid-column: 1 / -1;
   color: var(--color-light-grey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > ul {
+    display: inline-flex;
+    gap: 0.5ch;
+  }
 
   ${breakpoint(`tablet`)} {
     grid-column: 3 / span 1;
+    display: block;
+
+    & > ul {
+      display: none;
+    }
   }
 `;
 
-const Tag = styled.p`
+const Tag = styled.ul`
+  display: none;
   grid-column: 1 / -1;
 
   color: var(--color-light-grey);
-
-  > * + * {
-    margin-left: 0.5ch;
-  }
+  text-align: right;
 
   ${breakpoint(`tablet`)} {
     grid-column: 5 / -1;
+    display: inline-flex;
+    gap: 0.5ch;
   }
 `;
 
@@ -94,14 +111,25 @@ const Project = ({ project }) => {
           <h2 className="b1">{project?.name}</h2>
         </ProjectName>
 
-        <ClientName className="b1">{project?.client?.name}</ClientName>
+        <ClientName className="b1">
+          <p>{project?.client?.name}</p>
+
+          <ul>
+            {project?.tags?.map((tag, tagIndex) => (
+              <li key={tag._id}>
+                <span>{tag?.name}</span>
+                {tagIndex !== project.tags.length - 1 && ","}
+              </li>
+            ))}
+          </ul>
+        </ClientName>
 
         <Tag className="b1">
           {project?.tags?.map((tag, tagIndex) => (
-            <React.Fragment key={tag._id}>
+            <li key={tag._id}>
               <span>{tag?.name}</span>
               {tagIndex !== project.tags.length - 1 && ","}
-            </React.Fragment>
+            </li>
           ))}
         </Tag>
       </Grid>
