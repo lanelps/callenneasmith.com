@@ -9,9 +9,10 @@ export default {
       type: "string"
     },
     {
-      name: "content",
-      title: "Content",
-      type: "simpleContent"
+      name: "items",
+      title: "Items",
+      type: "array",
+      of: [{ type: "navItemItem" }]
     }
   ]
 };
