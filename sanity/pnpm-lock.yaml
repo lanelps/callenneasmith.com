@@ -11,6 +11,9 @@ importers:
       '@mux/mux-node':
         specifier: ^12.7.0
         version: 12.7.0
+      '@portabletext/react':
+        specifier: ^4.0.3
+        version: 4.0.3(react@19.1.1)
       '@sanity/client':
         specifier: ^7.11.0
         version: 7.11.0(debug@4.4.1)
