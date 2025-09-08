@@ -205,7 +205,16 @@ const portableComponents = {
 
 const simpleComponents = {
   link: ({ children, href }) => {
-    return <Go to={href}>{children}</Go>;
+    return (
+      <Go
+        to={href}
+        css={css`
+          text-decoration: underline;
+        `}
+      >
+        {children}
+      </Go>
+    );
   }
 };
 
@@ -251,16 +260,40 @@ const Intro = ({ introduction, items }) => {
           <NavItem node="li" key={item._key}>
             <h3>{index + 2}</h3>
             <NavHeading>{item.title}</NavHeading>
-            <PortableText
+            <ul
               css={css`
-                display: flex;
-                flex-direction: column;
-                row-gap: 0.125rem;
-                color: var(--color-off-black);
+                grid-column: 2 / -1;
+
+                ${breakpoint(`tablet`)} {
+                  grid-column: 3 / -1;
+                }
               `}
-              content={item._rawContent}
-              serializers={simpleComponents}
-            />
+            >
+              {item.items.map((item) => (
+                <li key={item._key}>
+                  <PortableText
+                    css={css`
+                      display: inline-flex;
+                      flex-direction: column;
+                      row-gap: 0.125rem;
+                      color: var(--color-off-black);
+                    `}
+                    content={item._rawText}
+                    serializers={simpleComponents}
+                  />
+                  {item.tag && (
+                    <span
+                      css={css`
+                        margin-left: 0.375rem;
+                        color: var(--color-light-grey);
+                      `}
+                    >
+                      ({item.tag})
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </NavItem>
         ))}
       </ul>

@@ -32,7 +32,11 @@ export const query = graphql`
       navItems {
         _key
         title
-        _rawContent(resolveReferences: { maxDepth: 10 })
+        items {
+          _key
+          _rawText(resolveReferences: { maxDepth: 10 })
+          tag
+        }
       }
 
       projects {
