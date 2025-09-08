@@ -43,6 +43,10 @@ const ClientName = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  & > * {
+    width: 100%;
+  }
+
   & > ul {
     display: inline-flex;
     gap: 0.5ch;
