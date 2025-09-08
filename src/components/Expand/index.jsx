@@ -42,7 +42,6 @@ const ContentWrapper = styled.div`
 
 const Description = styled.div`
   white-space: pre-line;
-  min-height: 2.5rem;
 
   display: flex;
   gap: 0.25rem;
@@ -55,8 +54,6 @@ const Description = styled.div`
   }
 
   ${breakpoint(`tablet`)} {
-    min-height: 2.9375rem;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: ${GRID_GAP_REM}rem;
@@ -148,10 +145,8 @@ const Expand = ({ project, isActive }) => {
                         text-decoration: underline;
 
                         :hover {
-                          text-decoration: none;
+                          color: var(--color-laser);
                         }
-
-                        transition: color 0.3s ease;
                       `}
                     >
                       {link?.label}
