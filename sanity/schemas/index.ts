@@ -8,6 +8,8 @@ import altImage from "./objects/altImage";
 import link from "./objects/link";
 import blockContent from "./objects/blockContent";
 import navItem from "./objects/navItem";
+import navItemItem from "./objects/navItemItem";
+import oneLineContent from "./objects/oneLineContent";
 import simpleContent from "./objects/simpleContent";
 
 export const schemaTypes = [
@@ -22,5 +24,7 @@ export const schemaTypes = [
   link,
   blockContent,
   navItem,
+  navItemItem,
+  oneLineContent,
   simpleContent
 ];
