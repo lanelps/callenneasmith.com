@@ -17,20 +17,20 @@
     "sanity"
   ],
   "dependencies": {
-    "@mux/mux-node": "^9.0.1",
-    "@sanity/client": "^6.27.2",
-    "@sanity/dashboard": "^4.1.2",
-    "@sanity/eslint-config-studio": "^5.0.1",
-    "@sanity/icons": "^3.5.7",
-    "@sanity/vision": "^3.72.1",
-    "dotenv": "^16.4.7",
-    "eslint": "^9.19.0",
+    "@mux/mux-node": "^12.7.0",
+    "@sanity/client": "^7.11.0",
+    "@sanity/dashboard": "^4.1.4",
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/vision": "^4.6.1",
+    "dotenv": "^17.2.2",
+    "eslint": "^9.35.0",
     "prop-types": "^15.8.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sanity": "^3.67.1",
-    "sanity-plugin-dashboard-widget-netlify": "^2.0.1",
-    "sanity-plugin-mux-input": "^2.4.0",
-    "styled-components": "^6.1.14"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "sanity": "^4.6.1",
+    "sanity-plugin-dashboard-widget-netlify": "^2.0.2",
+    "sanity-plugin-mux-input": "^2.9.0",
+    "styled-components": "^6.1.19"
   }
 }
