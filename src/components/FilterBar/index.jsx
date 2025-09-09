@@ -52,6 +52,10 @@ const FilterBar = ({ tags }) => {
           align-items: center;
           justify-content: space-between;
 
+          & > * {
+            width: 100%;
+          }
+
           ${breakpoint(`tablet`)} {
             display: grid !important;
           }
