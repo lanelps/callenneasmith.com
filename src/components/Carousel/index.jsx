@@ -1,8 +1,9 @@
 // Carousel.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { SlideContent } from "~components";
 import { breakpoint } from "~utils/css";
+import useApp from "~hooks/useApp";
 
 const CarouselWrapper = styled.div`
   grid-column: 1 / -1;
@@ -15,9 +16,8 @@ const CarouselWrapper = styled.div`
 
   display: flex;
   transition: transform 0.3s ease-in-out;
-  cursor: ${({ direction }) =>
-    direction === "left" ? "w-resize" : "e-resize"};
   pointer-events: ${({ active }) => (active ? "auto" : "none")};
+  cursor: none;
 
   /* Hide scrollbar for a cleaner look */
   scrollbar-width: none; /* Firefox */
@@ -49,22 +49,46 @@ const Carousel = ({
   active,
   allSlides,
   slideRefs
-}) => (
-  <CarouselWrapper
-    className={className}
-    ref={carouselRef}
-    onMouseMove={onMouseMove}
-    onClick={onClick}
-    onScroll={onScroll}
-    direction={direction}
-    active={active}
-  >
-    {allSlides.map((slide, index) => (
-      <Slide key={slide.projectId + index} ref={slideRefs.current[index]}>
-        <SlideContent slide={slide} />
-      </Slide>
-    ))}
-  </CarouselWrapper>
-);
+}) => {
+  const { setCursorPosition, setCursorVisible, setCursorDirection } = useApp();
+
+  useEffect(() => {
+    setCursorDirection(direction);
+  }, [direction, setCursorDirection]);
+
+  const handleMouseEnter = () => {
+    setCursorVisible(true);
+    setCursorDirection(direction);
+  };
+
+  const handleMouseMove = (e) => {
+    onMouseMove(e);
+    setCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setCursorVisible(false);
+  };
+
+  return (
+    <CarouselWrapper
+      className={className}
+      ref={carouselRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      onScroll={onScroll}
+      direction={direction}
+      active={active}
+    >
+      {allSlides.map((slide, index) => (
+        <Slide key={slide.projectId + index} ref={slideRefs.current[index]}>
+          <SlideContent slide={slide} />
+        </Slide>
+      ))}
+    </CarouselWrapper>
+  );
+};
 
 export default Carousel;
