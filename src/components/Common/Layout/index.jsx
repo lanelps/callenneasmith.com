@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import { html as beautifyHtml } from "js-beautify";
 
+import useApp from "~hooks/useApp";
+
 import { Theme, NavBar, Footer } from "~components";
 import SEO from "../SEO";
 
 const Layout = ({ children, className = "", data, location, colors, site }) => {
+  const { cursorVisible } = useApp();
+
   const [viewPageSource, setViewPageSource] = useState(false);
   const [pageSource, setPageSource] = useState("");
 
@@ -106,6 +110,8 @@ const Layout = ({ children, className = "", data, location, colors, site }) => {
           color: var(--color-off-black);
 
           overflow: hidden;
+
+          ${cursorVisible ? "cursor: none;" : ""}
         `}
       >
         <NavBar {...data.sanitySettings} location={location} />
