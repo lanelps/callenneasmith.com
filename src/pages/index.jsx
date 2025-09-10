@@ -115,6 +115,8 @@ export const query = graphql`
         }
       }
 
+      _rawFootnote(resolveReferences: { maxDepth: 10 })
+
       contact {
         _key
         label

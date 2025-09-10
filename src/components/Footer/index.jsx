@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import PortableText from "react-portable-text";
+
+import { Go } from "~components";
 
 import { breakpoint } from "~utils/css";
 
@@ -31,7 +34,22 @@ const Footer = styled.div`
   }
 `;
 
-const footer = ({ className, contact }) => (
+const simpleComponents = {
+  link: ({ children, href }) => {
+    return (
+      <Go
+        to={href}
+        css={css`
+          text-decoration: underline;
+        `}
+      >
+        {children}
+      </Go>
+    );
+  }
+};
+
+const footer = ({ className, contact, _rawFootnote }) => (
   <Footer className={`${(className && `${className} `) || ``}caption`}>
     <h5
       className="caption"
@@ -44,7 +62,7 @@ const footer = ({ className, contact }) => (
         }
       `}
     >
-      Callen Neasmith 2025 ©
+      <PortableText content={_rawFootnote} serializers={simpleComponents} />
     </h5>
 
     {contact.map((item) => (

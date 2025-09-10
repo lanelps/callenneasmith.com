@@ -48,6 +48,11 @@ export default {
       of: [{ type: "reference", to: { type: "project" } }]
     },
     {
+      name: "footnote",
+      title: "Footnote",
+      type: "oneLineContent"
+    },
+    {
       name: "errorPage",
       title: "404 Page",
       type: "image"
