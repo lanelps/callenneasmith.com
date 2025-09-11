@@ -109,8 +109,10 @@ const ButtonContainer = styled.button`
 
   transition: color 0.3s ease;
 
-  :hover {
-    text-decoration: underline;
+  ${breakpoint(`tablet`)} {
+    :hover {
+      text-decoration: underline;
+    }
   }
 `;
 
