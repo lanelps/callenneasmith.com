@@ -7,20 +7,24 @@ import useApp from "~hooks/useApp";
 import { ReactComponent as Arrow } from "~assets/svg/arrow.svg";
 
 const ArrowCursor = styled(Arrow)`
+  display: none;
   position: fixed;
   ${({ position: { x, y } }) => `top: ${y}px; left: ${x}px;`}
-  display: ${({ isVisible }) => (isVisible ? "block" : "none")};
   transform: translate(-50%, -50%)
     ${({ direction }) =>
-      direction === "left"
-        ? "rotate(180deg)"
-        : "rotate(0deg)"}; /* Center the arrow on the cursor */
+    direction === "left"
+      ? "rotate(180deg)"
+      : "rotate(0deg)"}; /* Center the arrow on the cursor */
 
   pointer-events: none; /* Ensure it doesn't interfere with clicks */
   z-index: 1000; /* Make sure it's on top of everything */
   width: 142.71px;
   height: 143.71px;
   mix-blend-mode: difference;
+
+  ${breakpoint(`tablet`)} {
+    display: ${({ isVisible }) => (isVisible ? "block" : "none")};
+  }
 `;
 
 const Index = ({ data: { sanitySettings, site, allSanityTag }, location }) => {
