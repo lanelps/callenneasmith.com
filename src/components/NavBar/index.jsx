@@ -162,7 +162,7 @@ const NavBar = ({ title, role, contact, location }) => {
   const [showContacts, setShowContacts] = useState(false);
 
   useEffect(() => {
-    if (!introInView) {
+    if (introInView) {
       setShowContacts(false);
     }
   }, [introInView]);
@@ -244,13 +244,6 @@ const NavBar = ({ title, role, contact, location }) => {
                   href={`${item?.url}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  css={css`
-                    :hover {
-                      color: var(--color-rich-black);
-                    }
-
-                    // transition: color 0.3s ease;
-                  `}
                 >
                   <li>{item?.label}</li>
                 </a>
