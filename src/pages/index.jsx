@@ -4,6 +4,9 @@ import styled from "@emotion/styled";
 
 import { Layout, Intro, Projects, ImageCarousel } from "~components";
 import useApp from "~hooks/useApp";
+
+import { breakpoint } from "~utils/css";
+
 import { ReactComponent as Arrow } from "~assets/svg/arrow.svg";
 
 const ArrowCursor = styled(Arrow)`

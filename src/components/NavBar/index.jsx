@@ -38,13 +38,13 @@ const Container = styled.nav`
 
   z-index: 100;
 
-  &:hover {
-    background: linear-gradient(var(--color-blue), var(--color-red));
-    color: var(--color-white);
-  }
-
   ${breakpoint(`tablet`)} {
     padding: 1.0625rem 0 0.75rem;
+
+    &:hover {
+      background: linear-gradient(var(--color-blue), var(--color-red));
+      color: var(--color-white);
+    }
   }
 `;
 
