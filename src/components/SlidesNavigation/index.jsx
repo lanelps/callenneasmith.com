@@ -6,6 +6,7 @@ import { breakpoint } from "~utils/css";
 
 const SlidesNavContainer = styled.nav`
   grid-column: 1 / -1;
+  height: max-content;
   padding: 0.5rem;
   background-color: var(--color-white);
   user-select: none;

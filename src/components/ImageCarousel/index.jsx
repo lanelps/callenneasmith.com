@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { useApp, useSize } from "~hooks";
-import { Grid, Carousel, SlidesNavigation } from "~components";
+import { Carousel, SlidesNavigation } from "~components";
 import { breakpoint } from "~utils/css";
 
 // -----------------------------
@@ -40,14 +40,22 @@ const Container = styled.div`
   }
 `;
 
-const GridStyled = styled(Grid)`
-  width: calc(100% + 1rem);
-  transform: translateX(-0.5rem);
+const GridStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  // height: calc(100% - 41px);
   height: 100%;
 
   ${breakpoint("tablet")} {
-    width: calc(100% + 0.5rem);
-    transform: unset;
+    aspect-ratio: 0.7159090909;
+    width: 39.375vw;
+    min-width: 39.375rem;
+    height: auto;
+    max-height: calc(100% - 46.6px);
+    // height: calc(100% - 46.6px);
+    margin-left: auto;
+    margin-top: auto;
   }
 `;
 

@@ -6,7 +6,6 @@ import { breakpoint } from "~utils/css";
 import useApp from "~hooks/useApp";
 
 const CarouselWrapper = styled.div`
-  grid-column: 1 / -1;
   position: relative;
   width: 100%;
   height: 100%;
@@ -26,10 +25,6 @@ const CarouselWrapper = styled.div`
     /* WebKit */
     width: 0;
     height: 0;
-  }
-
-  ${breakpoint("tablet")} {
-    grid-column: 4 / -1;
   }
 `;
 
