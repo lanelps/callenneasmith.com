@@ -1,5 +1,4 @@
 const path = require(`path`);
-const { createBlurUp } = require("@mux/blurup");
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
@@ -29,6 +28,7 @@ exports.onCreateNode = async ({
   // Target Sanity Mux video asset nodes
   if (node.internal.type === "SanityMuxVideoAsset" && node.playbackId) {
     try {
+      const { createBlurUp } = await import("@mux/blurup");
       const { blurDataURL, aspectRatio } = await createBlurUp(node.playbackId);
 
       if (!blurDataURL || !aspectRatio) {
