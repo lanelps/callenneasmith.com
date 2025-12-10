@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 
@@ -118,6 +118,12 @@ export const query = graphql`
             _key
             _type
             _rawAsset(resolveReferences: { maxDepth: 10 })
+            asset {
+              blurData {
+                aspectRatio
+                blurDataURL
+              }
+            }
           }
         }
       }

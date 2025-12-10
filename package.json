@@ -18,6 +18,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@gatsbyjs/reach-router": "^2.0.1",
+    "@mux/blurup": "^1.0.2",
     "@mux/mux-video-react": "^0.25.1",
     "@sanity/client": "^6.29.1",
     "@svgr/webpack": "^8.1.0",

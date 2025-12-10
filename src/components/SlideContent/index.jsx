@@ -2,21 +2,37 @@
 import React, { memo } from "react";
 import { css } from "@emotion/react";
 import { Image, Video } from "~components";
+import { breakpoint } from "~utils/css";
 
 const SlideContent = memo(({ slide }) => {
   const commonStyles = css`
     width: 100%;
-    height: 100%;
-    object-position: top right;
-    object-fit: contain;
+    height: max-content;
+
+    img,
+    video {
+      object-fit: contain !important;
+      object-position: top right !important;
+    }
+
+    ${breakpoint("tablet")} {
+      height: 100%;
+
+      img,
+      video {
+        object-fit: cover !important;
+        object-position: center center !important;
+      }
+    }
   `;
 
   if (slide?._type === "mux.video") {
     return (
       <Video
         css={commonStyles}
-        aspectRatio={slide?._rawAsset?.data?.aspect_ratio.replace(":", "/")}
         playbackId={slide?._rawAsset?.playbackId}
+        aspectRatio={slide?._rawAsset?.data?.aspect_ratio.replace(":", "/")}
+        blurData={slide?.asset?.blurData}
       />
     );
   }
@@ -25,7 +41,7 @@ const SlideContent = memo(({ slide }) => {
     <Image
       css={commonStyles}
       image={slide}
-      imgStyle={{ objectPosition: "top right", objectFit: "contain" }}
+      // imgStyle={{ objectPosition: "top right", objectFit: "contain" }}
       alt={slide?.altText}
       contain
     />
