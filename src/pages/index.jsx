@@ -1,47 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { graphql } from "gatsby";
-import styled from "@emotion/styled";
 
-import { Layout, Intro, Projects, ImageCarousel } from "~components";
+import {
+  Layout,
+  Intro,
+  Projects,
+  ImageCarousel,
+  ArrowCursor
+} from "~components";
 import useApp from "~hooks/useApp";
-
-import { breakpoint } from "~utils/css";
-
-import { ReactComponent as Arrow } from "~assets/svg/arrow.svg";
-
-const ArrowCursor = styled(Arrow)`
-  display: none;
-  position: fixed;
-  ${({ position: { x, y } }) => `top: ${y}px; left: ${x}px;`}
-  transform: translate(-50%, -50%)
-    ${({ direction }) =>
-    direction === "left"
-      ? "rotate(180deg)"
-      : "rotate(0deg)"}; /* Center the arrow on the cursor */
-
-  pointer-events: none; /* Ensure it doesn't interfere with clicks */
-  z-index: 1000; /* Make sure it's on top of everything */
-  width: 142.71px;
-  height: 143.71px;
-  mix-blend-mode: difference;
-
-  ${breakpoint(`tablet`)} {
-    display: ${({ isVisible }) => (isVisible ? "block" : "none")};
-  }
-`;
 
 const Index = ({ data: { sanitySettings, site, allSanityTag }, location }) => {
   const projects = sanitySettings.projects;
   const tags = allSanityTag.edges.map(({ node }) => node);
-  const { cursorPosition, cursorVisible, cursorDirection } = useApp();
+  const { cursorVisible, cursorDirection } = useApp();
 
   return (
     <Layout data={{ sanitySettings }} location={location} site={site}>
-      <ArrowCursor
-        position={cursorPosition}
-        isVisible={cursorVisible}
-        direction={cursorDirection}
-      />
+      <ArrowCursor isVisible={cursorVisible} direction={cursorDirection} />
       <Intro
         introduction={sanitySettings?._rawIntroduction}
         items={sanitySettings?.navItems}

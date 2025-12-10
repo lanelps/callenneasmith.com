@@ -21,9 +21,8 @@ const AppProvider = ({ children }) => {
   const [allProjects, setAllProjects] = useState([]);
   const [activeExpand, setActiveExpand] = useState(null);
 
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [cursorVisible, setCursorVisible] = useState(false);
-  const [cursorDirection, setCursorDirection] = useState("right");
+  const [cursorDirection, setCursorDirection] = useState("left");
 
   // ---------------------------------------------------------------------------
   // methods
@@ -71,8 +70,6 @@ const AppProvider = ({ children }) => {
     setAllProjects,
     activeExpand,
     setActiveExpand,
-    cursorPosition,
-    setCursorPosition,
     cursorVisible,
     setCursorVisible,
     cursorDirection,

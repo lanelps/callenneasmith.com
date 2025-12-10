@@ -45,7 +45,7 @@ const Carousel = ({
   allSlides,
   slideRefs
 }) => {
-  const { setCursorPosition, setCursorVisible, setCursorDirection } = useApp();
+  const { setCursorVisible, setCursorDirection } = useApp();
 
   useEffect(() => {
     setCursorDirection(direction);
@@ -58,7 +58,6 @@ const Carousel = ({
 
   const handleMouseMove = (e) => {
     onMouseMove(e);
-    setCursorPosition({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseLeave = () => {
