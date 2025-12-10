@@ -109,8 +109,6 @@ const Layout = ({ children, className = "", data, location, colors, site }) => {
           background-color: var(--color-white);
           color: var(--color-off-black);
 
-          overflow: hidden;
-
           ${cursorVisible ? "cursor: none;" : ""}
         `}
       >

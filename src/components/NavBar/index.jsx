@@ -10,7 +10,7 @@ import { breakpoint } from "~utils/css";
 import { ReactComponent as Cross } from "~assets/svg/cross.svg";
 
 const Container = styled.nav`
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -33,8 +33,6 @@ const Container = styled.nav`
   font-size: 32px;
   line-height: 120%;
   letter-spacing: -0.01em;
-
-  transform: translateY(${({ show }) => (show ? `0%` : `-100%`)});
 
   z-index: 100;
 
@@ -157,21 +155,11 @@ const DropdownWrapper = styled.div`
   overflow: hidden;
 `;
 
-const NavBar = ({ title, role, contact, location }) => {
-  const { introInView } = useApp();
+const NavBar = ({ title, role, contact }) => {
   const [showContacts, setShowContacts] = useState(false);
 
-  useEffect(() => {
-    if (introInView) {
-      setShowContacts(false);
-    }
-  }, [introInView]);
-
   return (
-    <Container
-      active={showContacts}
-      show={!introInView || location.pathname !== "/"}
-    >
+    <Container active={showContacts}>
       <Grid
         css={css`
           align-items: center;
