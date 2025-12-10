@@ -13,19 +13,16 @@ importers:
     dependencies:
       '@emotion/react':
         specifier: ^11.14.0
-        version: 11.14.0(@types/react@19.1.2)(react@18.3.1)
+        version: 11.14.0(react@18.3.1)
       '@emotion/styled':
         specifier: ^11.14.0
-        version: 11.14.0(@emotion/react@11.14.0(@types/react@19.1.2)(react@18.3.1))(@types/react@19.1.2)(react@18.3.1)
+        version: 11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1)
       '@gatsbyjs/reach-router':
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mux/blurup':
         specifier: ^1.0.2
         version: 1.0.2
-      '@mux/mux-video-react':
-        specifier: ^0.25.1
-        version: 0.25.1(@types/react@19.1.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sanity/client':
         specifier: ^6.29.1
         version: 6.29.1
@@ -55,7 +52,7 @@ importers:
         version: 1.3.11(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(prop-types@15.8.1)(react@18.3.1)
       gatsby-plugin-emotion:
         specifier: ^8.14.0
-        version: 8.14.0(@babel/core@7.26.10)(@emotion/react@11.14.0(@types/react@19.1.2)(react@18.3.1))(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))
+        version: 8.14.0(@babel/core@7.26.10)(@emotion/react@11.14.0(react@18.3.1))(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))
       gatsby-plugin-google-gtag:
         specifier: ^5.14.0
         version: 5.14.0(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -76,7 +73,7 @@ importers:
         version: 2.0.9(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))
       gatsby-plugin-sanity-image:
         specifier: ^0.13.5
-        version: 0.13.5(@types/react@19.1.2)(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react@18.3.1)
+        version: 0.13.5(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react@18.3.1)
       gatsby-plugin-sharp:
         specifier: ^5.14.0
         version: 5.14.0(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(graphql@16.11.0)
@@ -104,6 +101,9 @@ importers:
       gatsby-transformer-sharp:
         specifier: ^5.14.0
         version: 5.14.0(gatsby-plugin-sharp@5.14.0(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(graphql@16.11.0))(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(graphql@16.11.0)
+      hls.js:
+        specifier: ^1.6.15
+        version: 1.6.15
       js-beautify:
         specifier: ^1.15.4
         version: 1.15.4
@@ -1339,22 +1339,6 @@ packages:
 
   '@mux/blurup@1.0.2':
     resolution: {integrity: sha512-MKn4yyXmmP2YM7CxmJgWq/COsK/YD/+y6pL56lIPHHF/QjFoW3iEpA7rYFy1/BcU0IwJ1ppLRNjksGFOhmIYKQ==}
-
-  '@mux/mux-video-react@0.25.1':
-    resolution: {integrity: sha512-05lKOojuzRl1dwlhJmFNh5R3bDkcNqTNwaNj5TRtpbAoOpFrYQyszAHn3WNOI2QO8l0Q65NVnysDOtX4D83lIQ==}
-    peerDependencies:
-      '@types/react': ^17.0.0 || ^17.0.0-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
-      '@types/react-dom': '*'
-      react: ^17.0.2 || ^17.0.0-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
-      react-dom: ^17.0.2 || ^17.0.2-0 || ^18 || ^18.0.0-0 || ^19 || ^19.0.0-0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
-  '@mux/playback-core@0.28.7':
-    resolution: {integrity: sha512-8PMHaaH7aY3FFb7uiEygagwxoCrYMd9nB/vX5c/SVU8006fg9u/JX00Zko3LANCFG/MJs/P9iw1imybye3eUYg==}
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
@@ -4019,8 +4003,8 @@ packages:
   header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
 
-  hls.js@1.5.20:
-    resolution: {integrity: sha512-uu0VXUK52JhihhnN/MVVo1lvqNNuhoxkonqgO3IpjvQiGpJBdIXMGkofjQb/j9zvV7a1SW8U9g1FslWx/1HOiQ==}
+  hls.js@1.6.15:
+    resolution: {integrity: sha512-E3a5VwgXimGHwpRGV+WxRTKeSp2DW5DI5MWv34ulL3t5UNmyJWCQ1KmLEHbYzcfThfXG8amBL+fCYPneGHC4VA==}
 
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
@@ -4793,9 +4777,6 @@ packages:
 
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
-
-  mux-embed@5.9.0:
-    resolution: {integrity: sha512-wmunL3uoPhma/tWy8PrDPZkvJpXvSFBwbD3KkC4PG8Ztjfb1X3hRJwGUAQyRz7z99b/ovLm2UTTitrkvStjH4w==}
 
   nano-pubsub@1.0.2:
     resolution: {integrity: sha512-HtPs1RbULM/z8wt3BbeeZlxVNiJbl+zQAwwrbc0KAq5NHaCG3MmffOVCpRhNTs+TK67MdN6aZ+5wzPtRZvME+w==}
@@ -7564,7 +7545,7 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.14.0(@types/react@19.1.2)(react@18.3.1)':
+  '@emotion/react@11.14.0(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@emotion/babel-plugin': 11.13.5
@@ -7575,8 +7556,6 @@ snapshots:
       '@emotion/weak-memoize': 0.4.0
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
-    optionalDependencies:
-      '@types/react': 19.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -7590,18 +7569,16 @@ snapshots:
 
   '@emotion/sheet@1.4.0': {}
 
-  '@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.2)(react@18.3.1))(@types/react@19.1.2)(react@18.3.1)':
+  '@emotion/styled@11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@emotion/babel-plugin': 11.13.5
       '@emotion/is-prop-valid': 1.3.1
-      '@emotion/react': 11.14.0(@types/react@19.1.2)(react@18.3.1)
+      '@emotion/react': 11.14.0(react@18.3.1)
       '@emotion/serialize': 1.3.3
       '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@18.3.1)
       '@emotion/utils': 1.4.2
       react: 18.3.1
-    optionalDependencies:
-      '@types/react': 19.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -8061,20 +8038,6 @@ snapshots:
   '@mux/blurup@1.0.2':
     dependencies:
       image-dimensions: 2.5.0
-
-  '@mux/mux-video-react@0.25.1(@types/react@19.1.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@mux/playback-core': 0.28.7
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 19.1.2
-
-  '@mux/playback-core@0.28.7':
-    dependencies:
-      hls.js: 1.5.20
-      mux-embed: 5.9.0
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     dependencies:
@@ -11131,12 +11094,12 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
 
-  gatsby-plugin-emotion@8.14.0(@babel/core@7.26.10)(@emotion/react@11.14.0(@types/react@19.1.2)(react@18.3.1))(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)):
+  gatsby-plugin-emotion@8.14.0(@babel/core@7.26.10)(@emotion/react@11.14.0(react@18.3.1))(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)):
     dependencies:
       '@babel/core': 7.26.10
       '@babel/runtime': 7.27.0
       '@emotion/babel-preset-css-prop': 11.12.0(@babel/core@7.26.10)
-      '@emotion/react': 11.14.0(@types/react@19.1.2)(react@18.3.1)
+      '@emotion/react': 11.14.0(react@18.3.1)
       gatsby: 5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
@@ -11223,9 +11186,9 @@ snapshots:
     dependencies:
       gatsby: 5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
 
-  gatsby-plugin-sanity-image@0.13.5(@types/react@19.1.2)(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react@18.3.1):
+  gatsby-plugin-sanity-image@0.13.5(gatsby@5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3))(react@18.3.1):
     dependencies:
-      '@emotion/react': 11.14.0(@types/react@19.1.2)(react@18.3.1)
+      '@emotion/react': 11.14.0(react@18.3.1)
       '@sanity/image-url': 1.1.0
       gatsby: 5.14.3(babel-eslint@10.1.0(eslint@9.25.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(type-fest@0.21.3)(typescript@5.8.3)
       react: 18.3.1
@@ -11809,7 +11772,7 @@ snapshots:
       capital-case: 1.0.4
       tslib: 2.4.1
 
-  hls.js@1.5.20: {}
+  hls.js@1.6.15: {}
 
   hoist-non-react-statics@3.3.2:
     dependencies:
@@ -12544,8 +12507,6 @@ snapshots:
       xtend: 4.0.2
 
   mute-stream@0.0.8: {}
-
-  mux-embed@5.9.0: {}
 
   nano-pubsub@1.0.2: {}
 

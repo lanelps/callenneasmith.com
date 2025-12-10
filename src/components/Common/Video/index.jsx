@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { useInView } from "react-intersection-observer";
-import MuxVideo from "@mux/mux-video-react";
+import Hls from "hls.js";
 
 const Container = styled.div`
   width: 100%;
@@ -55,6 +55,7 @@ const Video = ({
   blurData
 }) => {
   const videoRef = useRef(null);
+  const hlsRef = useRef(null);
   const { ref, inView } = useInView({
     threshold: 0.5, // Trigger when 50% visible
     triggerOnce: false // Ensure it triggers multiple times
@@ -64,31 +65,48 @@ const Video = ({
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
+    const video = videoRef.current;
+    if (!video || !playbackId) return;
 
-    // Reset video to beginning when it comes into view
-    if (inView) {
-      // Load video when it comes into view for the first time
-      if (!hasLoaded) {
-        videoElement.load();
-        setHasLoaded(true);
+    // Initialize video source when in view for the first time
+    if (inView && !hasLoaded) {
+      const videoSrc = `https://stream.mux.com/${playbackId}.m3u8`;
+
+      if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = videoSrc;
+      } else if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hlsRef.current = hls;
       }
-
-      videoElement.currentTime = 0;
-      videoElement.play().catch((error) => {
-        console.log("Playback failed:", error);
-      });
-    } else {
-      videoElement.pause();
+      setHasLoaded(true);
     }
 
+    // Handle playback
+    if (inView) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          if (error.name !== "AbortError") {
+            console.log("Playback failed:", error);
+          }
+        });
+      }
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  }, [inView, hasLoaded, playbackId]);
+
+  // Cleanup HLS on unmount
+  useEffect(() => {
     return () => {
-      if (videoElement) {
-        videoElement.pause();
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
       }
     };
-  }, [inView]);
+  }, []);
 
   return (
     <Container className={className} ref={ref}>
@@ -105,13 +123,9 @@ const Video = ({
           />
         )}
 
-        <MuxVideo
+        <video
           ref={videoRef}
-          playbackId={playbackId}
-          controls={false}
-          autoPlay={false}
           muted={muted}
-          preload="none"
           playsInline
           loop
           style={{ aspectRatio: blurData?.aspectRatio || aspectRatio }}
