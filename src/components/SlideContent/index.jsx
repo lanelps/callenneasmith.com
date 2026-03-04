@@ -18,11 +18,11 @@ const SlideContent = memo(({ slide }) => {
     ${breakpoint("tablet")} {
       height: 100%;
 
-      img,
-      video {
-        object-fit: cover !important;
-        object-position: center center !important;
-      }
+      // img,
+      // video {
+      //   object-fit: cover !important;
+      //   object-position: center center !important;
+      // }
     }
   `;
 
