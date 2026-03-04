@@ -32,6 +32,8 @@ const Slide = styled.div`
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
+  overflow: hidden;
+  transform: translateZ(0);
 `;
 
 const Carousel = ({
