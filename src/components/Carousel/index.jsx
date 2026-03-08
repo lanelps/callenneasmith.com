@@ -9,12 +9,11 @@ const CarouselWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
-  overflow-x: scroll;
+  overflow: scroll hidden;
   scroll-snap-type: x mandatory;
 
   display: flex;
-  transition: transform 0.3s ease-in-out;
+  will-change: scroll-position;
   pointer-events: ${({ active }) => (active ? "auto" : "none")};
   cursor: none;
 
@@ -32,7 +31,8 @@ const Slide = styled.div`
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
-  overflow: hidden;
+  overflow: clip;
+  contain: paint;
   transform: translateZ(0);
 `;
 
