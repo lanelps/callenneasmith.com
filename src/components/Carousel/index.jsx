@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { SlideContent } from "~components";
-import { breakpoint } from "~utils/css";
 import useApp from "~hooks/useApp";
 
 const CarouselWrapper = styled.div`
@@ -13,6 +12,7 @@ const CarouselWrapper = styled.div`
   scroll-snap-type: x mandatory;
 
   display: flex;
+  gap: 1rem;
   will-change: scroll-position;
   pointer-events: ${({ active }) => (active ? "auto" : "none")};
   cursor: none;
