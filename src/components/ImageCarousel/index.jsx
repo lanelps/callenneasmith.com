@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+import { getImage } from "gatsby-plugin-image";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 import { useApp, useSize } from "~hooks";
@@ -134,6 +135,34 @@ const ImageCarousel = ({ className }) => {
       slidesInCurrentProject: []
     };
   }, [activeSlideIndex, allProjects]);
+
+  // Compute the rendered width of the contained slide content (tablet+ only)
+  const contentWidth = useMemo(() => {
+    if (!isTablet || !size.height) return undefined;
+
+    const slide = allSlides[activeSlideIndex];
+    let slideAspectRatio;
+
+    if (slide?._type === "mux.video") {
+      const ratio = slide._rawAsset?.data?.aspect_ratio;
+      if (ratio) {
+        const [w, h] = ratio.split(":").map(Number);
+        slideAspectRatio = w / h;
+      }
+    } else {
+      const imageData = getImage(slide?.asset);
+      if (imageData) {
+        slideAspectRatio = imageData.width / imageData.height;
+      }
+    }
+
+    if (!slideAspectRatio) return undefined;
+
+    const containerAspect = size.width / size.height;
+    return slideAspectRatio >= containerAspect
+      ? size.width
+      : size.height * slideAspectRatio;
+  }, [isTablet, size, allSlides, activeSlideIndex]);
 
   // -----------------------------
   // Event Handlers
@@ -322,6 +351,7 @@ const ImageCarousel = ({ className }) => {
             onClose={() => setActiveExpand(null)}
             currentIndex={currentIndexWithinProject}
             totalSlides={slidesInCurrentProject.length}
+            contentWidth={contentWidth}
           />
         )}
 

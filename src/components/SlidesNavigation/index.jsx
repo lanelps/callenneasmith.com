@@ -16,11 +16,20 @@ const SlidesNavContainer = styled.nav`
     grid-column: 4 / -1;
     padding-right: 1rem;
     order: 2;
+    width: ${({ contentWidth }) =>
+      contentWidth ? `${contentWidth}px` : `100%`};
+    margin-left: auto;
   }
 `;
 
-const SlidesNavigation = ({ active, onClose, currentIndex, totalSlides }) => (
-  <SlidesNavContainer active={active}>
+const SlidesNavigation = ({
+  active,
+  onClose,
+  currentIndex,
+  totalSlides,
+  contentWidth
+}) => (
+  <SlidesNavContainer active={active} contentWidth={contentWidth}>
     <button
       onClick={onClose}
       css={css`
